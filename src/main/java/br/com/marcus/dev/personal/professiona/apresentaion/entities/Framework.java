@@ -13,13 +13,12 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "tb_partner")
-public class Partner extends SuperEntity{
+@Table(name = "tb_framework")
+public class Framework extends SuperEntity{
 
     private String name;
-    private String urlImage;
-    @ManyToOne
-    @JoinColumn(name = "branch_activity_id")
-    private BranchActivity branchActivity;
     private String description;
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
 }
