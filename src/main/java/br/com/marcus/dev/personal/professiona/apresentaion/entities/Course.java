@@ -31,12 +31,11 @@ public class Course extends SuperEntity{
     @Enumerated(EnumType.ORDINAL)
     private LevelCourse levelCourse;
     @OneToMany(mappedBy = "course")
-    private List<Language> listLanguage = new ArrayList<>();
+    private List<LanguageProgrammer> listLanguage = new ArrayList<>();
     @OneToMany(mappedBy = "course")
     private List<Framework> listFramework = new ArrayList<>();
-    //Lista de Atividade criar depois
 
-    public void addListLanguage(Language language){
+    public void addListLanguage(LanguageProgrammer language){
         this.listLanguage.add(language);
     }
 

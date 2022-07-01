@@ -3,25 +3,25 @@ package br.com.marcus.dev.personal.professiona.apresentaion.entities.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@AllArgsConstructor
 @Getter
-public enum OfficeEnum {
+@AllArgsConstructor
+public enum OfficeLevel {
 
     INTERNSHIP(0),
-    CLT(1),
-    PJ(2),
-    YOUNG_APPRENTICE(3),
-    FREELANCER(4);
+    JUNIOR(1),
+    FULL(2),
+    SENIOR(3),
+    TECH_LEADER(4);
 
     private int number;
 
-    public static OfficeEnum toEnum(Integer cod){
+    public static OfficeLevel toEnum(Integer cod){
         if(cod == null){
             return null;
         }
-        for(OfficeEnum officeEnum : OfficeEnum.values()){
-            if(cod.equals(officeEnum.getNumber())){
-                return officeEnum;
+        for(OfficeLevel officeLevel : OfficeLevel.values()){
+            if(cod.equals(officeLevel.getNumber())){
+                return officeLevel;
             }
         }
         throw new IllegalArgumentException("ID INVALID: " + cod);

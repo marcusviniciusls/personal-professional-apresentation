@@ -7,8 +7,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum SituationGraduation {
 
-    APPROVED(0),
-    DISAPPROVED(1);
+    CONCLUSION(0),
+    NOT_CONCLUSION(1),
+    IN_PROGRESS(2);
 
     private int number;
 

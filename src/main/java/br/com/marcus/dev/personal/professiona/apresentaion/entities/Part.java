@@ -13,16 +13,19 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "tb_language")
-public class Language extends SuperEntity{
+@Table(name = "tb_part")
+public class Part extends SuperEntity{
 
     private String name;
     @Enumerated(EnumType.ORDINAL)
     private Level level;
-    @OneToMany(mappedBy = "language")
-    private List<Part> listPart = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "language_id")
+    private Language language;
+    @OneToMany(mappedBy = "part")
+    private List<Material> listMaterial = new ArrayList<>();
 
-    public void addListPart(Part part){
-        this.listPart.add(part);
+    public void addListMaterial(Material material){
+        this.listMaterial.add(material);
     }
 }

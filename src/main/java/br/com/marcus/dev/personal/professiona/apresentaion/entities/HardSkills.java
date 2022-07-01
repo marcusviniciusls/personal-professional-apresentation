@@ -6,23 +6,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "tb_language")
-public class Language extends SuperEntity{
+@Table(name = "tb_hard_skills")
+public class HardSkills extends SuperEntity{
 
-    private String name;
+    private String description;
     @Enumerated(EnumType.ORDINAL)
     private Level level;
-    @OneToMany(mappedBy = "language")
-    private List<Part> listPart = new ArrayList<>();
-
-    public void addListPart(Part part){
-        this.listPart.add(part);
-    }
+    @ManyToOne
+    @JoinColumn(name = "language_id")
+    private LanguageProgrammer language;
+    @ManyToOne
+    @JoinColumn(name = "framework_id")
+    private Framework framework;
 }

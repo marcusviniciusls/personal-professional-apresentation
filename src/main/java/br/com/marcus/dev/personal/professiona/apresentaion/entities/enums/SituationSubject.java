@@ -3,25 +3,22 @@ package br.com.marcus.dev.personal.professiona.apresentaion.entities.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@AllArgsConstructor
 @Getter
-public enum OfficeEnum {
+@AllArgsConstructor
+public enum SituationSubject {
 
-    INTERNSHIP(0),
-    CLT(1),
-    PJ(2),
-    YOUNG_APPRENTICE(3),
-    FREELANCER(4);
+    APPROVED(0),
+    NOT_APPROVED(1);
 
     private int number;
 
-    public static OfficeEnum toEnum(Integer cod){
+    public static SituationSubject toEnum(Integer cod){
         if(cod == null){
             return null;
         }
-        for(OfficeEnum officeEnum : OfficeEnum.values()){
-            if(cod.equals(officeEnum.getNumber())){
-                return officeEnum;
+        for(SituationSubject situationSubject : SituationSubject.values()){
+            if(cod.equals(situationSubject.getNumber())){
+                return situationSubject;
             }
         }
         throw new IllegalArgumentException("ID INVALID: " + cod);
