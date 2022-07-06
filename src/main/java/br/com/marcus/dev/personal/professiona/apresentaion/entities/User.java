@@ -1,19 +1,23 @@
 package br.com.marcus.dev.personal.professiona.apresentaion.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
+
+import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
-@Setter
-@MappedSuperclass
-public class SuperEntity {
+@Entity
+@Table(name = "tb_user")
+public class User{
 
     @Id
     @Type(type="org.hibernate.type.UUIDCharType")
@@ -23,15 +27,8 @@ public class SuperEntity {
     private String userCreation;
     private String userUpdate;
     private boolean status;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    public SuperEntity() {
-        uuid = UUID.randomUUID();
-        LocalDateTime now = LocalDateTime.now();
-        dateCreation = now;
-        status = true;
-    }
+    private String name;
+    private String email;
+    @JsonIgnore
+    private String password;
 }
