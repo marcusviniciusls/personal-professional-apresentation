@@ -15,7 +15,6 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Entity
 @Table(name = "tb_user")
@@ -38,11 +37,34 @@ public class User{
     @CollectionTable(name = "PROFILE")
     private Set<Integer> profiles = new HashSet<>();
 
+    public User() {
+        uuid = UUID.randomUUID();
+        LocalDateTime now = LocalDateTime.now();
+        dateCreation = now;
+        status = true;
+    }
+
     public Set<Profile> getProfiles(){
         return profiles.stream().map(x -> Profile.toEnum(x)).collect(Collectors.toSet());
     }
 
     public void addProfile(Profile profile){
         profiles.add(profile.getNumber());
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setProfiles(Set<Integer> profiles) {
+        this.profiles = profiles;
     }
 }
