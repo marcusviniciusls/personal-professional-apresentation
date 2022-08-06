@@ -58,6 +58,13 @@ public class StudyPlan extends SuperEntity{
             {@JoinColumn(name="certificate_id")})
     private List<Certificate> listCertificate = new ArrayList<>();
 
+    public StudyPlan(String name, Level level, LanguageProgrammer languageProgrammer, Framework framework) {
+        this.name = name;
+        this.level = level;
+        this.languageProgrammer = languageProgrammer;
+        this.framework = framework;
+    }
+
     public void addListTopic(Topic topic){
         this.listTopic.add(topic);
     }

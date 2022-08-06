@@ -1,6 +1,5 @@
 package br.com.marcus.dev.personal.professiona.apresentaion.entities;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +10,6 @@ import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Entity
@@ -22,4 +20,12 @@ public class BranchActivity extends SuperEntity{
     private String name;
     @OneToMany(mappedBy = "branchActivity")
     private List<Partner> listPartner = new ArrayList<>();
+
+    public BranchActivity(String name) {
+        this.name = name;
+    }
+
+    public void addListPartner(Partner partner){
+        this.listPartner.add(partner);
+    }
 }

@@ -5,8 +5,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -20,8 +18,11 @@ public class JWTUtil {
     private String expiration;
 
     public String generateToken(String email){
+        Long expirationLong = Long.parseLong(expiration);
+        Date dateExpiration = new Date();
+        dateExpiration.setTime(System.currentTimeMillis() + expirationLong);
         return Jwts.builder().setSubject(email).
-                //setExpiration(new Date(System.currentTimeMillis() + expiration)).
+                setExpiration(dateExpiration).
                 signWith(SignatureAlgorithm.HS512, secret.getBytes()).compact();
     }
 }

@@ -1,7 +1,6 @@
 package br.com.marcus.dev.personal.professiona.apresentaion.entities;
 
 import br.com.marcus.dev.personal.professiona.apresentaion.entities.enums.MaritalStatus;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +9,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Entity
@@ -26,6 +24,13 @@ public class DataPersonal extends SuperEntity {
     private List<Telephone> listTelephone = new ArrayList<>();
     @OneToMany(mappedBy = "dataPersonal")
     private List<Email> listEmail = new ArrayList<>();
+
+    public DataPersonal(String fullName, Byte age, LocalDate birthDate, MaritalStatus maritalStatus) {
+        this.fullName = fullName;
+        this.age = age;
+        this.birthDate = birthDate;
+        this.maritalStatus = maritalStatus;
+    }
 
     public void addListTelephone(Telephone telephone){
         this.listTelephone.add(telephone);

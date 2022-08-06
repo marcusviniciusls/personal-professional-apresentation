@@ -9,7 +9,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Entity
@@ -21,6 +20,11 @@ public class Language extends SuperEntity{
     private Level level;
     @OneToMany(mappedBy = "language")
     private List<Part> listPart = new ArrayList<>();
+
+    public Language(String name, Level level) {
+        this.name = name;
+        this.level = level;
+    }
 
     public void addListPart(Part part){
         this.listPart.add(part);

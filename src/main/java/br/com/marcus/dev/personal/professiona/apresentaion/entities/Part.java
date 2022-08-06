@@ -1,7 +1,6 @@
 package br.com.marcus.dev.personal.professiona.apresentaion.entities;
 
 import br.com.marcus.dev.personal.professiona.apresentaion.entities.enums.Level;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +8,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Entity
@@ -24,6 +22,12 @@ public class Part extends SuperEntity{
     private Language language;
     @OneToMany(mappedBy = "part")
     private List<Material> listMaterial = new ArrayList<>();
+
+    public Part(String name, Level level, Language language) {
+        this.name = name;
+        this.level = level;
+        this.language = language;
+    }
 
     public void addListMaterial(Material material){
         this.listMaterial.add(material);

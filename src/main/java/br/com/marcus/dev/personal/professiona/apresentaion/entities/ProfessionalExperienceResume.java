@@ -1,6 +1,5 @@
 package br.com.marcus.dev.personal.professiona.apresentaion.entities;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +10,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Entity
@@ -22,6 +20,11 @@ public class ProfessionalExperienceResume extends SuperEntity{
     private LocalDate dateFinish;
     @OneToMany(mappedBy = "professionalExperienceResume")
     private List<ProfessionalExperience> listProfessionalExperience = new ArrayList<>();
+
+    public ProfessionalExperienceResume(LocalDate dateInit, LocalDate dateFinish) {
+        this.dateInit = dateInit;
+        this.dateFinish = dateFinish;
+    }
 
     public void addListProfessionalExperience(ProfessionalExperience professionalExperience){
         this.listProfessionalExperience.add(professionalExperience);

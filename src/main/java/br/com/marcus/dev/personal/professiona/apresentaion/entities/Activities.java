@@ -34,4 +34,10 @@ public class Activities extends SuperEntity{
     @ManyToOne
     @JoinColumn(name = "professional_goal_id")
     private ProfessionalGoal professionalGoal;
+
+    public Activities(LocalDate date, String description, Course course) {
+        this.date = date;
+        this.description = description;
+        this.course = course;
+    }
 }

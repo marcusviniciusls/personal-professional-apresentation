@@ -2,7 +2,6 @@ package br.com.marcus.dev.personal.professiona.apresentaion.entities;
 
 import br.com.marcus.dev.personal.professiona.apresentaion.entities.enums.OfficeEnum;
 import br.com.marcus.dev.personal.professiona.apresentaion.entities.enums.StatusWork;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +10,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Entity
@@ -35,4 +33,14 @@ public class ProfessionalExperience extends SuperEntity{
     private ProfessionalExperienceResume professionalExperienceResume;
     @OneToMany(mappedBy = "professionalExperience")
     private List<Assignments> listAssignments = new ArrayList<>();
+
+    public ProfessionalExperience(LocalDate dateInit, LocalDate dateFinish, OfficeEnum officeEnum, StatusWork statusWork, Partner partner, Office office, ProfessionalExperienceResume professionalExperienceResume) {
+        this.dateInit = dateInit;
+        this.dateFinish = dateFinish;
+        this.officeEnum = officeEnum;
+        this.statusWork = statusWork;
+        this.partner = partner;
+        this.office = office;
+        this.professionalExperienceResume = professionalExperienceResume;
+    }
 }
