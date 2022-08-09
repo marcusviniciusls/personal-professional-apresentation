@@ -25,6 +25,7 @@
 /Users/marcusvinicius/ProjetosMarcus/personal-professional-apresentation/src/main/java/br/com/marcus/dev/personal/professional/apresentation/entities/DataPersonal.java
 /Users/marcusvinicius/ProjetosMarcus/personal-professional-apresentation/src/main/java/br/com/marcus/dev/personal/professional/apresentation/repository/TelephoneRepository.java
 /Users/marcusvinicius/ProjetosMarcus/personal-professional-apresentation/src/main/java/br/com/marcus/dev/personal/professional/apresentation/repository/LanguageRepository.java
+/Users/marcusvinicius/ProjetosMarcus/personal-professional-apresentation/src/main/java/br/com/marcus/dev/personal/professional/apresentation/config/security/JWTAuthorizationFilter.java
 /Users/marcusvinicius/ProjetosMarcus/personal-professional-apresentation/src/main/java/br/com/marcus/dev/personal/professional/apresentation/repository/ProfessionalGoalRepository.java
 /Users/marcusvinicius/ProjetosMarcus/personal-professional-apresentation/src/main/java/br/com/marcus/dev/personal/professional/apresentation/config/security/UserDetailsServiceImpl.java
 /Users/marcusvinicius/ProjetosMarcus/personal-professional-apresentation/src/main/java/br/com/marcus/dev/personal/professional/apresentation/entities/enums/SituationGraduation.java

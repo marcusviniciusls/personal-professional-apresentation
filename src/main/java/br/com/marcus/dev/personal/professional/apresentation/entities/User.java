@@ -33,7 +33,7 @@ public class User{
     private String password;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "PROFILE")
+    @CollectionTable(name = "TB_PROFILE")
     private Set<Integer> profiles = new HashSet<>();
 
     public User() {

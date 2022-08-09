@@ -6,7 +6,6 @@ import br.com.marcus.dev.personal.professional.apresentation.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.math.BigDecimal;
@@ -14,7 +13,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 
 @Configuration
-@Profile("dev")
+@org.springframework.context.annotation.Profile("dev")
 public class InitializationData implements CommandLineRunner {
 
     @Autowired private UserRepository userRepository;
@@ -56,6 +55,8 @@ public class InitializationData implements CommandLineRunner {
         administrator.setEmail("vinicius@email.com");
         administrator.setPassword(bCryptPasswordEncoder.encode("1234567890"));
         administrator.setName("Vinicius");
+        user.addProfile(Profile.ADMIN);
+        administrator.addProfile(Profile.CLIENT);
         userRepository.saveAll(Arrays.asList(user, administrator));
 
         // Ramo de Atividade
