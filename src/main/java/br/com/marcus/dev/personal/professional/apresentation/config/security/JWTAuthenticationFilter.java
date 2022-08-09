@@ -1,6 +1,6 @@
 package br.com.marcus.dev.personal.professional.apresentation.config.security;
 
-import br.com.marcus.dev.personal.professional.apresentation.dto.LoginDto;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.LoginDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;

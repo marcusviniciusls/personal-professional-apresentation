@@ -1,4 +1,4 @@
-package br.com.marcus.dev.personal.professional.apresentation.dto;
+package br.com.marcus.dev.personal.professional.apresentation.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
