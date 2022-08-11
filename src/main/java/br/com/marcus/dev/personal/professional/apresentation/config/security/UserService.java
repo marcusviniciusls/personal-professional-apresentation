@@ -1,5 +1,6 @@
 package br.com.marcus.dev.personal.professional.apresentation.config.security;
 
+import br.com.marcus.dev.personal.professional.apresentation.entities.User;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class UserService {

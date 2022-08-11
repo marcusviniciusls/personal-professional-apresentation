@@ -28,4 +28,8 @@ public class BranchActivity extends SuperEntity{
     public void addListPartner(Partner partner){
         this.listPartner.add(partner);
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
