@@ -23,4 +23,12 @@ public class CenterEntityService {
         entity.setDateCreation(LocalDateTime.now());
         return entity;
     }
+
+    public SuperEntity setDataToUpdate(SuperEntity entity){
+        UserSS userSS = UserService.authenticated();
+        User user = findByIdUserService.findById(userSS.getId());
+        entity.setUserUpdate(user.getName());
+        entity.setDateUpdate(LocalDateTime.now());
+        return entity;
+    }
 }

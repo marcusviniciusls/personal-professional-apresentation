@@ -5,6 +5,7 @@ import br.com.marcus.dev.personal.professional.apresentation.dto.response.Branch
 import br.com.marcus.dev.personal.professional.apresentation.services.branchactivity.FindAllBranchActivityService;
 import br.com.marcus.dev.personal.professional.apresentation.services.branchactivity.FindByIdBranchActivity;
 import br.com.marcus.dev.personal.professional.apresentation.services.branchactivity.SaveBranchActivityService;
+import br.com.marcus.dev.personal.professional.apresentation.services.branchactivity.UpdateBranchActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +23,7 @@ public class BranchActivityController {
     @Autowired private FindAllBranchActivityService findAllBranchActivityService;
     @Autowired private FindByIdBranchActivity findByIdBranchActivity;
     @Autowired private SaveBranchActivityService saveBranchActivityService;
+    @Autowired private UpdateBranchActivityService updateBranchActivityService;
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping
@@ -42,5 +44,12 @@ public class BranchActivityController {
     public ResponseEntity<BranchActivityResponse> save(@RequestBody BranchActivityForm branchActivityForm){
         BranchActivityResponse branchActivityResponse = saveBranchActivityService.save(branchActivityForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(branchActivityResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<BranchActivityResponse> save(@PathVariable UUID id, @RequestBody BranchActivityForm branchActivityForm){
+        BranchActivityResponse branchActivityResponse = updateBranchActivityService.update(branchActivityForm, id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(branchActivityResponse);
     }
 }

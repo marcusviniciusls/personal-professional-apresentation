@@ -19,4 +19,9 @@ public class BranchActivityFactory {
         branchActivity.setName(branchActivityForm.getName());
         return branchActivity;
     }
+
+    public BranchActivity convertEntityToUpdate(BranchActivityForm branchActivityForm, BranchActivity branchActivity){
+        branchActivity.setName(branchActivity.getName());
+        return branchActivity;
+    }
 }
