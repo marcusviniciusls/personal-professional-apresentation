@@ -67,6 +67,8 @@ public class InitializationData implements CommandLineRunner {
         BranchActivity branchActivity1 = new BranchActivity("Consultoria");
         branchActivity1.setUser(administrator);
         branchActivity1.setUserCreation(administrator.getName());
+        branchActivity.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff701"));
+        branchActivity1.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff702"));
         branchActivityRepository.saveAll(Arrays.asList(branchActivity, branchActivity1));
 
         // Empresas

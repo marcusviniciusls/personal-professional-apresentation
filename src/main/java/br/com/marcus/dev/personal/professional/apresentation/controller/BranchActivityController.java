@@ -2,10 +2,7 @@ package br.com.marcus.dev.personal.professional.apresentation.controller;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.BranchActivityForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.BranchActivityResponse;
-import br.com.marcus.dev.personal.professional.apresentation.services.branchactivity.FindAllBranchActivityService;
-import br.com.marcus.dev.personal.professional.apresentation.services.branchactivity.FindByIdBranchActivity;
-import br.com.marcus.dev.personal.professional.apresentation.services.branchactivity.SaveBranchActivityService;
-import br.com.marcus.dev.personal.professional.apresentation.services.branchactivity.UpdateBranchActivityService;
+import br.com.marcus.dev.personal.professional.apresentation.services.branchactivity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +21,7 @@ public class BranchActivityController {
     @Autowired private FindByIdBranchActivity findByIdBranchActivity;
     @Autowired private SaveBranchActivityService saveBranchActivityService;
     @Autowired private UpdateBranchActivityService updateBranchActivityService;
+    @Autowired private DeleteBranchActivityService deleteBranchActivityService;
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping
@@ -51,5 +49,12 @@ public class BranchActivityController {
     public ResponseEntity<BranchActivityResponse> save(@PathVariable UUID id, @RequestBody BranchActivityForm branchActivityForm){
         BranchActivityResponse branchActivityResponse = updateBranchActivityService.update(branchActivityForm, id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(branchActivityResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id){
+        deleteBranchActivityService.deleteBranchActivity(id);
+        return ResponseEntity.ok().build();
     }
 }

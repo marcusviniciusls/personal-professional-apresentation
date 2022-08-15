@@ -26,8 +26,12 @@ public class UpdateBranchActivityService {
             throw new ResourceNotFoundException("ID Not Found Exception");
         }
         BranchActivity branchActivity = optionalBranchActivity.get();
-        BranchActivity branchActivityNew = branchActivityFactory.convertEntityToUpdate(branchActivityForm, branchActivity);
-        branchActivityNew = (BranchActivity) centerEntityService.setDataToUpdate(branchActivityNew);
-        return branchActivityFactory.convertEntityInResponse(branchActivityNew);
+        if (!centerEntityService.isStatusSuperEntity(branchActivity)){
+            throw new ResourceNotFoundException("ID Not Found Exception");
+        }
+        branchActivity = branchActivityFactory.convertEntityToUpdate(branchActivityForm, branchActivity);
+        branchActivity = (BranchActivity) centerEntityService.setDataToUpdate(branchActivity);
+        branchActivity = branchActivityRepository.save(branchActivity);
+        return branchActivityFactory.convertEntityInResponse(branchActivity);
     }
 }

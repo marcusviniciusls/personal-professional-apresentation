@@ -31,4 +31,17 @@ public class CenterEntityService {
         entity.setDateUpdate(LocalDateTime.now());
         return entity;
     }
+
+    public SuperEntity setDataToDelete(SuperEntity entity){
+        UserSS userSS = UserService.authenticated();
+        User user = findByIdUserService.findById(userSS.getId());
+        entity.setStatus(false);
+        entity.setDateUpdate(LocalDateTime.now());
+        entity.setUserUpdate(user.getName());
+        return entity;
+    }
+
+    public boolean isStatusSuperEntity(SuperEntity entity){
+        return entity.isStatus();
+    }
 }
