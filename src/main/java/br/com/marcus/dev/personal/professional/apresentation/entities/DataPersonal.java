@@ -3,6 +3,7 @@ package br.com.marcus.dev.personal.professional.apresentation.entities;
 import br.com.marcus.dev.personal.professional.apresentation.entities.enums.MaritalStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity
 @Table(name = "tb_data_personal")
 public class DataPersonal extends SuperEntity {

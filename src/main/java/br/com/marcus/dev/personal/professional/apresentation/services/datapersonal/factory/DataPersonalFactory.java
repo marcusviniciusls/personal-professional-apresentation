@@ -1,5 +1,6 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.datapersonal.factory;
 
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.DataPersonalFullForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.DataPersonalDto;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.EmailDto;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
@@ -10,6 +11,8 @@ import br.com.marcus.dev.personal.professional.apresentation.services.email.fact
 import br.com.marcus.dev.personal.professional.apresentation.services.telephone.factory.TelephoneFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class DataPersonalFactory {
@@ -34,5 +37,15 @@ public class DataPersonalFactory {
         }
 
         return dataPersonalDto;
+    }
+
+    public DataPersonal convertDtoInEntity(DataPersonalFullForm dataPersonalFullForm){
+        DataPersonal dataPersonal = new DataPersonal();
+        dataPersonal.setFullName(dataPersonalFullForm.getFullName());
+        dataPersonal.setAge(dataPersonalFullForm.getAge());
+        dataPersonal.setBirthDate(dataPersonalFullForm.getBirthDate());
+        List<Telephone> listTelephone =
+                telephoneFactory.convertDtoInEntityList(dataPersonalFullForm.getListTelephoneForm(), dataPersonal);
+        dataPersonal.setListTelephone(listTelephone);
     }
 }
