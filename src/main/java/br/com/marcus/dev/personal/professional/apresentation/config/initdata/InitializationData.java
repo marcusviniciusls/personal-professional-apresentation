@@ -89,6 +89,8 @@ public class InitializationData implements CommandLineRunner {
         dataPersonal1.setUserCreation(administrator.getName());
         dataPersonal.setUser(user);
         dataPersonal.setUserCreation(user.getName());
+        dataPersonal.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff703"));
+        dataPersonal.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff704"));
         dataPersonalRepository.saveAll(Arrays.asList(dataPersonal, dataPersonal1));
 
         // Telefone
