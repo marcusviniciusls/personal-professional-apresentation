@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
@@ -39,14 +40,14 @@ public class BranchActivityController {
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping
-    public ResponseEntity<BranchActivityResponse> save(@RequestBody BranchActivityForm branchActivityForm){
+    public ResponseEntity<BranchActivityResponse> save(@Valid @RequestBody BranchActivityForm branchActivityForm){
         BranchActivityResponse branchActivityResponse = saveBranchActivityService.save(branchActivityForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(branchActivityResponse);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping(value = "/{id}")
-    public ResponseEntity<BranchActivityResponse> save(@PathVariable UUID id, @RequestBody BranchActivityForm branchActivityForm){
+    public ResponseEntity<BranchActivityResponse> save(@PathVariable UUID id, @Valid @RequestBody BranchActivityForm branchActivityForm){
         BranchActivityResponse branchActivityResponse = updateBranchActivityService.update(branchActivityForm, id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(branchActivityResponse);
     }
