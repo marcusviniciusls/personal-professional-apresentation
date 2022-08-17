@@ -83,19 +83,19 @@ public class InitializationData implements CommandLineRunner {
         partnerRepository.saveAll(Arrays.asList(partner, partner1));
 
         // Dados Pessoais
-        DataPersonal dataPersonal = new DataPersonal("Marcus Vinicius",  27, LocalDate.of(2022, 4, 20), MaritalStatus.MARRIED);
+        //DataPersonal dataPersonal = new DataPersonal("Marcus Vinicius",  27, LocalDate.of(2022, 4, 20), MaritalStatus.MARRIED);
         DataPersonal dataPersonal1 = new DataPersonal("Nicolas Silva", 19, LocalDate.of(2010, 9, 1), MaritalStatus.SINGLE);
         dataPersonal1.setUser(administrator);
         dataPersonal1.setUserCreation(administrator.getName());
-        dataPersonal.setUser(user);
-        dataPersonal.setUserCreation(user.getName());
-        dataPersonal.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff703"));
+        //dataPersonal.setUser(user);
+        //dataPersonal.setUserCreation(user.getName());
+        //dataPersonal.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff703"));
         dataPersonal1.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff704"));
         dataPersonal1.setStatus(false);
-        dataPersonalRepository.saveAll(Arrays.asList(dataPersonal, dataPersonal1));
+        dataPersonalRepository.saveAll(Arrays.asList(dataPersonal1));
 
         // Telefone
-        Telephone telephone = new Telephone("55", "11", "993527709", dataPersonal);
+        Telephone telephone = new Telephone("55", "11", "993527709", dataPersonal1);
         Telephone telephone1 = new Telephone("55", "21", "987392918", dataPersonal1);
         telephone1.setUser(administrator);
         telephone1.setUserCreation(administrator.getName());
@@ -104,7 +104,7 @@ public class InitializationData implements CommandLineRunner {
         telephoneRepository.saveAll(Arrays.asList(telephone, telephone1));
 
         // Email
-        Email email = new Email("viniciusmls@outlook.com", dataPersonal);
+        Email email = new Email("viniciusmls@outlook.com", dataPersonal1);
         Email email1 = new Email("nicolas@gmail.com", dataPersonal1);
         email.setUser(user);
         email.setUserCreation(user.getName());

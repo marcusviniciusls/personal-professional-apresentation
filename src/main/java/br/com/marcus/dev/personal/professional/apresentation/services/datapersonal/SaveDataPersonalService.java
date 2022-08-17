@@ -23,12 +23,17 @@ public class SaveDataPersonalService {
     @Autowired private CenterEntityService centerEntityService;
     @Autowired private EmailRepository emailRepository;
     @Autowired private TelephoneRepository telephoneRepository;
+    @Autowired private CheckSaveDataPersonalService checkSaveDataPersonalService;
 
     public DataPersonalDto save(DataPersonalFullForm dataPersonalFullForm){
         try {
-            DataPersonal dataPersonal = dataPersonalFactory.convertDtoInEntity(dataPersonalFullForm);
-            DataPersonalDto dataPersonalDto = dataPersonalFactory.convertEntityInDto(dataPersonal);
-            return dataPersonalDto;
+            if (checkSaveDataPersonalService.verifyCheckSaveDataPersonal()){
+                DataPersonal dataPersonal = dataPersonalFactory.convertDtoInEntity(dataPersonalFullForm);
+                DataPersonalDto dataPersonalDto = dataPersonalFactory.convertEntityInDto(dataPersonal);
+                return dataPersonalDto;
+            } else {
+                throw new ErrorSavingRecordException("Erro Saving Record - Data Already Registered");
+            }
         } catch (NumberFormatException numberFormatException){
             throw new ErrorSavingRecordException("Error Saving Record - DataPersonal " +numberFormatException.getMessage());
         }

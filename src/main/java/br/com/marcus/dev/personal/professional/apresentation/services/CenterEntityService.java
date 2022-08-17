@@ -44,4 +44,10 @@ public class CenterEntityService {
     public boolean isStatusSuperEntity(SuperEntity entity){
         return entity.isStatus();
     }
+
+    public User userLogged(){
+        UserSS userSS = UserService.authenticated();
+        User user = findByIdUserService.findById(userSS.getId());
+        return user;
+    }
 }
