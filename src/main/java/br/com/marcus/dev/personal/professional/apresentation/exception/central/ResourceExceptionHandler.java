@@ -1,5 +1,6 @@
 package br.com.marcus.dev.personal.professional.apresentation.exception.central;
 
+import br.com.marcus.dev.personal.professional.apresentation.exception.custom.ErrorSavingRecordException;
 import br.com.marcus.dev.personal.professional.apresentation.exception.custom.ResourceNotFoundException;
 import br.com.marcus.dev.personal.professional.apresentation.exception.custom.StandardError;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,14 @@ public class ResourceExceptionHandler {
         String error = "CONSTRAINT NOT BLANK";
         HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
         StandardError standardError = new StandardError(Instant.now(), httpStatus.value(), error, methodArgumentNotValidException.getMessage(), httpServletRequest.getRequestURI());
+        return ResponseEntity.status(httpStatus).body(standardError);
+    }
+
+    @ExceptionHandler(ErrorSavingRecordException.class)
+    public ResponseEntity<StandardError> errorSavingRecordException(ErrorSavingRecordException errorSavingRecordException, HttpServletRequest httpServletRequest) {
+        String error = "ERROR SAVING RECORD EXCEPTION";
+        HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+        StandardError standardError = new StandardError(Instant.now(), httpStatus.value(), error, errorSavingRecordException.getMessage(), httpServletRequest.getRequestURI());
         return ResponseEntity.status(httpStatus).body(standardError);
     }
 }

@@ -7,11 +7,16 @@ import br.com.marcus.dev.personal.professional.apresentation.dto.response.Teleph
 import br.com.marcus.dev.personal.professional.apresentation.entities.DataPersonal;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Email;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Telephone;
+import br.com.marcus.dev.personal.professional.apresentation.entities.enums.MaritalStatus;
+import br.com.marcus.dev.personal.professional.apresentation.repository.DataPersonalRepository;
+import br.com.marcus.dev.personal.professional.apresentation.services.CenterEntityService;
 import br.com.marcus.dev.personal.professional.apresentation.services.email.factory.EmailFactory;
 import br.com.marcus.dev.personal.professional.apresentation.services.telephone.factory.TelephoneFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 @Component
@@ -19,12 +24,15 @@ public class DataPersonalFactory {
 
     @Autowired private EmailFactory emailFactory;
     @Autowired private TelephoneFactory telephoneFactory;
+    @Autowired private CenterEntityService centerEntityService;
+    @Autowired private DataPersonalRepository dataPersonalRepository;
 
     public DataPersonalDto convertEntityInDto(DataPersonal dataPersonal){
         DataPersonalDto dataPersonalDto = new DataPersonalDto();
         dataPersonalDto.setFullname(dataPersonal.getFullName());
         dataPersonalDto.setAge(dataPersonal.getAge());
         dataPersonalDto.setMartialStatus(dataPersonal.getMaritalStatus().getNumber());
+        dataPersonalDto.setBirthDate(dataPersonal.getBirthDate());
 
         for(Telephone telephone : dataPersonal.getListTelephone()){
             TelephoneDto telephoneDto = telephoneFactory.convertEntityInDto(telephone);
@@ -42,10 +50,32 @@ public class DataPersonalFactory {
     public DataPersonal convertDtoInEntity(DataPersonalFullForm dataPersonalFullForm){
         DataPersonal dataPersonal = new DataPersonal();
         dataPersonal.setFullName(dataPersonalFullForm.getFullName());
-        dataPersonal.setAge(dataPersonalFullForm.getAge());
-        dataPersonal.setBirthDate(dataPersonalFullForm.getBirthDate());
-        List<Telephone> listTelephone =
-                telephoneFactory.convertDtoInEntityList(dataPersonalFullForm.getListTelephoneForm(), dataPersonal);
+        int year = returnYear(dataPersonalFullForm.getBirthDate());
+        int month = returnMonth(dataPersonalFullForm.getBirthDate());
+        int day = returnDay(dataPersonalFullForm.getBirthDate());
+        LocalDate dateBirthday = LocalDate.of(year, month, day);
+        dataPersonal.setBirthDate(dateBirthday);
+        Period period = Period.between(dateBirthday, LocalDate.now());
+        dataPersonal.setAge(period.getYears());
+        dataPersonal.setMaritalStatus(MaritalStatus.toEnum(dataPersonalFullForm.getMaritalStatus()));
+        dataPersonal = (DataPersonal) centerEntityService.setDataToSave(dataPersonal);
+        dataPersonal = dataPersonalRepository.save(dataPersonal);
+        List<Telephone> listTelephone = telephoneFactory.convertDtoInEntityList(dataPersonalFullForm.getListTelephoneForm(), dataPersonal);
         dataPersonal.setListTelephone(listTelephone);
+        List<Email> listEmail = emailFactory.convertDtoInEntityList(dataPersonalFullForm.getListEmailForm(), dataPersonal);
+        dataPersonal.setListEmail(listEmail);
+        return dataPersonal;
+    }
+
+    private int returnDay(String date){
+        return Integer.parseInt(date.substring(0,2));
+    }
+
+    private int returnMonth(String date){
+        return Integer.parseInt(date.substring(3,5));
+    }
+
+    private int returnYear(String date){
+        return Integer.parseInt(date.substring(6));
     }
 }

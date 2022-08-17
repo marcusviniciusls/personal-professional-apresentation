@@ -18,7 +18,7 @@ import java.util.List;
 public class DataPersonal extends SuperEntity {
 
     private String fullName;
-    private Byte age;
+    private Integer age;
     private LocalDate birthDate;
     @Enumerated(EnumType.ORDINAL)
     private MaritalStatus maritalStatus;
@@ -27,7 +27,7 @@ public class DataPersonal extends SuperEntity {
     @OneToMany(mappedBy = "dataPersonal")
     private List<Email> listEmail = new ArrayList<>();
 
-    public DataPersonal(String fullName, Byte age, LocalDate birthDate, MaritalStatus maritalStatus) {
+    public DataPersonal(String fullName, Integer age, LocalDate birthDate, MaritalStatus maritalStatus) {
         this.fullName = fullName;
         this.age = age;
         this.birthDate = birthDate;

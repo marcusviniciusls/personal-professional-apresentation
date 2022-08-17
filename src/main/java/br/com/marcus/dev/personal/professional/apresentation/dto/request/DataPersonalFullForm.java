@@ -1,6 +1,7 @@
 package br.com.marcus.dev.personal.professional.apresentation.dto.request;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,16 +18,11 @@ import java.util.List;
 @NoArgsConstructor
 public class DataPersonalFullForm {
 
-    @NotBlank(message = "Name cannot be blank")
+    @NotBlank(message = "FullName cannot be blank")
     private String fullName;
-    @NotBlank(message = "Name cannot be blank")
-    @Min(18)
-    @Max(100)
-    private Byte age;
-    @NotBlank(message = "Name cannot be blank")
-    private LocalDate birthDate;
-    @NotBlank(message = "Name cannot be blank")
+    @NotBlank(message = "BirthDate cannot be blank")
+    private String birthDate;
+    private Integer maritalStatus;
     private List<TelephoneForm> listTelephoneForm = new ArrayList<>();
-    @NotBlank(message = "Name cannot be blank")
     private List<EmailForm> listEmailForm = new ArrayList<>();
 }

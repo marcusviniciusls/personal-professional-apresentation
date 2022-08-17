@@ -4,6 +4,9 @@ import br.com.marcus.dev.personal.professional.apresentation.dto.request.Telepho
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
 import br.com.marcus.dev.personal.professional.apresentation.entities.DataPersonal;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Telephone;
+import br.com.marcus.dev.personal.professional.apresentation.repository.TelephoneRepository;
+import br.com.marcus.dev.personal.professional.apresentation.services.CenterEntityService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,6 +14,9 @@ import java.util.List;
 
 @Component
 public class TelephoneFactory {
+
+    @Autowired private CenterEntityService centerEntityService;
+    @Autowired private TelephoneRepository telephoneRepository;
 
     public TelephoneDto convertEntityInDto(Telephone telephone){
         TelephoneDto telephoneDto = new TelephoneDto();
@@ -27,7 +33,9 @@ public class TelephoneFactory {
             telephone.setDdd(telephoneForm.getDdd());
             telephone.setDdi(telephoneForm.getDdi());
             telephone.setNumber(telephoneForm.getNumber());
+            telephone = (Telephone) centerEntityService.setDataToSave(telephone);
             telephone.setDataPersonal(dataPersonal);
+            telephone = telephoneRepository.save(telephone);
             listTelephone.add(telephone);
         }
         return listTelephone;

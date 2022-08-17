@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +15,9 @@ import java.util.List;
 public class DataPersonalDto {
 
     private String fullname;
-    private Byte age;
+    private Integer age;
     private Integer martialStatus;
+    private LocalDate birthDate;
     private List<TelephoneDto> listTelephoneDto = new ArrayList<>();
     private List<EmailDto> listEmailDto = new ArrayList<>();
 

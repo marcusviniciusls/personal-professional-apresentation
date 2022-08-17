@@ -11,10 +11,10 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class TelephoneForm {
 
-    @NotBlank(message = "Name cannot be blank")
+    @NotBlank(message = "DDI cannot be blank")
     private String ddi;
-    @NotBlank(message = "Name cannot be blank")
+    @NotBlank(message = "DDD cannot be blank")
     private String ddd;
-    @NotBlank(message = "Name cannot be blank")
+    @NotBlank(message = "Number cannot be blank")
     private String number;
 }

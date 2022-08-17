@@ -83,8 +83,8 @@ public class InitializationData implements CommandLineRunner {
         partnerRepository.saveAll(Arrays.asList(partner, partner1));
 
         // Dados Pessoais
-        DataPersonal dataPersonal = new DataPersonal("Marcus Vinicius", (byte) 27, LocalDate.of(2022, 4, 20), MaritalStatus.MARRIED);
-        DataPersonal dataPersonal1 = new DataPersonal("Nicolas Silva", (byte) 19, LocalDate.of(2010, 9, 1), MaritalStatus.SINGLE);
+        DataPersonal dataPersonal = new DataPersonal("Marcus Vinicius",  27, LocalDate.of(2022, 4, 20), MaritalStatus.MARRIED);
+        DataPersonal dataPersonal1 = new DataPersonal("Nicolas Silva", 19, LocalDate.of(2010, 9, 1), MaritalStatus.SINGLE);
         dataPersonal1.setUser(administrator);
         dataPersonal1.setUserCreation(administrator.getName());
         dataPersonal.setUser(user);
