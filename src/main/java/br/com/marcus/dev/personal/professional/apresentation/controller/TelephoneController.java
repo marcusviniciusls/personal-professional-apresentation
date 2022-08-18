@@ -1,12 +1,15 @@
 package br.com.marcus.dev.personal.professional.apresentation.controller;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.EmailFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.EmailFormUpdate;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormUpdate;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.EmailDto;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
 import br.com.marcus.dev.personal.professional.apresentation.services.telephone.FindAllTelephoneService;
 import br.com.marcus.dev.personal.professional.apresentation.services.telephone.FindByIdTelephoneService;
 import br.com.marcus.dev.personal.professional.apresentation.services.telephone.SaveTelephoneService;
+import br.com.marcus.dev.personal.professional.apresentation.services.telephone.UpdateTelephoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +28,7 @@ public class TelephoneController {
     @Autowired private FindAllTelephoneService findAllTelephoneService;
     @Autowired private FindByIdTelephoneService findByIdTelephoneService;
     @Autowired private SaveTelephoneService saveTelephoneService;
+    @Autowired private UpdateTelephoneService updateTelephoneService;
 
     @GetMapping
     public ResponseEntity<Page<TelephoneDto>> findAll(Pageable page){
@@ -43,5 +47,12 @@ public class TelephoneController {
     public ResponseEntity<TelephoneDto> save(@Valid @RequestBody TelephoneFormSave telephoneFormSave){
         TelephoneDto telephoneDto = saveTelephoneService.save(telephoneFormSave);
         return ResponseEntity.status(HttpStatus.CREATED).body(telephoneDto);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<TelephoneDto> update(@PathVariable UUID id, @Valid @RequestBody TelephoneFormUpdate telephoneFormUpdate){
+        TelephoneDto telephoneDto = updateTelephoneService.update(telephoneFormUpdate, id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(telephoneDto);
     }
 }

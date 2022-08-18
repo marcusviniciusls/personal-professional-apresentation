@@ -33,4 +33,16 @@ public class FindByIdTelephoneService {
         TelephoneDto telephoneDto = telephoneFactory.convertEntityInDto(telephone);
         return telephoneDto;
     }
+
+    public Telephone findByIdTelephone(UUID id){
+        Optional<Telephone> optionalTelephone = telephoneRepository.findById(id);
+        if (optionalTelephone.isEmpty()){
+            throw new ResourceNotFoundException("ID Not Found Exception");
+        }
+        Telephone telephone = optionalTelephone.get();
+        if (!centerEntityService.isStatusSuperEntity(telephone)){
+            throw new ResourceNotFoundException("ID Not Found Exception");
+        }
+        return telephone;
+    }
 }
