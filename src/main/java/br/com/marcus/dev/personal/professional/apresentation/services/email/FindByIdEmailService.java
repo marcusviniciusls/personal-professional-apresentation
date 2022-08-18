@@ -32,4 +32,16 @@ public class FindByIdEmailService {
         EmailDto emailDto = emailFactory.convertEntityInDto(email);
         return emailDto;
     }
+
+    public Email findByIdEmail(UUID id){
+        Optional<Email> optionalEmail = emailRepository.findById(id);
+        if (optionalEmail.isEmpty()){
+            throw new ResourceNotFoundException("ID Not Found Exception");
+        }
+        Email email = optionalEmail.get();
+        if (!centerEntityService.isStatusSuperEntity(email)){
+            throw new ResourceNotFoundException("ID Not Found Exception");
+        }
+        return email;
+    }
 }

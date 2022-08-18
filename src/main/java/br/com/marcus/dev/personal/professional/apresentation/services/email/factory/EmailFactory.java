@@ -30,6 +30,11 @@ public class EmailFactory {
         return email;
     }
 
+    public Email convertFormInEntityUpdate(String emailForm, Email email){
+        email.setEmail(emailForm);
+        return email;
+    }
+
     public List<Email> convertDtoInEntityListSave(List<EmailForm> listEmailForm, DataPersonal dataPersonal){
         List<Email> listEmail = new ArrayList<>();
         for (EmailForm emailForm : listEmailForm){
