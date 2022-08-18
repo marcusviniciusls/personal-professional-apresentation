@@ -4,6 +4,7 @@ import br.com.marcus.dev.personal.professional.apresentation.dto.request.BranchA
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.DataPersonalFullForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.BranchActivityResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.DataPersonalDto;
+import br.com.marcus.dev.personal.professional.apresentation.services.datapersonal.DeleteDataPersonalService;
 import br.com.marcus.dev.personal.professional.apresentation.services.datapersonal.FindAllDataPersonalService;
 import br.com.marcus.dev.personal.professional.apresentation.services.datapersonal.FindByIdDataPersonalService;
 import br.com.marcus.dev.personal.professional.apresentation.services.datapersonal.SaveDataPersonalService;
@@ -25,6 +26,7 @@ public class DataPersonalController {
     @Autowired private FindAllDataPersonalService findAllDataPersonalService;
     @Autowired private FindByIdDataPersonalService findByIdDataPersonalService;
     @Autowired private SaveDataPersonalService saveDataPersonalService;
+    @Autowired private DeleteDataPersonalService deleteDataPersonalService;
 
     @GetMapping
     public ResponseEntity<Page<DataPersonalDto>> findAll(Pageable page){
@@ -43,5 +45,12 @@ public class DataPersonalController {
     public ResponseEntity<DataPersonalDto> save(@Valid @RequestBody DataPersonalFullForm dataPersonalFullForm){
         DataPersonalDto dataPersonalDto = saveDataPersonalService.save(dataPersonalFullForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(dataPersonalDto);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id){
+        deleteDataPersonalService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }
