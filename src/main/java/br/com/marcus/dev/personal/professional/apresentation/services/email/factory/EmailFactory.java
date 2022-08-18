@@ -24,6 +24,12 @@ public class EmailFactory {
         return emailDto;
     }
 
+    public Email convertFormInEntity(String emailForm){
+        Email email = new Email();
+        email.setEmail(emailForm);
+        return email;
+    }
+
     public List<Email> convertDtoInEntityListSave(List<EmailForm> listEmailForm, DataPersonal dataPersonal){
         List<Email> listEmail = new ArrayList<>();
         for (EmailForm emailForm : listEmailForm){

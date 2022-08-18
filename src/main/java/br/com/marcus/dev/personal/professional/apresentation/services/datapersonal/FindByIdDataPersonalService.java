@@ -31,4 +31,16 @@ public class FindByIdDataPersonalService {
         DataPersonalDto dataPersonalDto = dataPersonalFactory.convertEntityInDto(dataPersonal);
         return dataPersonalDto;
     }
+
+    public DataPersonal findByIdDataPersonal(UUID id){
+        Optional<DataPersonal> optinalDataPersonal = dataPersonalRepository.findById(id);
+        if (optinalDataPersonal.isEmpty()){
+            throw new ResourceNotFoundException("ID Not Found Exception");
+        }
+        DataPersonal dataPersonal = optinalDataPersonal.get();
+        if (!centerEntityService.isStatusSuperEntity(dataPersonal)){
+            throw new ResourceNotFoundException("ID Not Found Exception");
+        }
+        return dataPersonal;
+    }
 }
