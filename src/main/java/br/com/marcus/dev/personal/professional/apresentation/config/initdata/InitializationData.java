@@ -110,6 +110,9 @@ public class InitializationData implements CommandLineRunner {
         email.setUserCreation(user.getName());
         email1.setUser(administrator);
         email1.setUserCreation(administrator.getName());
+        email1.setStatus(false);
+        email.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff705"));
+        email1.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff706"));
         emailRepository.saveAll(Arrays.asList(email, email1));
 
         // Curso
