@@ -3,10 +3,7 @@ package br.com.marcus.dev.personal.professional.apresentation.controller;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.*;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.DataPersonalDto;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.EmailDto;
-import br.com.marcus.dev.personal.professional.apresentation.services.email.FindAllEmailService;
-import br.com.marcus.dev.personal.professional.apresentation.services.email.FindByIdEmailService;
-import br.com.marcus.dev.personal.professional.apresentation.services.email.SaveEmailService;
-import br.com.marcus.dev.personal.professional.apresentation.services.email.UpdateEmailService;
+import br.com.marcus.dev.personal.professional.apresentation.services.email.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +23,7 @@ public class EmailController {
     @Autowired private FindByIdEmailService findByIdEmailService;
     @Autowired private SaveEmailService saveEmailService;
     @Autowired private UpdateEmailService updateEmailService;
+    @Autowired private DeleteEmailService deleteEmailService;
 
     @GetMapping
     public ResponseEntity<Page<EmailDto>> findAll(Pageable page){
@@ -51,5 +49,12 @@ public class EmailController {
     public ResponseEntity<EmailDto> update(@PathVariable UUID id, @Valid @RequestBody EmailFormUpdate emailFormUpdate){
         EmailDto emailDto = updateEmailService.update(emailFormUpdate, id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(emailDto);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id){
+        deleteEmailService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }
