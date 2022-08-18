@@ -6,10 +6,7 @@ import br.com.marcus.dev.personal.professional.apresentation.dto.request.Telepho
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormUpdate;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.EmailDto;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
-import br.com.marcus.dev.personal.professional.apresentation.services.telephone.FindAllTelephoneService;
-import br.com.marcus.dev.personal.professional.apresentation.services.telephone.FindByIdTelephoneService;
-import br.com.marcus.dev.personal.professional.apresentation.services.telephone.SaveTelephoneService;
-import br.com.marcus.dev.personal.professional.apresentation.services.telephone.UpdateTelephoneService;
+import br.com.marcus.dev.personal.professional.apresentation.services.telephone.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,6 +26,7 @@ public class TelephoneController {
     @Autowired private FindByIdTelephoneService findByIdTelephoneService;
     @Autowired private SaveTelephoneService saveTelephoneService;
     @Autowired private UpdateTelephoneService updateTelephoneService;
+    @Autowired private DeleteTelephoneService deleteTelephoneService;
 
     @GetMapping
     public ResponseEntity<Page<TelephoneDto>> findAll(Pageable page){
@@ -54,5 +52,12 @@ public class TelephoneController {
     public ResponseEntity<TelephoneDto> update(@PathVariable UUID id, @Valid @RequestBody TelephoneFormUpdate telephoneFormUpdate){
         TelephoneDto telephoneDto = updateTelephoneService.update(telephoneFormUpdate, id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(telephoneDto);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id){
+        deleteTelephoneService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }
