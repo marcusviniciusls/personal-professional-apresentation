@@ -24,7 +24,7 @@ public class EmailFactory {
         return emailDto;
     }
 
-    public List<Email> convertDtoInEntityList(List<EmailForm> listEmailForm, DataPersonal dataPersonal){
+    public List<Email> convertDtoInEntityListSave(List<EmailForm> listEmailForm, DataPersonal dataPersonal){
         List<Email> listEmail = new ArrayList<>();
         for (EmailForm emailForm : listEmailForm){
             Email email = new Email();

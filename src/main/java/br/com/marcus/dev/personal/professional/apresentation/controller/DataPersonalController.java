@@ -1,13 +1,9 @@
 package br.com.marcus.dev.personal.professional.apresentation.controller;
 
-import br.com.marcus.dev.personal.professional.apresentation.dto.request.BranchActivityForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.DataPersonalFullForm;
-import br.com.marcus.dev.personal.professional.apresentation.dto.response.BranchActivityResponse;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.DataPersonalFullFormUpdate;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.DataPersonalDto;
-import br.com.marcus.dev.personal.professional.apresentation.services.datapersonal.DeleteDataPersonalService;
-import br.com.marcus.dev.personal.professional.apresentation.services.datapersonal.FindAllDataPersonalService;
-import br.com.marcus.dev.personal.professional.apresentation.services.datapersonal.FindByIdDataPersonalService;
-import br.com.marcus.dev.personal.professional.apresentation.services.datapersonal.SaveDataPersonalService;
+import br.com.marcus.dev.personal.professional.apresentation.services.datapersonal.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +23,7 @@ public class DataPersonalController {
     @Autowired private FindByIdDataPersonalService findByIdDataPersonalService;
     @Autowired private SaveDataPersonalService saveDataPersonalService;
     @Autowired private DeleteDataPersonalService deleteDataPersonalService;
+    @Autowired private UpdateDataPersonalService updateDataPersonalService;
 
     @GetMapping
     public ResponseEntity<Page<DataPersonalDto>> findAll(Pageable page){
@@ -45,6 +42,13 @@ public class DataPersonalController {
     public ResponseEntity<DataPersonalDto> save(@Valid @RequestBody DataPersonalFullForm dataPersonalFullForm){
         DataPersonalDto dataPersonalDto = saveDataPersonalService.save(dataPersonalFullForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(dataPersonalDto);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<DataPersonalDto> update(@PathVariable UUID id, @Valid @RequestBody DataPersonalFullFormUpdate dataPersonalFullFormUpdate){
+        DataPersonalDto dataPersonalDto = updateDataPersonalService.update(dataPersonalFullFormUpdate, id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(dataPersonalDto);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")

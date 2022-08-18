@@ -28,7 +28,7 @@ public class SaveDataPersonalService {
     public DataPersonalDto save(DataPersonalFullForm dataPersonalFullForm){
         try {
             if (checkSaveDataPersonalService.verifyCheckSaveDataPersonal()){
-                DataPersonal dataPersonal = dataPersonalFactory.convertDtoInEntity(dataPersonalFullForm);
+                DataPersonal dataPersonal = dataPersonalFactory.convertDtoInEntitySave(dataPersonalFullForm);
                 DataPersonalDto dataPersonalDto = dataPersonalFactory.convertEntityInDto(dataPersonal);
                 return dataPersonalDto;
             } else {

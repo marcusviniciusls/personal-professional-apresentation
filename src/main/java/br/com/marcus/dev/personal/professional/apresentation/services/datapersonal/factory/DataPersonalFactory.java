@@ -1,6 +1,7 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.datapersonal.factory;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.DataPersonalFullForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.DataPersonalFullFormUpdate;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.DataPersonalDto;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.EmailDto;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
@@ -47,7 +48,7 @@ public class DataPersonalFactory {
         return dataPersonalDto;
     }
 
-    public DataPersonal convertDtoInEntity(DataPersonalFullForm dataPersonalFullForm){
+    public DataPersonal convertDtoInEntitySave(DataPersonalFullForm dataPersonalFullForm){
         DataPersonal dataPersonal = new DataPersonal();
         dataPersonal.setFullName(dataPersonalFullForm.getFullName());
         int year = returnYear(dataPersonalFullForm.getBirthDate());
@@ -60,9 +61,9 @@ public class DataPersonalFactory {
         dataPersonal.setMaritalStatus(MaritalStatus.toEnum(dataPersonalFullForm.getMaritalStatus()));
         dataPersonal = (DataPersonal) centerEntityService.setDataToSave(dataPersonal);
         dataPersonal = dataPersonalRepository.save(dataPersonal);
-        List<Telephone> listTelephone = telephoneFactory.convertDtoInEntityList(dataPersonalFullForm.getListTelephoneForm(), dataPersonal);
+        List<Telephone> listTelephone = telephoneFactory.convertDtoInEntityListSave(dataPersonalFullForm.getListTelephoneForm(), dataPersonal);
         dataPersonal.setListTelephone(listTelephone);
-        List<Email> listEmail = emailFactory.convertDtoInEntityList(dataPersonalFullForm.getListEmailForm(), dataPersonal);
+        List<Email> listEmail = emailFactory.convertDtoInEntityListSave(dataPersonalFullForm.getListEmailForm(), dataPersonal);
         dataPersonal.setListEmail(listEmail);
         return dataPersonal;
     }
@@ -77,5 +78,19 @@ public class DataPersonalFactory {
 
     private int returnYear(String date){
         return Integer.parseInt(date.substring(6));
+    }
+
+    public DataPersonal convertDtoInEntityUpdate(DataPersonalFullFormUpdate dataPersonalFullForm, DataPersonal dataPersonal){
+        dataPersonal.setFullName(dataPersonalFullForm.getFullName());
+        int year = returnYear(dataPersonalFullForm.getBirthDate());
+        int month = returnMonth(dataPersonalFullForm.getBirthDate());
+        int day = returnDay(dataPersonalFullForm.getBirthDate());
+        LocalDate dateBirthday = LocalDate.of(year, month, day);
+        dataPersonal.setBirthDate(dateBirthday);
+        Period period = Period.between(dateBirthday, LocalDate.now());
+        dataPersonal.setAge(period.getYears());
+        dataPersonal.setMaritalStatus(MaritalStatus.toEnum(dataPersonalFullForm.getMaritalStatus()));
+        dataPersonal = (DataPersonal) centerEntityService.setDataToSave(dataPersonal);
+        return dataPersonal;
     }
 }

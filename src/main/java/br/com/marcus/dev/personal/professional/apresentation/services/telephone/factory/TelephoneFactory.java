@@ -26,7 +26,7 @@ public class TelephoneFactory {
         return telephoneDto;
     }
 
-    public List<Telephone> convertDtoInEntityList(List<TelephoneForm> listTelephoneForm, DataPersonal dataPersonal){
+    public List<Telephone> convertDtoInEntityListSave(List<TelephoneForm> listTelephoneForm, DataPersonal dataPersonal){
         List<Telephone> listTelephone = new ArrayList<>();
         for (TelephoneForm telephoneForm : listTelephoneForm){
             Telephone telephone = new Telephone();
