@@ -1,6 +1,7 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.telephone.factory;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormSave;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
 import br.com.marcus.dev.personal.professional.apresentation.entities.DataPersonal;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Telephone;
@@ -39,5 +40,13 @@ public class TelephoneFactory {
             listTelephone.add(telephone);
         }
         return listTelephone;
+    }
+
+    public Telephone convertFormInEntitySave(TelephoneFormSave telephoneFormSave){
+        Telephone telephone = new Telephone();
+        telephone.setDdd(telephoneFormSave.getDdd());
+        telephone.setDdi(telephoneFormSave.getDdi());
+        telephone.setNumber(telephoneFormSave.getNumber());
+        return telephone;
     }
 }
