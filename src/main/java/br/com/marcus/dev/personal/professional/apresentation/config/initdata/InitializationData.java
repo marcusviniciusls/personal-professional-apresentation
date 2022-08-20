@@ -145,6 +145,8 @@ public class InitializationData implements CommandLineRunner {
         framework.setUserCreation(user.getName());
         framework1.setUser(administrator);
         framework1.setUserCreation(administrator.getName());
+        framework.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff711"));
+        framework1.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff712"));
         frameworkRepository.saveAll(Arrays.asList(framework, framework1));
 
         // Linguagem

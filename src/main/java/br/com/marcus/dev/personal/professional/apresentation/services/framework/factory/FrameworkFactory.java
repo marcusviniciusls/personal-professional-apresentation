@@ -1,4 +1,4 @@
-package br.com.marcus.dev.personal.professional.apresentation.services.framework;
+package br.com.marcus.dev.personal.professional.apresentation.services.framework.factory;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.CourseResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.FrameworkResponse;

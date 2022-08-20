@@ -3,6 +3,7 @@ package br.com.marcus.dev.personal.professional.apresentation.services.framework
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.FrameworkResponse;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Framework;
 import br.com.marcus.dev.personal.professional.apresentation.repository.FrameworkRepository;
+import br.com.marcus.dev.personal.professional.apresentation.services.framework.factory.FrameworkFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
