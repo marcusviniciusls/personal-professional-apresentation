@@ -81,7 +81,7 @@ public class InitializationData implements CommandLineRunner {
         partner.setUserCreation(user.getName());
         partner1.setUser(administrator);
         partner1.setUserCreation(administrator.getName());
-        partner.setStatus(false);
+        //partner.setStatus(false);
         partner.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff709"));
         partner1.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff710"));
         partnerRepository.saveAll(Arrays.asList(partner, partner1));
