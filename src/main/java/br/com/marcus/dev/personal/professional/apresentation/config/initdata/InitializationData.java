@@ -135,6 +135,7 @@ public class InitializationData implements CommandLineRunner {
         course.setUserCreation(user.getName());
         course1.setUser(administrator);
         course1.setUserCreation(administrator.getName());
+        course1.setStatus(false);
         courseRepository.saveAll(Arrays.asList(course, course1));
 
         // Framework
