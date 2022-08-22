@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/email/**",
             "/telephone/**",
             "/framework/**",
-            "/softskills"
+            "/softskills/**"
     };
 
     private static final String[] PUBLIC_MATCHERS_POST = {
