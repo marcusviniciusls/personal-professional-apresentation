@@ -31,4 +31,16 @@ public class FindByIdSoftSkillsService {
         SoftSkillsResponse softSkillsResponse = softSkillsFactory.convertEntityInDto(softSkills);
         return softSkillsResponse;
     }
+
+    public SoftSkills findByIdSoftSkills(UUID id){
+        Optional<SoftSkills> optionalSoftSkills = softSkillsRepository.findById(id);
+        if (optionalSoftSkills.isEmpty()){
+            throw new ResourceNotFoundException("ID Not Found Exception");
+        }
+        SoftSkills softSkills = optionalSoftSkills.get();
+        if (!centerEntityService.isStatusSuperEntity(softSkills)){
+            throw new ResourceNotFoundException("ID Not Found Exception");
+        }
+        return softSkills;
+    }
 }

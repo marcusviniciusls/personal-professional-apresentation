@@ -1,14 +1,13 @@
 package br.com.marcus.dev.personal.professional.apresentation.controller;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.SoftSkillsFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.SoftSkillsFormUpdate;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormUpdate;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.PartnerResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.SoftSkillsResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
-import br.com.marcus.dev.personal.professional.apresentation.services.softskils.DeleteSoftSkillsService;
-import br.com.marcus.dev.personal.professional.apresentation.services.softskils.FindAllSoftSkillsService;
-import br.com.marcus.dev.personal.professional.apresentation.services.softskils.FindByIdSoftSkillsService;
-import br.com.marcus.dev.personal.professional.apresentation.services.softskils.SaveSoftSkillsService;
+import br.com.marcus.dev.personal.professional.apresentation.services.softskils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +27,7 @@ public class SoftSkillsController {
     @Autowired private FindByIdSoftSkillsService findByIdSoftSkillsService;
     @Autowired private SaveSoftSkillsService saveSoftSkillsService;
     @Autowired private DeleteSoftSkillsService deleteSoftSkillsService;
+    @Autowired private UpdateSoftSkillsService updateSoftSkillsService;
 
     @GetMapping
     public ResponseEntity<Page<SoftSkillsResponse>> findAll(Pageable page){
@@ -46,6 +46,13 @@ public class SoftSkillsController {
     public ResponseEntity<SoftSkillsResponse> save(@Valid @RequestBody SoftSkillsFormSave softSkillsFormSave){
         SoftSkillsResponse softSkillsResponse = saveSoftSkillsService.save(softSkillsFormSave);
         return ResponseEntity.status(HttpStatus.CREATED).body(softSkillsResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<SoftSkillsResponse> update(@PathVariable UUID id, @Valid @RequestBody SoftSkillsFormUpdate softSkillsFormUpdate){
+        SoftSkillsResponse softSkillsResponse = updateSoftSkillsService.update(softSkillsFormUpdate, id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(softSkillsResponse);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")

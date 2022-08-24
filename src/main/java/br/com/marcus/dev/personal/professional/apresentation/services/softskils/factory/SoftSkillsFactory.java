@@ -1,6 +1,7 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.softskils.factory;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.SoftSkillsFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.SoftSkillsFormUpdate;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.SoftSkillsResponse;
 import br.com.marcus.dev.personal.professional.apresentation.entities.SoftSkills;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,11 @@ public class SoftSkillsFactory {
         SoftSkills softSkills = new SoftSkills();
         softSkills.setName(softSkillsFormSave.getName());
         softSkills.setStatusHas(true);
+        return softSkills;
+    }
+
+    public SoftSkills convertFormUpdateToEntity(SoftSkillsFormUpdate softSkillsFormUpdate, SoftSkills softSkills){
+        softSkills.setName(softSkillsFormUpdate.getName());
         return softSkills;
     }
 }
