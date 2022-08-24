@@ -5,6 +5,7 @@ import br.com.marcus.dev.personal.professional.apresentation.dto.request.Telepho
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.PartnerResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.SoftSkillsResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
+import br.com.marcus.dev.personal.professional.apresentation.services.softskils.DeleteSoftSkillsService;
 import br.com.marcus.dev.personal.professional.apresentation.services.softskils.FindAllSoftSkillsService;
 import br.com.marcus.dev.personal.professional.apresentation.services.softskils.FindByIdSoftSkillsService;
 import br.com.marcus.dev.personal.professional.apresentation.services.softskils.SaveSoftSkillsService;
@@ -26,6 +27,7 @@ public class SoftSkillsController {
     @Autowired private FindAllSoftSkillsService findAllSoftSkillsService;
     @Autowired private FindByIdSoftSkillsService findByIdSoftSkillsService;
     @Autowired private SaveSoftSkillsService saveSoftSkillsService;
+    @Autowired private DeleteSoftSkillsService deleteSoftSkillsService;
 
     @GetMapping
     public ResponseEntity<Page<SoftSkillsResponse>> findAll(Pageable page){
@@ -44,5 +46,12 @@ public class SoftSkillsController {
     public ResponseEntity<SoftSkillsResponse> save(@Valid @RequestBody SoftSkillsFormSave softSkillsFormSave){
         SoftSkillsResponse softSkillsResponse = saveSoftSkillsService.save(softSkillsFormSave);
         return ResponseEntity.status(HttpStatus.CREATED).body(softSkillsResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id){
+        deleteSoftSkillsService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }
