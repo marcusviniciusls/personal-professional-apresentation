@@ -1,13 +1,11 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.email;
 
-import br.com.marcus.dev.personal.professional.apresentation.dto.request.EmailForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.EmailFormSave;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.EmailDto;
 import br.com.marcus.dev.personal.professional.apresentation.entities.DataPersonal;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Email;
-import br.com.marcus.dev.personal.professional.apresentation.repository.DataPersonalRepository;
 import br.com.marcus.dev.personal.professional.apresentation.repository.EmailRepository;
-import br.com.marcus.dev.personal.professional.apresentation.services.CenterEntityService;
+import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
 import br.com.marcus.dev.personal.professional.apresentation.services.datapersonal.FindByIdDataPersonalService;
 import br.com.marcus.dev.personal.professional.apresentation.services.email.factory.EmailFactory;
 import org.springframework.beans.factory.annotation.Autowired;

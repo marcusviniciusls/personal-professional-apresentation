@@ -1,4 +1,4 @@
-package br.com.marcus.dev.personal.professional.apresentation.services;
+package br.com.marcus.dev.personal.professional.apresentation.services.generalrule;
 
 import br.com.marcus.dev.personal.professional.apresentation.config.security.UserSS;
 import br.com.marcus.dev.personal.professional.apresentation.config.security.UserService;

@@ -3,12 +3,11 @@ package br.com.marcus.dev.personal.professional.apresentation.services.dataperso
 import br.com.marcus.dev.personal.professional.apresentation.entities.DataPersonal;
 import br.com.marcus.dev.personal.professional.apresentation.entities.User;
 import br.com.marcus.dev.personal.professional.apresentation.repository.DataPersonalRepository;
-import br.com.marcus.dev.personal.professional.apresentation.services.CenterEntityService;
+import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CheckSaveDataPersonalService {

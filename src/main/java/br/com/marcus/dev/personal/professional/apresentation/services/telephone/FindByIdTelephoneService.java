@@ -1,12 +1,10 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.telephone;
 
-import br.com.marcus.dev.personal.professional.apresentation.dto.response.EmailDto;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
-import br.com.marcus.dev.personal.professional.apresentation.entities.Email;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Telephone;
 import br.com.marcus.dev.personal.professional.apresentation.exception.custom.ResourceNotFoundException;
 import br.com.marcus.dev.personal.professional.apresentation.repository.TelephoneRepository;
-import br.com.marcus.dev.personal.professional.apresentation.services.CenterEntityService;
+import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
 import br.com.marcus.dev.personal.professional.apresentation.services.telephone.factory.TelephoneFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

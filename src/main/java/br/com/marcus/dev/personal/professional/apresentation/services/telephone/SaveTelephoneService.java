@@ -1,12 +1,11 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.telephone;
 
-import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormSave;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
 import br.com.marcus.dev.personal.professional.apresentation.entities.DataPersonal;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Telephone;
 import br.com.marcus.dev.personal.professional.apresentation.repository.TelephoneRepository;
-import br.com.marcus.dev.personal.professional.apresentation.services.CenterEntityService;
+import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
 import br.com.marcus.dev.personal.professional.apresentation.services.datapersonal.FindByIdDataPersonalService;
 import br.com.marcus.dev.personal.professional.apresentation.services.telephone.factory.TelephoneFactory;
 import org.springframework.beans.factory.annotation.Autowired;

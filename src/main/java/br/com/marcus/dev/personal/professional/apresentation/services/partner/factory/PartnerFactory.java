@@ -2,9 +2,8 @@ package br.com.marcus.dev.personal.professional.apresentation.services.partner.f
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.BranchActivityResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.PartnerResponse;
-import br.com.marcus.dev.personal.professional.apresentation.entities.BranchActivity;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Partner;
-import br.com.marcus.dev.personal.professional.apresentation.services.CenterEntityService;
+import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
 import br.com.marcus.dev.personal.professional.apresentation.services.branchactivity.factory.BranchActivityFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

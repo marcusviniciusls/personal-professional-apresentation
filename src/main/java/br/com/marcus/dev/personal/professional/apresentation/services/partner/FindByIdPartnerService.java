@@ -2,13 +2,11 @@ package br.com.marcus.dev.personal.professional.apresentation.services.partner;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.PartnerResponse;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Partner;
-import br.com.marcus.dev.personal.professional.apresentation.entities.Telephone;
 import br.com.marcus.dev.personal.professional.apresentation.exception.custom.ResourceNotFoundException;
 import br.com.marcus.dev.personal.professional.apresentation.repository.PartnerRepository;
-import br.com.marcus.dev.personal.professional.apresentation.services.CenterEntityService;
+import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
 import br.com.marcus.dev.personal.professional.apresentation.services.partner.factory.PartnerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

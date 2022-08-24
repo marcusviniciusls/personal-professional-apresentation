@@ -34,6 +34,12 @@ public class Activities extends SuperEntity{
     @ManyToOne
     @JoinColumn(name = "professional_goal_id")
     private ProfessionalGoal professionalGoal;
+    @ManyToOne
+    @JoinColumn(name = "soft_skills_id")
+    private SoftSkills softSkills;
+    @ManyToOne
+    @JoinColumn(name = "hard_skills_id")
+    private HardSkills hardSkills;
 
     public Activities(LocalDate date, String description, Course course) {
         this.date = date;

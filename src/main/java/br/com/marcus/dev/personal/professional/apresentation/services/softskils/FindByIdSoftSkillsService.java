@@ -2,10 +2,9 @@ package br.com.marcus.dev.personal.professional.apresentation.services.softskils
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.SoftSkillsResponse;
 import br.com.marcus.dev.personal.professional.apresentation.entities.SoftSkills;
-import br.com.marcus.dev.personal.professional.apresentation.entities.Telephone;
 import br.com.marcus.dev.personal.professional.apresentation.exception.custom.ResourceNotFoundException;
 import br.com.marcus.dev.personal.professional.apresentation.repository.SoftSkillsRepository;
-import br.com.marcus.dev.personal.professional.apresentation.services.CenterEntityService;
+import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
 import br.com.marcus.dev.personal.professional.apresentation.services.softskils.factory.SoftSkillsFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

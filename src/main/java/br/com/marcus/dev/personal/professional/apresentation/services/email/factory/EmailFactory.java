@@ -5,7 +5,7 @@ import br.com.marcus.dev.personal.professional.apresentation.dto.response.EmailD
 import br.com.marcus.dev.personal.professional.apresentation.entities.DataPersonal;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Email;
 import br.com.marcus.dev.personal.professional.apresentation.repository.EmailRepository;
-import br.com.marcus.dev.personal.professional.apresentation.services.CenterEntityService;
+import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
