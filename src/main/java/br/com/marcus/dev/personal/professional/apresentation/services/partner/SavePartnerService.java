@@ -1,5 +1,6 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.partner;
 
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.PartnerRequestFullFormSave;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.PartnerResponse;
 import br.com.marcus.dev.personal.professional.apresentation.repository.PartnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;

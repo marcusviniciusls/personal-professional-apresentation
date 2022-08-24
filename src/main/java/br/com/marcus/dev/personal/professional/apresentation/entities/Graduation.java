@@ -4,6 +4,7 @@ import br.com.marcus.dev.personal.professional.apresentation.entities.enums.Situ
 import br.com.marcus.dev.personal.professional.apresentation.entities.enums.TypeGraduation;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -13,14 +14,17 @@ import java.util.List;
 
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity
 @Table(name = "tb_graduation")
 public class Graduation extends SuperEntity {
 
     private String name;
     private int qtdHours;
-    private LocalDate dateInit;
-    private LocalDate dateFinish;
+    private LocalDate dateInitPreview;
+    private LocalDate dateFinishPreview;
+    private LocalDate dateInitReal;
+    private LocalDate dateFinishReal;
     private String location;
     private BigDecimal noteFinish;
     @Enumerated(EnumType.ORDINAL)
@@ -36,8 +40,8 @@ public class Graduation extends SuperEntity {
     public Graduation(String name, int qtdHours, LocalDate dateInit, LocalDate dateFinish, String location, BigDecimal noteFinish, SituationGraduation situationGraduation, TypeGraduation typeGraduation, Partner partner) {
         this.name = name;
         this.qtdHours = qtdHours;
-        this.dateInit = dateInit;
-        this.dateFinish = dateFinish;
+        this.dateInitReal = dateInit;
+        this.dateFinishReal = dateFinish;
         this.location = location;
         this.noteFinish = noteFinish;
         this.situationGraduation = situationGraduation;
@@ -45,7 +49,7 @@ public class Graduation extends SuperEntity {
         this.partner = partner;
     }
 
-    private void addListSubject(Subject subject){
+    public void addListSubject(Subject subject){
         this.listSubject.add(subject);
     }
 }

@@ -31,4 +31,16 @@ public class FindByIdPartnerService {
         PartnerResponse partnerResponse = partnerFactory.convertEntityInDto(partner);
         return partnerResponse;
     }
+
+    public Partner findByIdPartner(UUID id){
+        Optional<Partner> optionalPartner = partnerRepository.findById(id);
+        if (optionalPartner.isEmpty()){
+            throw new ResourceNotFoundException("ID Not Found Exception");
+        }
+        Partner partner = optionalPartner.get();
+        if (!centerEntityService.isStatusSuperEntity(partner)){
+            throw new ResourceNotFoundException("ID Not Found Exception");
+        }
+        return partner;
+    }
 }
