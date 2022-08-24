@@ -5,13 +5,16 @@ import br.com.marcus.dev.personal.professional.apresentation.entities.SoftSkills
 import br.com.marcus.dev.personal.professional.apresentation.entities.SuperEntity;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 @Component
 public class ActivitiesFactory {
 
-    public Activities convertSuperEntityToActivities(SuperEntity superEntity){
+    public Activities convertSoftSkillsToActivities(SoftSkills softSkills){
         Activities activities = new Activities();
-        if (superEntity.getClass().isInstance(SoftSkills.class)){
-            activities
-        }
+        activities.setSoftSkills(softSkills);
+        activities.setDate(LocalDate.now());
+        activities.setDescription("Save Soft Skills");
+        return activities;
     }
 }
