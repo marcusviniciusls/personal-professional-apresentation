@@ -1,5 +1,6 @@
 package br.com.marcus.dev.personal.professional.apresentation.config.initdata;
 
+import br.com.marcus.dev.personal.professional.apresentation.config.amazon.S3Service;
 import br.com.marcus.dev.personal.professional.apresentation.entities.*;
 import br.com.marcus.dev.personal.professional.apresentation.entities.enums.*;
 import br.com.marcus.dev.personal.professional.apresentation.repository.*;
@@ -43,9 +44,12 @@ public class InitializationData implements CommandLineRunner {
     @Autowired private TopicRepository topicRepository;
     @Autowired private ActivitiesRepository activitiesRepository;
     @Autowired private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired private S3Service s3Service;
 
     @Override
     public void run(String... args) throws Exception {
+
+        s3Service.uploadFile("/Users/marcusvinicius/Downloads/tiringa.gif");
 
         // User
         User user = new User();
