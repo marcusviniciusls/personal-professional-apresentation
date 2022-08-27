@@ -24,23 +24,40 @@ public class GraduationFactory {
         graduation.setTypeGraduation(TypeGraduation.toEnum(graduationFormSave.getTypeGraduation()));
         graduation.setSituationGraduation(SituationGraduation.toEnum(graduationFormSave.getSituationGraduation()));
         graduation.setDateFinishPreview(graduationFormSave.getDateFinishPreview());
-        graduation.setDateFinishReal(graduationFormSave.getDateFinishReal());
         graduation.setName(graduationFormSave.getName());
         graduation.setDateInitPreview(graduationFormSave.getDateInitPreview());
-        graduation.setDateInitReal(graduationFormSave.getDateInitReal());
         graduation.setLocation(graduationFormSave.getLocation());
+        graduation.setUrlUniversityDegree(graduationFormSave.getUrlUniversityDegree());
+        if (graduationFormSave.getDateFinishReal() != null && SituationGraduation.CONCLUSION.getNumber() == 0){
+            graduation.setDateFinishReal(graduationFormSave.getDateFinishReal());
+        }
+        if (graduationFormSave.getDateInitReal() != null && SituationGraduation.CONCLUSION.getNumber() == 0){
+            graduation.setDateInitReal(graduationFormSave.getDateInitReal());
+        }
         for (SubjectFormSave subjectFormSave: graduationFormSave.getListSubjectFormSave()){
             Subject subject = subjectFactory.convertSubjectFormSaveToEntity(subjectFormSave, graduation);
             graduation.addListSubject(subject);
         }
-
+        graduation.setNoteFinish(getNoteFinish(graduation.getListSubject()));
+        graduation.setQtdHours(getQtdHours(graduation.getListSubject()));
         return graduation;
     }
 
-    private BigDecimal noteFinish(List<Subject> listSubject){
+    private BigDecimal getNoteFinish(List<Subject> listSubject){
         List<BigDecimal> listNoteFinishBigDecimal = new ArrayList<>();
-        listNoteFinishBigDecimal.addAll(listSubject);
+        for (Subject subject : listSubject){
+            listNoteFinishBigDecimal.add(subject.getNote());
+        }
         BigDecimal noteFinish = listNoteFinishBigDecimal.stream().reduce(BigDecimal.ZERO, BigDecimal::add);
         return noteFinish;
+    }
+
+    private BigDecimal getQtdHours(List<Subject> listSubject){
+        List<BigDecimal> listQtdHours = new ArrayList<>();
+        for (Subject subject : listSubject){
+            listQtdHours.add(subject.getQtdHours());
+        }
+        BigDecimal qtdHoursTotal = listQtdHours.stream().reduce(BigDecimal.ZERO, BigDecimal::add);
+        return qtdHoursTotal;
     }
 }

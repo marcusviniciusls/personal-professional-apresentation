@@ -219,10 +219,10 @@ public class InitializationData implements CommandLineRunner {
         softSkillsRepository.saveAll(Arrays.asList(softSkills, softSkills1));
 
         // Graduacao
-        Graduation graduation = new Graduation("Gestao de Tecnologia da Informacao", 2400, LocalDate.of(2014, 1, 1),
+        Graduation graduation = new Graduation("Gestao de Tecnologia da Informacao", BigDecimal.valueOf(2400), LocalDate.of(2014, 1, 1),
                 LocalDate.of(2016, 6, 30), "Sao Paulo", BigDecimal.valueOf(9),
                 SituationGraduation.CONCLUSION, TypeGraduation.TECHNOLOGIST, partner);
-        Graduation graduation1 = new Graduation("Gestao Estrategica de Tecnologia da Informacao", 130, LocalDate.of(2018, 1, 1),
+        Graduation graduation1 = new Graduation("Gestao Estrategica de Tecnologia da Informacao", BigDecimal.valueOf(130), LocalDate.of(2018, 1, 1),
                 LocalDate.of(2020, 12, 15), "Braganca Paulista", BigDecimal.valueOf(10.0),
                 SituationGraduation.NOT_CONCLUSION, TypeGraduation.POST_DOCTORAL, partner1);
         graduation.setUser(user);
@@ -250,9 +250,9 @@ public class InitializationData implements CommandLineRunner {
         professionalGoalRepository.saveAll(Arrays.asList(professionalGoal, professionalGoal1));
 
         // Disciplina da Graduacao
-        Subject subject = new Subject("POO", 40, BigDecimal.valueOf(9.9), "teste", "periodo", SituationSubject.APPROVED,
+        Subject subject = new Subject("POO", BigDecimal.valueOf(40), BigDecimal.valueOf(9.9), "teste", "periodo", "teste", SituationSubject.APPROVED,
                 graduation);
-        Subject subject1 = new Subject("C#", 40, BigDecimal.valueOf(8.9), "teste", "periodo", SituationSubject.APPROVED,
+        Subject subject1 = new Subject("C#", BigDecimal.valueOf(40), BigDecimal.valueOf(8.9), "teste", "periodo", "teste", SituationSubject.APPROVED,
                 graduation1);
         subject.setUser(user);
         subject.setUserCreation(user.getName());

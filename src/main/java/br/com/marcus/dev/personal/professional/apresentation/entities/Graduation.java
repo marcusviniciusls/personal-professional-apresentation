@@ -20,13 +20,14 @@ import java.util.List;
 public class Graduation extends SuperEntity {
 
     private String name;
-    private int qtdHours;
+    private BigDecimal qtdHours;
     private LocalDate dateInitPreview;
     private LocalDate dateFinishPreview;
     private LocalDate dateInitReal;
     private LocalDate dateFinishReal;
     private String location;
     private BigDecimal noteFinish;
+    private String urlUniversityDegree;
     @Enumerated(EnumType.ORDINAL)
     private SituationGraduation situationGraduation;
     @Enumerated(EnumType.ORDINAL)
@@ -37,7 +38,7 @@ public class Graduation extends SuperEntity {
     @OneToMany(mappedBy = "graduation")
     private List<Subject> listSubject = new ArrayList<>();
 
-    public Graduation(String name, int qtdHours, LocalDate dateInit, LocalDate dateFinish, String location, BigDecimal noteFinish, SituationGraduation situationGraduation, TypeGraduation typeGraduation, Partner partner) {
+    public Graduation(String name, BigDecimal qtdHours, LocalDate dateInit, LocalDate dateFinish, String location, BigDecimal noteFinish, SituationGraduation situationGraduation, TypeGraduation typeGraduation, Partner partner) {
         this.name = name;
         this.qtdHours = qtdHours;
         this.dateInitReal = dateInit;

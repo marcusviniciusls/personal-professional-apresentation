@@ -12,12 +12,17 @@ public class SubjectFactory {
     public Subject convertSubjectFormSaveToEntity(SubjectFormSave subjectFormSave, Graduation graduation){
         Subject subject = new Subject();
         subject.setSituationSubject(SituationSubject.toEnum(subjectFormSave.getSituationSubject()));
-        subject.setDescription(subjectFormSave.getDescription());
         subject.setName(subjectFormSave.getName());
         subject.setNote(subjectFormSave.getNote());
         subject.setPeriod(subjectFormSave.getPeriod());
         subject.setQtdHours(subjectFormSave.getQtdHours());
         subject.setGraduation(graduation);
+        if(subjectFormSave.getDescription() != null){
+            subject.setDescription(subjectFormSave.getDescription());
+        }
+        if(subjectFormSave.getImageReportRecord() != null){
+            subject.setImageReportRecord(subjectFormSave.getImageReportRecord());
+        }
         return subject;
     }
 }

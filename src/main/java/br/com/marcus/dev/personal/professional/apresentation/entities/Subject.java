@@ -9,7 +9,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -18,13 +17,25 @@ import java.math.BigDecimal;
 public class Subject extends SuperEntity{
 
     private String name;
-    private int qtdHours;
+    private BigDecimal qtdHours;
     private BigDecimal note;
     private String description;
     private String period;
+    private String imageReportRecord;
     @Enumerated(EnumType.ORDINAL)
     private SituationSubject situationSubject;
     @ManyToOne
     @JoinColumn(name = "graduation_id")
     private Graduation graduation;
+
+    public Subject(String name, BigDecimal qtdHours, BigDecimal note, String description, String period, String imageReportRecord, SituationSubject situationSubject, Graduation graduation) {
+        this.name = name;
+        this.qtdHours = qtdHours;
+        this.note = note;
+        this.description = description;
+        this.period = period;
+        this.imageReportRecord = imageReportRecord;
+        this.situationSubject = situationSubject;
+        this.graduation = graduation;
+    }
 }
