@@ -1,5 +1,6 @@
 package br.com.marcus.dev.personal.professional.apresentation.exception.central;
 
+import br.com.marcus.dev.personal.professional.apresentation.exception.custom.ErrorDateInitAfterDateFinish;
 import br.com.marcus.dev.personal.professional.apresentation.exception.custom.ErrorSavingRecordException;
 import br.com.marcus.dev.personal.professional.apresentation.exception.custom.ResourceNotFoundException;
 import br.com.marcus.dev.personal.professional.apresentation.exception.custom.StandardError;
@@ -36,6 +37,22 @@ public class ResourceExceptionHandler {
         String error = "ERROR SAVING RECORD EXCEPTION";
         HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
         StandardError standardError = new StandardError(Instant.now(), httpStatus.value(), error, errorSavingRecordException.getMessage(), httpServletRequest.getRequestURI());
+        return ResponseEntity.status(httpStatus).body(standardError);
+    }
+
+    @ExceptionHandler(ErrorDateInitAfterDateFinish.class)
+    public ResponseEntity<StandardError> errorDateInitAfterDateFinish(ErrorDateInitAfterDateFinish errorDateInitAfterDateFinish, HttpServletRequest httpServletRequest) {
+        String error = "ERROR DATE INIT BEFORE DATE FINISH";
+        HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+        StandardError standardError = new StandardError(Instant.now(), httpStatus.value(), error, errorDateInitAfterDateFinish.getMessage(), httpServletRequest.getRequestURI());
+        return ResponseEntity.status(httpStatus).body(standardError);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<StandardError> illegalArgumentException(IllegalArgumentException illegalArgumentException, HttpServletRequest httpServletRequest) {
+        String error = "ENUM INCORRECT";
+        HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+        StandardError standardError = new StandardError(Instant.now(), httpStatus.value(), error, illegalArgumentException.getMessage(), httpServletRequest.getRequestURI());
         return ResponseEntity.status(httpStatus).body(standardError);
     }
 }

@@ -12,7 +12,10 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -26,9 +29,10 @@ public class GraduationFormSave {
 
     @NotBlank(message = "Name cannot be blank")
     private String name;
-    private BigDecimal qtdHours;
+    @NotNull
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateInitPreview;
+    @NotNull
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateFinishPreview;
     @JsonFormat(pattern = "dd/MM/yyyy")
@@ -37,11 +41,11 @@ public class GraduationFormSave {
     private LocalDate dateFinishReal;
     @NotBlank(message = "Location cannot be blank")
     private String location;
-    private BigDecimal noteFinish;
-    private Integer situationGraduation;
+    @NotNull
     private Integer typeGraduation;
     @NotBlank(message = "Partner Graduation cannot be blank")
     private String partnerId;
     private String urlUniversityDegree;
-    private List<SubjectFormSave> listSubjectFormSave = new ArrayList<>();
+    @NotEmpty
+    private List<@Valid SubjectFormSave> listSubjectFormSave = new ArrayList<>();
 }

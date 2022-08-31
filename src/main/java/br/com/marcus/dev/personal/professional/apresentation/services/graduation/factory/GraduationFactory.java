@@ -32,7 +32,6 @@ public class GraduationFactory {
     public Graduation convertFormSaveToEntity(GraduationFormSave graduationFormSave){
         Graduation graduation = new Graduation();
         graduation.setTypeGraduation(TypeGraduation.toEnum(graduationFormSave.getTypeGraduation()));
-        graduation.setSituationGraduation(SituationGraduation.toEnum(graduationFormSave.getSituationGraduation()));
         graduation.setDateFinishPreview(graduationFormSave.getDateFinishPreview());
         graduation.setName(graduationFormSave.getName());
         graduation.setDateInitPreview(graduationFormSave.getDateInitPreview());
@@ -44,8 +43,13 @@ public class GraduationFactory {
         if (graduationFormSave.getDateInitReal() != null && SituationGraduation.CONCLUSION.getNumber() == 0){
             graduation.setDateInitReal(graduationFormSave.getDateInitReal());
         }
-        graduation.setNoteFinish(getNoteFinish(graduation.getListSubject()));
-        graduation.setQtdHours(getQtdHours(graduation.getListSubject()));
+        if (graduationFormSave.getDateInitReal() == null && graduationFormSave.getDateFinishReal() == null){
+            graduation.setSituationGraduation(SituationGraduation.NOT_CONCLUSION);
+        } else if (graduationFormSave.getDateInitReal() != null && graduationFormSave.getDateFinishReal() == null){
+            graduation.setSituationGraduation(SituationGraduation.IN_PROGRESS);
+        } else if (graduationFormSave.getDateInitReal() != null && graduationFormSave.getDateFinishReal() != null){
+            graduation.setSituationGraduation(SituationGraduation.CONCLUSION);
+        }
 
         Partner partner = findByIdPartnerService.findByIdPartner(UUID.fromString(graduationFormSave.getPartnerId()));
         graduation.setPartner(partner);
@@ -57,7 +61,11 @@ public class GraduationFactory {
             subject = (Subject) centerEntityService.setDataToSave(subject);
             subject.setGraduation(graduation);
             subject = subjectRepository.save(subject);
+            graduation.addListSubject(subject);
         }
+        graduation.setNoteFinish(getNoteFinish(graduation.getListSubject()));
+        graduation.setQtdHours(getQtdHours(graduation.getListSubject()));
+        graduationRepository.save(graduation);
         return graduation;
     }
 
@@ -67,7 +75,9 @@ public class GraduationFactory {
             listNoteFinishBigDecimal.add(subject.getNote());
         }
         BigDecimal noteFinish = listNoteFinishBigDecimal.stream().reduce(BigDecimal.ZERO, BigDecimal::add);
-        return noteFinish;
+        Integer quantityElement = listSubject.size();
+        BigDecimal media = noteFinish.divide(BigDecimal.valueOf(quantityElement));
+        return media;
     }
 
     private BigDecimal getQtdHours(List<Subject> listSubject){
