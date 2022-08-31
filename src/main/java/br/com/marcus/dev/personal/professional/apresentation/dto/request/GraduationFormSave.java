@@ -3,6 +3,7 @@ package br.com.marcus.dev.personal.professional.apresentation.dto.request;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Partner;
 import br.com.marcus.dev.personal.professional.apresentation.entities.enums.SituationGraduation;
 import br.com.marcus.dev.personal.professional.apresentation.entities.enums.TypeGraduation;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,21 +27,21 @@ public class GraduationFormSave {
     @NotBlank(message = "Name cannot be blank")
     private String name;
     private BigDecimal qtdHours;
-    @NotBlank(message = "Data Init Preview cannot be blank")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateInitPreview;
-    @NotBlank(message = "Data Finish Preview cannot be blank")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateFinishPreview;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateInitReal;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateFinishReal;
     @NotBlank(message = "Location cannot be blank")
     private String location;
     private BigDecimal noteFinish;
-    @NotBlank(message = "Situation Graduation cannot be blank")
     private Integer situationGraduation;
-    @NotBlank(message = "Type Graduation cannot be blank")
     private Integer typeGraduation;
     @NotBlank(message = "Partner Graduation cannot be blank")
-    private UUID partnerId;
+    private String partnerId;
     private String urlUniversityDegree;
-    private List<@NotBlank(message = "Partner Graduation cannot be blank") SubjectFormSave> listSubjectFormSave = new ArrayList<>();
+    private List<SubjectFormSave> listSubjectFormSave = new ArrayList<>();
 }

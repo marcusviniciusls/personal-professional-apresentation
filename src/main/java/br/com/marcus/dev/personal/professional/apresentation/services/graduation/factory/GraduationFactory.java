@@ -3,9 +3,14 @@ package br.com.marcus.dev.personal.professional.apresentation.services.graduatio
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.GraduationFormSave;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.SubjectFormSave;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Graduation;
+import br.com.marcus.dev.personal.professional.apresentation.entities.Partner;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Subject;
 import br.com.marcus.dev.personal.professional.apresentation.entities.enums.SituationGraduation;
 import br.com.marcus.dev.personal.professional.apresentation.entities.enums.TypeGraduation;
+import br.com.marcus.dev.personal.professional.apresentation.repository.GraduationRepository;
+import br.com.marcus.dev.personal.professional.apresentation.repository.SubjectRepository;
+import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
+import br.com.marcus.dev.personal.professional.apresentation.services.partner.FindByIdPartnerService;
 import br.com.marcus.dev.personal.professional.apresentation.services.subject.factory.SubjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,11 +18,16 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Component
 public class GraduationFactory {
 
     @Autowired private SubjectFactory subjectFactory;
+    @Autowired private SubjectRepository subjectRepository;
+    @Autowired private CenterEntityService centerEntityService;
+    @Autowired private FindByIdPartnerService findByIdPartnerService;
+    @Autowired private GraduationRepository graduationRepository;
 
     public Graduation convertFormSaveToEntity(GraduationFormSave graduationFormSave){
         Graduation graduation = new Graduation();
@@ -34,12 +44,20 @@ public class GraduationFactory {
         if (graduationFormSave.getDateInitReal() != null && SituationGraduation.CONCLUSION.getNumber() == 0){
             graduation.setDateInitReal(graduationFormSave.getDateInitReal());
         }
-        for (SubjectFormSave subjectFormSave: graduationFormSave.getListSubjectFormSave()){
-            Subject subject = subjectFactory.convertSubjectFormSaveToEntity(subjectFormSave, graduation);
-            graduation.addListSubject(subject);
-        }
         graduation.setNoteFinish(getNoteFinish(graduation.getListSubject()));
         graduation.setQtdHours(getQtdHours(graduation.getListSubject()));
+
+        Partner partner = findByIdPartnerService.findByIdPartner(UUID.fromString(graduationFormSave.getPartnerId()));
+        graduation.setPartner(partner);
+        graduation = (Graduation) centerEntityService.setDataToSave(graduation);
+        graduationRepository.save(graduation);
+
+        for (SubjectFormSave subjectFormSave: graduationFormSave.getListSubjectFormSave()){
+            Subject subject = subjectFactory.convertSubjectFormSaveToEntity(subjectFormSave, graduation);
+            subject = (Subject) centerEntityService.setDataToSave(subject);
+            subject.setGraduation(graduation);
+            subject = subjectRepository.save(subject);
+        }
         return graduation;
     }
 

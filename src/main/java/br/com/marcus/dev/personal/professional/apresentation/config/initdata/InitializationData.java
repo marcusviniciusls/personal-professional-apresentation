@@ -49,7 +49,7 @@ public class InitializationData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        s3Service.uploadFile("/Users/marcusvinicius/Downloads/tiringa.gif");
+        //s3Service.uploadFile("/Users/marcusvinicius/Downloads/tiringa.gif");
 
         // User
         User user = new User();

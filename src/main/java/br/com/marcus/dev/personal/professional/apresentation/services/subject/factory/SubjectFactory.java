@@ -16,7 +16,6 @@ public class SubjectFactory {
         subject.setNote(subjectFormSave.getNote());
         subject.setPeriod(subjectFormSave.getPeriod());
         subject.setQtdHours(subjectFormSave.getQtdHours());
-        subject.setGraduation(graduation);
         if(subjectFormSave.getDescription() != null){
             subject.setDescription(subjectFormSave.getDescription());
         }
