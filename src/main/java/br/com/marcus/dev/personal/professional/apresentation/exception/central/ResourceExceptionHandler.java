@@ -1,9 +1,10 @@
 package br.com.marcus.dev.personal.professional.apresentation.exception.central;
 
-import br.com.marcus.dev.personal.professional.apresentation.exception.custom.ErrorDateInitAfterDateFinish;
-import br.com.marcus.dev.personal.professional.apresentation.exception.custom.ErrorSavingRecordException;
-import br.com.marcus.dev.personal.professional.apresentation.exception.custom.ResourceNotFoundException;
-import br.com.marcus.dev.personal.professional.apresentation.exception.custom.StandardError;
+import br.com.marcus.dev.personal.professional.apresentation.exception.custom.*;
+import com.amazonaws.AmazonClientException;
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.services.alexaforbusiness.AmazonAlexaForBusinessClient;
+import com.amazonaws.services.s3.model.AmazonS3Exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -53,6 +54,38 @@ public class ResourceExceptionHandler {
         String error = "ENUM INCORRECT";
         HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
         StandardError standardError = new StandardError(Instant.now(), httpStatus.value(), error, illegalArgumentException.getMessage(), httpServletRequest.getRequestURI());
+        return ResponseEntity.status(httpStatus).body(standardError);
+    }
+
+    @ExceptionHandler(FileException.class)
+    public ResponseEntity<StandardError> fileException(FileException fileException, HttpServletRequest httpServletRequest) {
+        String error = "FILE EXCEPTION";
+        HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+        StandardError standardError = new StandardError(Instant.now(), httpStatus.value(), error, fileException.getMessage(), httpServletRequest.getRequestURI());
+        return ResponseEntity.status(httpStatus).body(standardError);
+    }
+
+    @ExceptionHandler(AmazonServiceException.class)
+    public ResponseEntity<StandardError> amazonServiceException(AmazonServiceException amazonServiceException, HttpServletRequest httpServletRequest) {
+        String error = "AMAZON SERVICE EXCEPTION";
+        HttpStatus httpStatus = HttpStatus.valueOf(amazonServiceException.getStatusCode());
+        StandardError standardError = new StandardError(Instant.now(), httpStatus.value(), error, amazonServiceException.getMessage(), httpServletRequest.getRequestURI());
+        return ResponseEntity.status(httpStatus).body(standardError);
+    }
+
+    @ExceptionHandler(AmazonClientException.class)
+    public ResponseEntity<StandardError> amazonClientException(AmazonClientException amazonClientException, HttpServletRequest httpServletRequest) {
+        String error = "AMAZON CLIENT EXCEPTION";
+        HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+        StandardError standardError = new StandardError(Instant.now(), httpStatus.value(), error, amazonClientException.getMessage(), httpServletRequest.getRequestURI());
+        return ResponseEntity.status(httpStatus).body(standardError);
+    }
+
+    @ExceptionHandler(AmazonS3Exception.class)
+    public ResponseEntity<StandardError> amazonS3Exception(AmazonS3Exception amazonS3Exception, HttpServletRequest httpServletRequest) {
+        String error = "AMAZON S3 EXCEPTION";
+        HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+        StandardError standardError = new StandardError(Instant.now(), httpStatus.value(), error, amazonS3Exception.getMessage(), httpServletRequest.getRequestURI());
         return ResponseEntity.status(httpStatus).body(standardError);
     }
 }

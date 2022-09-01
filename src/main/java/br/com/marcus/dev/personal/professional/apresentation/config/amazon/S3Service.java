@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import br.com.marcus.dev.personal.professional.apresentation.exception.custom.FileException;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.model.ObjectMetadata;
@@ -36,7 +37,7 @@ public class S3Service {
             String contextType = multipartFile.getContentType();
             return uploadFile(inputStream, fileName, contextType);
         } catch (IOException ioException){
-            throw new RuntimeException("ERROR IO: " + ioException.getMessage());
+            throw new FileException("ERROR IO: " + ioException.getMessage());
         }
     }
 
@@ -49,7 +50,7 @@ public class S3Service {
             LOG.info("Finalizando Upload");
             return s3Client.getUrl(bucketName, fileName).toURI();
         } catch(URISyntaxException uriSyntaxException){
-            throw new RuntimeException("error converting URL to URI");
+            throw new FileException("error converting URL to URI");
         }
     }
 }
