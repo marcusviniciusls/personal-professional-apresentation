@@ -71,8 +71,8 @@ public class InitializationData implements CommandLineRunner {
         BranchActivity branchActivity1 = new BranchActivity("Consultoria");
         branchActivity1.setUser(administrator);
         branchActivity1.setUserCreation(administrator.getName());
-        branchActivity.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff701"));
-        branchActivity1.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff702"));
+        branchActivity.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff701"));
+        branchActivity1.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff702"));
         branchActivity1.setStatus(false);
         branchActivityRepository.saveAll(Arrays.asList(branchActivity, branchActivity1));
 
@@ -86,8 +86,8 @@ public class InitializationData implements CommandLineRunner {
         partner1.setUser(administrator);
         partner1.setUserCreation(administrator.getName());
         //partner.setStatus(false);
-        partner.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff709"));
-        partner1.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff710"));
+        partner.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff709"));
+        partner1.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff710"));
         partnerRepository.saveAll(Arrays.asList(partner, partner1));
 
         // Dados Pessoais
@@ -97,8 +97,8 @@ public class InitializationData implements CommandLineRunner {
         dataPersonal1.setUserCreation(administrator.getName());
         dataPersonal.setUser(user);
         dataPersonal.setUserCreation(user.getName());
-        dataPersonal.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff703"));
-        dataPersonal1.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff704"));
+        dataPersonal.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff703"));
+        dataPersonal1.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff704"));
         dataPersonal1.setStatus(false);
         dataPersonalRepository.saveAll(Arrays.asList(dataPersonal, dataPersonal1));
 
@@ -110,8 +110,8 @@ public class InitializationData implements CommandLineRunner {
         telephone.setUser(user);
         telephone.setUserCreation(user.getName());
         telephone1.setStatus(false);
-        telephone.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff707"));
-        telephone1.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff708"));
+        telephone.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff707"));
+        telephone1.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff708"));
         telephoneRepository.saveAll(Arrays.asList(telephone, telephone1));
 
         // Email
@@ -122,8 +122,8 @@ public class InitializationData implements CommandLineRunner {
         email1.setUser(administrator);
         email1.setUserCreation(administrator.getName());
         email1.setStatus(false);
-        email.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff705"));
-        email1.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff706"));
+        email.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff705"));
+        email1.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff706"));
         emailRepository.saveAll(Arrays.asList(email, email1));
 
         // Curso
@@ -149,8 +149,8 @@ public class InitializationData implements CommandLineRunner {
         framework.setUserCreation(user.getName());
         framework1.setUser(administrator);
         framework1.setUserCreation(administrator.getName());
-        framework.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff711"));
-        framework1.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff712"));
+        framework.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff711"));
+        framework1.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff712"));
         frameworkRepository.saveAll(Arrays.asList(framework, framework1));
 
         // Linguagem
@@ -218,8 +218,8 @@ public class InitializationData implements CommandLineRunner {
         softSkills.setUserCreation(user.getName());
         softSkills1.setUser(administrator);
         softSkills1.setUserCreation(administrator.getName());
-        softSkills.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff713"));
-        softSkills1.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff714"));
+        softSkills.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff713"));
+        softSkills1.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff714"));
         softSkillsRepository.saveAll(Arrays.asList(softSkills, softSkills1));
 
         // Graduacao
@@ -237,8 +237,8 @@ public class InitializationData implements CommandLineRunner {
         graduation.setDateFinishPreview(LocalDate.now());
         graduation.setUrlUniversityDegree("teste");
         graduation.setPartner(partner);
-        graduation.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff711"));
-        graduation1.setUuid(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff712"));
+        graduation.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff711"));
+        graduation1.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff712"));
         graduation1.setStatus(false);
         graduationRepository.saveAll(Arrays.asList(graduation1, graduation));
 

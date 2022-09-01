@@ -35,6 +35,6 @@ public class SaveGraduationService {
             }
         }
         Graduation graduation = graduationFactory.convertFormSaveToEntity(graduationFormSave);
-        return graduation.getUuid();
+        return graduation.getId();
     }
 }

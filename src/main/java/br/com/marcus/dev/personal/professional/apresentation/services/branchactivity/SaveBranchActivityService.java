@@ -22,4 +22,11 @@ public class SaveBranchActivityService {
         branchActivity = branchActivityRepository.save(branchActivity);
         return branchActivityFactory.convertEntityInResponse(branchActivity);
     }
+
+    public BranchActivity saveEntity(BranchActivityForm branchActivityForm){
+        BranchActivity branchActivity = branchActivityFactory.convertRequestInEntity(branchActivityForm);
+        branchActivity = (BranchActivity) centerEntityService.setDataToSave(branchActivity);
+        branchActivity = branchActivityRepository.save(branchActivity);
+        return branchActivity;
+    }
 }
