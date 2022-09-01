@@ -32,4 +32,16 @@ public class FindByIdGraduationService {
         GraduationResponse graduationResponse = graduationFactory.convertEntityInDto(graduation);
         return graduationResponse;
     }
+
+    public Graduation findByIdEntity(UUID id){
+        Optional<Graduation> optionalGraduation = graduationRepository.findById(id);
+        if (optionalGraduation.isEmpty()){
+            throw new ResourceNotFoundException("ID Not Found Exception");
+        }
+        Graduation graduation = optionalGraduation.get();
+        if (!centerEntityService.isStatusSuperEntity(graduation)){
+            throw new ResourceNotFoundException("ID Not Found Exception");
+        }
+        return graduation;
+    }
 }

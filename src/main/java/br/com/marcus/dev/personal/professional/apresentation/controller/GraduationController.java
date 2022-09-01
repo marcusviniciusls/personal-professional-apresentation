@@ -1,6 +1,8 @@
 package br.com.marcus.dev.personal.professional.apresentation.controller;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.GraduationFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.GraduationFormUpdate;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormUpdate;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.GraduationResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
 import br.com.marcus.dev.personal.professional.apresentation.services.graduation.*;
@@ -25,6 +27,7 @@ public class GraduationController {
     @Autowired private FindAllGraduationService findAllGraduationService;
     @Autowired private FindByIdGraduationService findByIdGraduationService;
     @Autowired private DeleteGraduationService deleteGraduationService;
+    @Autowired private UpdateGraduationService updateGraduationService;
 
     @GetMapping
     public ResponseEntity<Page<GraduationResponse>> findAll(Pageable page){
@@ -50,6 +53,13 @@ public class GraduationController {
     public ResponseEntity<?> saveImage(@RequestParam(name = "file") MultipartFile multipartFile, @PathVariable UUID id){
         saveImageGraduationService.saveimage(multipartFile, id);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<GraduationResponse> update(@PathVariable UUID id, @Valid @RequestBody GraduationFormUpdate graduationFormUpdate){
+        GraduationResponse graduationResponse = updateGraduationService.update(graduationFormUpdate, id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(graduationResponse);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")

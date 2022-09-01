@@ -1,6 +1,7 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.graduation.factory;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.GraduationFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.GraduationFormUpdate;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.SubjectFormSave;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.GraduationResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.PartnerResponse;
@@ -100,5 +101,10 @@ public class GraduationFactory {
         PartnerResponse partnerResponse = modelMapper.map(graduation.getPartner(), PartnerResponse.class);
         graduationResponse.setPartnerResponse(partnerResponse);
         return graduationResponse;
+    }
+
+    public Graduation convertFormUpdateInEntity(GraduationFormUpdate graduationFormUpdate, Graduation graduation){
+        graduation = modelMapper.map(graduationFormUpdate, Graduation.class);
+        return graduation;
     }
 }
