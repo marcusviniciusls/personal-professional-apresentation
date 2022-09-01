@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @NoArgsConstructor
 @Setter
@@ -29,5 +30,5 @@ public class GraduationFormUpdate {
     private LocalDate dateFinishReal;
     private String location;
     private Integer typeGraduation;
-    private String partnerId;
+    private UUID partnerId;
 }

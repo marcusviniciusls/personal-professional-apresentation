@@ -15,12 +15,14 @@ import br.com.marcus.dev.personal.professional.apresentation.repository.SubjectR
 import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
 import br.com.marcus.dev.personal.professional.apresentation.services.partner.FindByIdPartnerService;
 import br.com.marcus.dev.personal.professional.apresentation.services.subject.factory.SubjectFactory;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -98,13 +100,37 @@ public class GraduationFactory {
 
     public GraduationResponse convertEntityInDto(Graduation graduation){
         GraduationResponse graduationResponse = modelMapper.map(graduation, GraduationResponse.class);
-        PartnerResponse partnerResponse = modelMapper.map(graduation.getPartner(), PartnerResponse.class);
-        graduationResponse.setPartnerResponse(partnerResponse);
+        if (graduation.getPartner() != null){
+            PartnerResponse partnerResponse = modelMapper.map(graduation.getPartner(), PartnerResponse.class);
+            graduationResponse.setPartnerResponse(partnerResponse);
+        }
         return graduationResponse;
     }
 
     public Graduation convertFormUpdateInEntity(GraduationFormUpdate graduationFormUpdate, Graduation graduation){
-        graduation = modelMapper.map(graduationFormUpdate, Graduation.class);
+        if (graduationFormUpdate.getName() != null){
+            graduation.setName(graduationFormUpdate.getName());
+        }
+        if (graduationFormUpdate.getDateInitPreview() != null){
+            graduation.setDateInitPreview(graduationFormUpdate.getDateInitPreview());
+        }
+        if (graduationFormUpdate.getDateFinishPreview() != null){
+            graduation.setDateFinishPreview(graduationFormUpdate.getDateFinishPreview());
+        }
+        if (graduationFormUpdate.getDateInitReal() != null){
+            graduation.setDateInitReal(graduationFormUpdate.getDateInitReal());
+        }
+        if (graduationFormUpdate.getDateFinishReal() != null){
+            graduation.setDateFinishReal(graduationFormUpdate.getDateFinishReal());
+        }
+        if (graduationFormUpdate.getLocation() != null){
+            graduation.setLocation(graduationFormUpdate.getLocation());
+        }
+        if (graduationFormUpdate.getTypeGraduation() != null){
+            graduation.setTypeGraduation(TypeGraduation.toEnum(graduationFormUpdate.getTypeGraduation()));
+        }
+        Partner partner = findByIdPartnerService.findByIdPartner(graduationFormUpdate.getPartnerId());
+        graduation.setPartner(partner);
         return graduation;
     }
 }
