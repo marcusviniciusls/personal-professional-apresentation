@@ -2,6 +2,8 @@ package br.com.marcus.dev.personal.professional.apresentation.services.graduatio
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.GraduationFormSave;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.SubjectFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.response.GraduationResponse;
+import br.com.marcus.dev.personal.professional.apresentation.dto.response.PartnerResponse;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Graduation;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Partner;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Subject;
@@ -12,6 +14,8 @@ import br.com.marcus.dev.personal.professional.apresentation.repository.SubjectR
 import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
 import br.com.marcus.dev.personal.professional.apresentation.services.partner.FindByIdPartnerService;
 import br.com.marcus.dev.personal.professional.apresentation.services.subject.factory.SubjectFactory;
+import lombok.NoArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +25,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
+@NoArgsConstructor
 public class GraduationFactory {
 
     @Autowired private SubjectFactory subjectFactory;
@@ -28,6 +33,7 @@ public class GraduationFactory {
     @Autowired private CenterEntityService centerEntityService;
     @Autowired private FindByIdPartnerService findByIdPartnerService;
     @Autowired private GraduationRepository graduationRepository;
+    @Autowired private ModelMapper modelMapper;
 
     public Graduation convertFormSaveToEntity(GraduationFormSave graduationFormSave){
         Graduation graduation = new Graduation();
@@ -87,5 +93,12 @@ public class GraduationFactory {
         }
         BigDecimal qtdHoursTotal = listQtdHours.stream().reduce(BigDecimal.ZERO, BigDecimal::add);
         return qtdHoursTotal;
+    }
+
+    public GraduationResponse convertEntityInDto(Graduation graduation){
+        GraduationResponse graduationResponse = modelMapper.map(graduation, GraduationResponse.class);
+        PartnerResponse partnerResponse = modelMapper.map(graduation.getPartner(), PartnerResponse.class);
+        graduationResponse.setPartnerResponse(partnerResponse);
+        return graduationResponse;
     }
 }

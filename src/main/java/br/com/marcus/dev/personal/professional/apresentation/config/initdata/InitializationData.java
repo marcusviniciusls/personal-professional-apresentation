@@ -233,6 +233,10 @@ public class InitializationData implements CommandLineRunner {
         graduation.setUserCreation(user.getName());
         graduation1.setUser(administrator);
         graduation1.setUserCreation(administrator.getName());
+        graduation.setDateInitPreview(LocalDate.now());
+        graduation.setDateFinishPreview(LocalDate.now());
+        graduation.setUrlUniversityDegree("teste");
+        graduation.setPartner(partner);
         graduationRepository.saveAll(Arrays.asList(graduation1, graduation));
 
         // Material

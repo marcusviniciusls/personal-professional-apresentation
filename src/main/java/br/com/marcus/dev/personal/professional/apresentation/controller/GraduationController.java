@@ -1,9 +1,13 @@
 package br.com.marcus.dev.personal.professional.apresentation.controller;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.GraduationFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.response.GraduationResponse;
+import br.com.marcus.dev.personal.professional.apresentation.services.graduation.FindAllGraduationService;
 import br.com.marcus.dev.personal.professional.apresentation.services.graduation.SaveGraduationService;
 import br.com.marcus.dev.personal.professional.apresentation.services.graduation.SaveImageGraduationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,6 +23,13 @@ public class GraduationController {
 
     @Autowired private SaveGraduationService saveGraduationService;
     @Autowired private SaveImageGraduationService saveImageGraduationService;
+    @Autowired private FindAllGraduationService findAllGraduationService;
+
+    @GetMapping
+    public ResponseEntity<Page<GraduationResponse>> findAll(Pageable page){
+        Page<GraduationResponse> partnerResponse = findAllGraduationService.findAllGraduation(page);
+        return ResponseEntity.ok().body(partnerResponse);
+    }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping

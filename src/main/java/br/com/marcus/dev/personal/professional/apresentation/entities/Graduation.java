@@ -32,7 +32,7 @@ public class Graduation extends SuperEntity {
     private SituationGraduation situationGraduation;
     @Enumerated(EnumType.ORDINAL)
     private TypeGraduation typeGraduation;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "partner_id")
     private Partner partner;
     @OneToMany(mappedBy = "graduation")
