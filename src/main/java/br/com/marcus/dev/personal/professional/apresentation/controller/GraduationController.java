@@ -2,7 +2,9 @@ package br.com.marcus.dev.personal.professional.apresentation.controller;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.GraduationFormSave;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.GraduationResponse;
+import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
 import br.com.marcus.dev.personal.professional.apresentation.services.graduation.FindAllGraduationService;
+import br.com.marcus.dev.personal.professional.apresentation.services.graduation.FindByIdGraduationService;
 import br.com.marcus.dev.personal.professional.apresentation.services.graduation.SaveGraduationService;
 import br.com.marcus.dev.personal.professional.apresentation.services.graduation.SaveImageGraduationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +26,18 @@ public class GraduationController {
     @Autowired private SaveGraduationService saveGraduationService;
     @Autowired private SaveImageGraduationService saveImageGraduationService;
     @Autowired private FindAllGraduationService findAllGraduationService;
+    @Autowired private FindByIdGraduationService findByIdGraduationService;
 
     @GetMapping
     public ResponseEntity<Page<GraduationResponse>> findAll(Pageable page){
         Page<GraduationResponse> partnerResponse = findAllGraduationService.findAllGraduation(page);
         return ResponseEntity.ok().body(partnerResponse);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<GraduationResponse> findById(@PathVariable UUID id){
+        GraduationResponse graduationResponse = findByIdGraduationService.findById(id);
+        return ResponseEntity.ok().body(graduationResponse);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
