@@ -3,10 +3,7 @@ package br.com.marcus.dev.personal.professional.apresentation.controller;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.GraduationFormSave;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.GraduationResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
-import br.com.marcus.dev.personal.professional.apresentation.services.graduation.FindAllGraduationService;
-import br.com.marcus.dev.personal.professional.apresentation.services.graduation.FindByIdGraduationService;
-import br.com.marcus.dev.personal.professional.apresentation.services.graduation.SaveGraduationService;
-import br.com.marcus.dev.personal.professional.apresentation.services.graduation.SaveImageGraduationService;
+import br.com.marcus.dev.personal.professional.apresentation.services.graduation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +24,7 @@ public class GraduationController {
     @Autowired private SaveImageGraduationService saveImageGraduationService;
     @Autowired private FindAllGraduationService findAllGraduationService;
     @Autowired private FindByIdGraduationService findByIdGraduationService;
+    @Autowired private DeleteGraduationService deleteGraduationService;
 
     @GetMapping
     public ResponseEntity<Page<GraduationResponse>> findAll(Pageable page){
@@ -52,5 +50,12 @@ public class GraduationController {
     public ResponseEntity<?> saveImage(@RequestParam(name = "file") MultipartFile multipartFile, @PathVariable UUID id){
         saveImageGraduationService.saveimage(multipartFile, id);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id){
+        deleteGraduationService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }
