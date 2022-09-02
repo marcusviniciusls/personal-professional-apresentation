@@ -17,7 +17,7 @@ public class SaveActivitiesService {
 
     public void saveMovementSoftSkills(SoftSkills softSkills) {
         Activities activities = activitiesFactory.convertSoftSkillsToActivities(softSkills);
-        activities = (Activities) centerEntityService.setDataToSave(softSkills);
+        activities = (Activities) centerEntityService.setDataToSave(activities);
         activitiesRepository.save(activities);
     }
 }

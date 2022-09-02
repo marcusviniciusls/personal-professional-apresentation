@@ -2,7 +2,6 @@ package br.com.marcus.dev.personal.professional.apresentation.services.activitie
 
 import br.com.marcus.dev.personal.professional.apresentation.entities.Activities;
 import br.com.marcus.dev.personal.professional.apresentation.entities.SoftSkills;
-import br.com.marcus.dev.personal.professional.apresentation.entities.SuperEntity;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
