@@ -1,6 +1,7 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.framework.factory;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.FrameworkSaveForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.FrameworkUpdateForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.CourseResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.FrameworkResponse;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Framework;
@@ -36,5 +37,15 @@ public class FrameworkFactory {
     public FrameworkResponse convertEntityInResponse(Framework framework){
         FrameworkResponse frameworkResponse = modelMapper.map(framework, FrameworkResponse.class);
         return frameworkResponse;
+    }
+
+    public Framework convertUpdateFormInEntity(FrameworkUpdateForm frameworkUpdateForm, Framework framework){
+        if (frameworkUpdateForm.getName() != null){
+            framework.setName(frameworkUpdateForm.getName());
+        }
+        if (frameworkUpdateForm.getDescription() != null){
+            framework.setDescription(frameworkUpdateForm.getDescription());
+        }
+        return framework;
     }
 }

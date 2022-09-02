@@ -31,4 +31,16 @@ public class FindByIdFrameworkService {
         FrameworkResponse frameworkResponse = frameworkFactory.convertEntityInDto(framework);
         return frameworkResponse;
     }
+
+    public Framework findByIdEntity(UUID id){
+        Optional<Framework> optionalFramework = frameworkRepository.findById(id);
+        if (optionalFramework.isEmpty()){
+            throw new ResourceNotFoundException("ID Not Found Exception");
+        }
+        Framework framework = optionalFramework.get();
+        if (!centerEntityService.isStatusSuperEntity(framework)){
+            throw new ResourceNotFoundException("ID Not Found Exception");
+        }
+        return framework;
+    }
 }

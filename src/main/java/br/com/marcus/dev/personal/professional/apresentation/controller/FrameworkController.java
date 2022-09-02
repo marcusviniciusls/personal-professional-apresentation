@@ -1,12 +1,15 @@
 package br.com.marcus.dev.personal.professional.apresentation.controller;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.FrameworkSaveForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.FrameworkUpdateForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormUpdate;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.FrameworkResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
 import br.com.marcus.dev.personal.professional.apresentation.services.framework.FindAllFrameworkService;
 import br.com.marcus.dev.personal.professional.apresentation.services.framework.FindByIdFrameworkService;
 import br.com.marcus.dev.personal.professional.apresentation.services.framework.SaveFrameworkService;
+import br.com.marcus.dev.personal.professional.apresentation.services.framework.UpdateFrameworkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +28,7 @@ public class FrameworkController {
     @Autowired private FindAllFrameworkService findAllFrameworkService;
     @Autowired private FindByIdFrameworkService findByIdFrameworkService;
     @Autowired private SaveFrameworkService saveFrameworkService;
+    @Autowired private UpdateFrameworkService updateFrameworkService;
 
     @GetMapping
     public ResponseEntity<Page<FrameworkResponse>> findAll(Pageable page){
@@ -43,5 +47,12 @@ public class FrameworkController {
     public ResponseEntity<FrameworkResponse> save(@Valid @RequestBody FrameworkSaveForm frameworkSaveForm){
         FrameworkResponse frameworkResponse = saveFrameworkService.save(frameworkSaveForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(frameworkResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<FrameworkResponse> update(@PathVariable UUID id, @Valid @RequestBody FrameworkUpdateForm frameworkUpdateForm){
+        FrameworkResponse frameworkResponse = updateFrameworkService.update(frameworkUpdateForm, id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(frameworkResponse);
     }
 }
