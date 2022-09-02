@@ -3,10 +3,7 @@ package br.com.marcus.dev.personal.professional.apresentation.controller;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.PartnerRequestFormSave;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.PartnerRequestFullFormSave;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.PartnerResponse;
-import br.com.marcus.dev.personal.professional.apresentation.services.partner.FindAllPartnerService;
-import br.com.marcus.dev.personal.professional.apresentation.services.partner.FindByIdPartnerService;
-import br.com.marcus.dev.personal.professional.apresentation.services.partner.SavePartnerIdBranchActivityService;
-import br.com.marcus.dev.personal.professional.apresentation.services.partner.SavePartnerService;
+import br.com.marcus.dev.personal.professional.apresentation.services.partner.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +23,7 @@ public class PartnerController {
     @Autowired private FindByIdPartnerService findByIdPartnerService;
     @Autowired private SavePartnerService savePartnerService;
     @Autowired private SavePartnerIdBranchActivityService savePartnerIdBranchActivityService;
+    @Autowired private DeletePartnerService deletePartnerService;
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping
@@ -53,5 +51,12 @@ public class PartnerController {
     public ResponseEntity<PartnerResponse> saveWithBranch(@Valid @RequestBody PartnerRequestFormSave request, @PathVariable UUID id){
         PartnerResponse partnerResponse = savePartnerIdBranchActivityService.save(request, id);
         return ResponseEntity.status(HttpStatus.CREATED).body(partnerResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id){
+        deletePartnerService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }
