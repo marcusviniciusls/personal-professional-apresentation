@@ -1,11 +1,11 @@
 package br.com.marcus.dev.personal.professional.apresentation.controller;
 
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.PartnerRequestFormSave;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.PartnerRequestFullFormSave;
-import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormSave;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.PartnerResponse;
-import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
 import br.com.marcus.dev.personal.professional.apresentation.services.partner.FindAllPartnerService;
 import br.com.marcus.dev.personal.professional.apresentation.services.partner.FindByIdPartnerService;
+import br.com.marcus.dev.personal.professional.apresentation.services.partner.SavePartnerIdBranchActivityService;
 import br.com.marcus.dev.personal.professional.apresentation.services.partner.SavePartnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,6 +25,7 @@ public class PartnerController {
     @Autowired private FindAllPartnerService findAllPartnerService;
     @Autowired private FindByIdPartnerService findByIdPartnerService;
     @Autowired private SavePartnerService savePartnerService;
+    @Autowired private SavePartnerIdBranchActivityService savePartnerIdBranchActivityService;
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping
@@ -44,6 +45,13 @@ public class PartnerController {
     @PostMapping
     public ResponseEntity<PartnerResponse> save(@Valid @RequestBody PartnerRequestFullFormSave request){
         PartnerResponse partnerResponse = savePartnerService.save(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(partnerResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PostMapping(value = "/{id}")
+    public ResponseEntity<PartnerResponse> saveWithBranch(@Valid @RequestBody PartnerRequestFormSave request, @PathVariable UUID id){
+        PartnerResponse partnerResponse = savePartnerIdBranchActivityService.save(request, id);
         return ResponseEntity.status(HttpStatus.CREATED).body(partnerResponse);
     }
 }

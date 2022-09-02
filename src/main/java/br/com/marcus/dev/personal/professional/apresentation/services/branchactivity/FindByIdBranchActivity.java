@@ -30,4 +30,16 @@ public class FindByIdBranchActivity {
         }
         return branchActivityFactory.convertEntityInResponse(branchActivity);
     }
+
+    public BranchActivity findByIdEntity(UUID id){
+        Optional<BranchActivity> branchActivityOptional = branchActivityRepository.findById(id);
+        if (branchActivityOptional.isEmpty()){
+            throw new ResourceNotFoundException("ID Not Found Exception");
+        }
+        BranchActivity branchActivity = branchActivityOptional.get();
+        if (!centerEntityService.isStatusSuperEntity(branchActivity)){
+            throw new ResourceNotFoundException("ID Not Found Exception");
+        }
+        return branchActivity;
+    }
 }

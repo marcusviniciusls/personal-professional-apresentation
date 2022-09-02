@@ -1,5 +1,6 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.partner.factory;
 
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.PartnerRequestFormSave;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.PartnerRequestFullFormSave;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.BranchActivityResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.PartnerResponse;
@@ -22,8 +23,13 @@ public class PartnerFactory {
         return partnerResponse;
     }
 
-    public Partner convertRequestInEntity(PartnerRequestFullFormSave partnerRequestFullFormSave){
+    public Partner convertRequestFullFormInEntity(PartnerRequestFullFormSave partnerRequestFullFormSave){
         Partner partner = modelMapper.map(partnerRequestFullFormSave, Partner.class);
+        return partner;
+    }
+
+    public Partner convertRequestFormInEntity(PartnerRequestFormSave partnerRequestFormSave){
+        Partner partner = modelMapper.map(partnerRequestFormSave, Partner.class);
         return partner;
     }
 }
