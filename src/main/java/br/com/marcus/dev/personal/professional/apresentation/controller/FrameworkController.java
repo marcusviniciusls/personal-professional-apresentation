@@ -6,10 +6,7 @@ import br.com.marcus.dev.personal.professional.apresentation.dto.request.Telepho
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormUpdate;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.FrameworkResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
-import br.com.marcus.dev.personal.professional.apresentation.services.framework.FindAllFrameworkService;
-import br.com.marcus.dev.personal.professional.apresentation.services.framework.FindByIdFrameworkService;
-import br.com.marcus.dev.personal.professional.apresentation.services.framework.SaveFrameworkService;
-import br.com.marcus.dev.personal.professional.apresentation.services.framework.UpdateFrameworkService;
+import br.com.marcus.dev.personal.professional.apresentation.services.framework.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,6 +26,7 @@ public class FrameworkController {
     @Autowired private FindByIdFrameworkService findByIdFrameworkService;
     @Autowired private SaveFrameworkService saveFrameworkService;
     @Autowired private UpdateFrameworkService updateFrameworkService;
+    @Autowired private DeleteFrameworkService deleteFrameworkService;
 
     @GetMapping
     public ResponseEntity<Page<FrameworkResponse>> findAll(Pageable page){
@@ -54,5 +52,12 @@ public class FrameworkController {
     public ResponseEntity<FrameworkResponse> update(@PathVariable UUID id, @Valid @RequestBody FrameworkUpdateForm frameworkUpdateForm){
         FrameworkResponse frameworkResponse = updateFrameworkService.update(frameworkUpdateForm, id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(frameworkResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id){
+        deleteFrameworkService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }
