@@ -1,10 +1,13 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.partner.factory;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.PartnerRequestFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.PartnerRequestFormUpdate;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.PartnerRequestFullFormSave;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.BranchActivityResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.PartnerResponse;
+import br.com.marcus.dev.personal.professional.apresentation.entities.BranchActivity;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Partner;
+import br.com.marcus.dev.personal.professional.apresentation.services.branchactivity.FindByIdBranchActivity;
 import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
 import br.com.marcus.dev.personal.professional.apresentation.services.branchactivity.factory.BranchActivityFactory;
 import org.modelmapper.ModelMapper;
@@ -17,6 +20,7 @@ public class PartnerFactory {
     @Autowired private BranchActivityFactory branchActivityFactory;
     @Autowired private CenterEntityService centerEntityService;
     @Autowired private ModelMapper modelMapper;
+    @Autowired private FindByIdBranchActivity findByIdBranchActivity;
 
     public PartnerResponse convertEntityInDto(Partner partner){
         PartnerResponse partnerResponse = modelMapper.map(partner, PartnerResponse.class);
@@ -30,6 +34,20 @@ public class PartnerFactory {
 
     public Partner convertRequestFormInEntity(PartnerRequestFormSave partnerRequestFormSave){
         Partner partner = modelMapper.map(partnerRequestFormSave, Partner.class);
+        return partner;
+    }
+
+    public Partner convertUpdateFormInEntity(PartnerRequestFormUpdate partnerRequestFormUpdate, Partner partner){
+        if (partnerRequestFormUpdate.getName() != null){
+            partner.setName(partnerRequestFormUpdate.getName());
+        }
+        if (partnerRequestFormUpdate.getDescription() != null){
+            partner.setDescription(partnerRequestFormUpdate.getDescription());
+        }
+        if (!partner.getBranchActivity().getId().equals(partnerRequestFormUpdate.getBranchActivityId())){
+            BranchActivity branchActivity = findByIdBranchActivity.findByIdEntity(partnerRequestFormUpdate.getBranchActivityId());
+            partner.setBranchActivity(branchActivity);
+        }
         return partner;
     }
 }

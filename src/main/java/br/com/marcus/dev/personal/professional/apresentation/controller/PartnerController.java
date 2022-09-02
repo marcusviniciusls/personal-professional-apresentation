@@ -1,8 +1,12 @@
 package br.com.marcus.dev.personal.professional.apresentation.controller;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.PartnerRequestFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.PartnerRequestFormUpdate;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.PartnerRequestFullFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormUpdate;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.PartnerResponse;
+import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
+import br.com.marcus.dev.personal.professional.apresentation.entities.Partner;
 import br.com.marcus.dev.personal.professional.apresentation.services.partner.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,6 +27,7 @@ public class PartnerController {
     @Autowired private FindByIdPartnerService findByIdPartnerService;
     @Autowired private SavePartnerService savePartnerService;
     @Autowired private SavePartnerIdBranchActivityService savePartnerIdBranchActivityService;
+    @Autowired private UpdatePartnerService updatePartnerService;
     @Autowired private DeletePartnerService deletePartnerService;
 
     @PreAuthorize("hasAnyRole('ADMIN')")
@@ -51,6 +56,13 @@ public class PartnerController {
     public ResponseEntity<PartnerResponse> saveWithBranch(@Valid @RequestBody PartnerRequestFormSave request, @PathVariable UUID id){
         PartnerResponse partnerResponse = savePartnerIdBranchActivityService.save(request, id);
         return ResponseEntity.status(HttpStatus.CREATED).body(partnerResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<PartnerResponse> update(@PathVariable UUID id, @Valid @RequestBody PartnerRequestFormUpdate partnerRequestFormUpdate){
+        PartnerResponse partnerResponse = updatePartnerService.update(partnerRequestFormUpdate, id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(partnerResponse);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
