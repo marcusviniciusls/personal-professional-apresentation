@@ -1,6 +1,5 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.softskils;
 
-import br.com.marcus.dev.personal.professional.apresentation.entities.Email;
 import br.com.marcus.dev.personal.professional.apresentation.entities.SoftSkills;
 import br.com.marcus.dev.personal.professional.apresentation.exception.custom.ResourceNotFoundException;
 import br.com.marcus.dev.personal.professional.apresentation.repository.SoftSkillsRepository;
