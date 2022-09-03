@@ -78,7 +78,7 @@ public class GraduationFactory {
         return graduation;
     }
 
-    private BigDecimal getNoteFinish(List<Subject> listSubject){
+    public BigDecimal getNoteFinish(List<Subject> listSubject){
         List<BigDecimal> listNoteFinishBigDecimal = new ArrayList<>();
         for (Subject subject : listSubject){
             listNoteFinishBigDecimal.add(subject.getNote());
@@ -89,7 +89,7 @@ public class GraduationFactory {
         return media;
     }
 
-    private BigDecimal getQtdHours(List<Subject> listSubject){
+    public BigDecimal getQtdHours(List<Subject> listSubject){
         List<BigDecimal> listQtdHours = new ArrayList<>();
         for (Subject subject : listSubject){
             listQtdHours.add(subject.getQtdHours());

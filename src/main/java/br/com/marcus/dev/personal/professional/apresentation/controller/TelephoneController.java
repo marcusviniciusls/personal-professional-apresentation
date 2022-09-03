@@ -1,10 +1,7 @@
 package br.com.marcus.dev.personal.professional.apresentation.controller;
 
-import br.com.marcus.dev.personal.professional.apresentation.dto.request.EmailFormSave;
-import br.com.marcus.dev.personal.professional.apresentation.dto.request.EmailFormUpdate;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormSave;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormUpdate;
-import br.com.marcus.dev.personal.professional.apresentation.dto.response.EmailDto;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
 import br.com.marcus.dev.personal.professional.apresentation.services.telephone.*;
 import org.springframework.beans.factory.annotation.Autowired;
