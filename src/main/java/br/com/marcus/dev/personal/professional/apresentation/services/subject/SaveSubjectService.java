@@ -8,6 +8,7 @@ import br.com.marcus.dev.personal.professional.apresentation.repository.Graduati
 import br.com.marcus.dev.personal.professional.apresentation.repository.SubjectRepository;
 import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
 import br.com.marcus.dev.personal.professional.apresentation.services.graduation.FindByIdGraduationService;
+import br.com.marcus.dev.personal.professional.apresentation.services.graduation.UpdateInformationGraduationService;
 import br.com.marcus.dev.personal.professional.apresentation.services.graduation.factory.GraduationFactory;
 import br.com.marcus.dev.personal.professional.apresentation.services.subject.factory.SubjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class SaveSubjectService {
     @Autowired private CenterEntityService centerEntityService;
     @Autowired private SubjectRepository subjectRepository;
     @Autowired private GraduationFactory graduationFactory;
-    @Autowired private GraduationRepository graduationRepository;
+    @Autowired private UpdateInformationGraduationService updateInformationGraduationService;
 
     public SubjectResponse save(SubjectFormOnlySave subjectFormOnlySave){
         Graduation graduation = findByIdGraduationService.findByIdEntity(subjectFormOnlySave.getGraduationId());
@@ -32,11 +33,8 @@ public class SaveSubjectService {
         subject = (Subject) centerEntityService.setDataToSave(subject);
         subject = subjectRepository.save(subject);
         graduation.addListSubject(subject);
-        BigDecimal noteRefresh = graduationFactory.getNoteFinish(graduation.getListSubject());
-        graduation.setNoteFinish(noteRefresh);
-        BigDecimal qtdHours = graduationFactory.getQtdHours(graduation.getListSubject());
-        graduation.setQtdHours(qtdHours);
-        graduationRepository.save(graduation);
+        graduation = updateInformationGraduationService.updateToSave(graduation);
+        subject.setGraduation(graduation);
         SubjectResponse subjectResponse = subjectFactory.convertEntityInResponse(subject);
         return subjectResponse;
     }
