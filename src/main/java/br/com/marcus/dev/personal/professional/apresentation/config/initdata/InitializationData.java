@@ -270,6 +270,8 @@ public class InitializationData implements CommandLineRunner {
         subject.setUserCreation(user.getName());
         subject1.setUser(administrator);
         subject1.setUserCreation(administrator.getName());
+        subject.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff713"));
+        subject1.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff714"));
         subjectRepository.saveAll(Arrays.asList(subject,subject1));
 
         // Experiencia Profissional Resumido

@@ -2,6 +2,7 @@ package br.com.marcus.dev.personal.professional.apresentation.services.subject.f
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.SubjectFormOnlySave;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.SubjectFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.SubjectFormUpdate;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.SubjectResponse;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Graduation;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Subject;
@@ -9,6 +10,8 @@ import br.com.marcus.dev.personal.professional.apresentation.entities.enums.Situ
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
 
 @Component
 public class SubjectFactory {
@@ -49,5 +52,27 @@ public class SubjectFactory {
     public SubjectResponse convertEntityInResponse(Subject subject){
         SubjectResponse subjectResponse = modelMapper.map(subject, SubjectResponse.class);
         return subjectResponse;
+    }
+
+    public Subject convertUpdateFormInEntity(SubjectFormUpdate subjectFormUpdate, Subject subject){
+        if (subjectFormUpdate.getName() != null){
+            subject.setName(subjectFormUpdate.getName());
+        }
+        if (subjectFormUpdate.getQtdHours() != null){
+            subject.setQtdHours(subjectFormUpdate.getQtdHours());
+        }
+        if (subjectFormUpdate.getNote() != null){
+            subject.setNote(subjectFormUpdate.getNote());
+        }
+        if (subjectFormUpdate.getDescription() != null){
+            subject.setDescription(subjectFormUpdate.getDescription());
+        }
+        if (subjectFormUpdate.getPeriod() != null){
+            subject.setPeriod(subjectFormUpdate.getPeriod());
+        }
+        if (subjectFormUpdate.getSituationSubject() != null){
+            subject.setSituationSubject(SituationSubject.toEnum(subjectFormUpdate.getSituationSubject()));
+        }
+        return subject;
     }
 }
