@@ -46,9 +46,9 @@ public class DeleteSubjectService {
             graduation.getListSubject().remove(subject);
         } else {
             graduation.getListSubject().remove(subject);
-            graduation = (Graduation) centerEntityService.setDataToSave(graduation);
             graduation = updateInformationGraduationService.updateToSave(graduation);
-            graduationRepository.save(graduation);
         }
+        graduation = (Graduation) centerEntityService.setDataToUpdate(graduation);
+        graduationRepository.save(graduation);
     }
 }

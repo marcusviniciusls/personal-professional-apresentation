@@ -240,7 +240,6 @@ public class InitializationData implements CommandLineRunner {
         graduation.setPartner(partner);
         graduation.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff711"));
         graduation1.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff712"));
-        graduation1.setStatus(false);
         graduationRepository.saveAll(Arrays.asList(graduation1, graduation));
 
         // Material
@@ -266,13 +265,16 @@ public class InitializationData implements CommandLineRunner {
                 graduation);
         Subject subject1 = new Subject("C#", BigDecimal.valueOf(40), BigDecimal.valueOf(8.9), "teste", "periodo", "teste", SituationSubject.APPROVED,
                 graduation1);
+        Subject subject2 = new Subject("HTML", BigDecimal.valueOf(40), BigDecimal.valueOf(8.9), "teste", "periodo", "teste", SituationSubject.APPROVED,
+                graduation1);
         subject.setUser(user);
         subject.setUserCreation(user.getName());
         subject1.setUser(administrator);
         subject1.setUserCreation(administrator.getName());
         subject.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff713"));
         subject1.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff714"));
-        subjectRepository.saveAll(Arrays.asList(subject,subject1));
+        subject1.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff715"));
+        subjectRepository.saveAll(Arrays.asList(subject,subject1,subject2));
 
         // Experiencia Profissional Resumido
         ProfessionalExperienceResume professionalExperienceResume = new ProfessionalExperienceResume(LocalDate.of(2014, 1, 1), LocalDate.of(2014, 1, 1));
