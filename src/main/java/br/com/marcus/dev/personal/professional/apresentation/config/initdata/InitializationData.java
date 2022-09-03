@@ -140,6 +140,8 @@ public class InitializationData implements CommandLineRunner {
         course1.setUser(administrator);
         course1.setUserCreation(administrator.getName());
         course1.setStatus(false);
+        course.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff713"));
+        course1.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff714"));
         courseRepository.saveAll(Arrays.asList(course, course1));
 
         // Framework
@@ -151,7 +153,6 @@ public class InitializationData implements CommandLineRunner {
         framework1.setUserCreation(administrator.getName());
         framework.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff711"));
         framework1.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff712"));
-        framework.setStatus(false);
         frameworkRepository.saveAll(Arrays.asList(framework, framework1));
 
         // Linguagem
@@ -181,7 +182,6 @@ public class InitializationData implements CommandLineRunner {
                 "Linguagem Orientada a Objetos", course1);
         languageProgrammer1.setUser(administrator);
         languageProgrammer1.setUserCreation(administrator.getName());
-        languageProgrammer.setStatus(false);
         languageProgrammerRepository.saveAll(Arrays.asList(languageProgrammer, languageProgrammer1));
 
         // Hard Skills
