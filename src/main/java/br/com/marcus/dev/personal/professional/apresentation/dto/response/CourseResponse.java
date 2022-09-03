@@ -1,10 +1,14 @@
 package br.com.marcus.dev.personal.professional.apresentation.dto.response;
 
+import br.com.marcus.dev.personal.professional.apresentation.entities.enums.LevelCourse;
+import br.com.marcus.dev.personal.professional.apresentation.entities.enums.StatusCourse;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -19,6 +23,16 @@ public class CourseResponse {
     private LocalDate dateInitReal;
     private LocalDate dateFinishReal;
     private String logoImage;
-    private Integer statusCourse;
-    private Integer levelCourse;
+    private StatusCourse statusCourse;
+    private LevelCourse levelCourse;
+    private List<LanguageProgrammerResponse> listLanguageProgrammerResponse = new ArrayList<>();
+    private List<FrameworkResponse> listFramework = new ArrayList<>();
+
+    public void addListLanguageProgrammerResponse(LanguageProgrammerResponse languageProgrammerResponse){
+        this.listLanguageProgrammerResponse.add(languageProgrammerResponse);
+    }
+
+    public void addListFrameworkResponse(FrameworkResponse frameworkResponse){
+        this.listFramework.add(frameworkResponse);
+    }
 }

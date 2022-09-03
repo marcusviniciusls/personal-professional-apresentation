@@ -35,7 +35,9 @@ public class FrameworkFactory {
     }
 
     public FrameworkResponse convertEntityInResponse(Framework framework){
-        FrameworkResponse frameworkResponse = modelMapper.map(framework, FrameworkResponse.class);
+        FrameworkResponse frameworkResponse = new FrameworkResponse();
+        frameworkResponse.setName(framework.getName());
+        frameworkResponse.setDescription(framework.getDescription());
         return frameworkResponse;
     }
 
