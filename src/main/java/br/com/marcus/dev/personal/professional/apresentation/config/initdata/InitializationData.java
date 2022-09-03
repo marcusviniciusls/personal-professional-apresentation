@@ -220,6 +220,7 @@ public class InitializationData implements CommandLineRunner {
         softSkills1.setUserCreation(administrator.getName());
         softSkills.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff713"));
         softSkills1.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff714"));
+        softSkills1.setStatusHas(false);
         softSkillsRepository.saveAll(Arrays.asList(softSkills, softSkills1));
 
         // Graduacao

@@ -29,6 +29,7 @@ public class SoftSkillsController {
     @Autowired private DeleteSoftSkillsService deleteSoftSkillsService;
     @Autowired private UpdateSoftSkillsService updateSoftSkillsService;
     @Autowired private DisableSoftSkillsService disableSoftSkillsService;
+    @Autowired private EnableSoftSkillsService enableSoftSkillsService;
 
     @GetMapping
     public ResponseEntity<Page<SoftSkillsResponse>> findAll(Pageable page){
@@ -60,6 +61,13 @@ public class SoftSkillsController {
     @PutMapping(value = "/disable/{id}")
     public ResponseEntity<?> updateDisable(@PathVariable UUID id){
         disableSoftSkillsService.disable(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping(value = "/enable/{id}")
+    public ResponseEntity<?> updateEnable(@PathVariable UUID id){
+        enableSoftSkillsService.enable(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
