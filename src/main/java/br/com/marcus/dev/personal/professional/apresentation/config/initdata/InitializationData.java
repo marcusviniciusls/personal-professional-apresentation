@@ -182,6 +182,8 @@ public class InitializationData implements CommandLineRunner {
                 "Linguagem Orientada a Objetos", course1);
         languageProgrammer1.setUser(administrator);
         languageProgrammer1.setUserCreation(administrator.getName());
+        languageProgrammer.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff715"));
+        languageProgrammer1.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff716"));
         languageProgrammerRepository.saveAll(Arrays.asList(languageProgrammer, languageProgrammer1));
 
         // Hard Skills

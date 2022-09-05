@@ -1,5 +1,8 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.course.factory;
 
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.CourseSaveForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.ListFramework;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.ListLanguageProgrammer;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.CourseResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.FrameworkResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.LanguageProgrammerResponse;
@@ -10,14 +13,17 @@ import br.com.marcus.dev.personal.professional.apresentation.entities.enums.Leve
 import br.com.marcus.dev.personal.professional.apresentation.entities.enums.StatusCourse;
 import br.com.marcus.dev.personal.professional.apresentation.services.framework.factory.FrameworkFactory;
 import br.com.marcus.dev.personal.professional.apresentation.services.languageprogrammer.factory.LanguageProgrammerFactory;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import java.util.List;
 
 @Component
 public class CourseFactory {
 
     @Autowired private LanguageProgrammerFactory languageProgrammerFactory;
     private FrameworkFactory frameworkFactory = new FrameworkFactory();
+    @Autowired private ModelMapper modelMapper;
 
     public CourseResponse convertEntityInDto(Course course){
         CourseResponse courseResponse = new CourseResponse();
@@ -43,5 +49,23 @@ public class CourseFactory {
             }
         }
         return courseResponse;
+    }
+
+    public Course convertFormSaveInEntity(CourseSaveForm courseSaveForm){
+        Course course = new Course();
+        course.setName(courseSaveForm.getName());
+        course.setDescription(course.getDescription());
+        course.setDuration(courseSaveForm.getDuration());
+        course.setDateInitExpected(courseSaveForm.getDateInitExpected());
+        course.setDateFinishExpected(courseSaveForm.getDateFinishExpected());
+        course.setDateInitReal(courseSaveForm.getDateInitReal());
+        course.setDateFinishReal(courseSaveForm.getDateFinishReal());
+        course.setLogoImage(courseSaveForm.getLogoImage());
+        course.setStatusCourse(StatusCourse.toEnum(courseSaveForm.getStatusCourse()));
+        course.setLevelCourse(LevelCourse.toEnum(courseSaveForm.getLevelCourse()));
+        course.setLevelCourse(LevelCourse.toEnum(courseSaveForm.getLevelCourse()));
+        course.setStatusCourse(StatusCourse.toEnum(courseSaveForm.getStatusCourse()));
+
+        return course;
     }
 }

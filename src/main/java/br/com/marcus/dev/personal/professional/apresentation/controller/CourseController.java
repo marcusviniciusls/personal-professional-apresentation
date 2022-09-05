@@ -1,19 +1,22 @@
 package br.com.marcus.dev.personal.professional.apresentation.controller;
 
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.CourseSaveForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormSave;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.CourseResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Course;
 import br.com.marcus.dev.personal.professional.apresentation.services.course.FindAllCourseService;
 import br.com.marcus.dev.personal.professional.apresentation.services.course.FindByIdCourseService;
+import br.com.marcus.dev.personal.professional.apresentation.services.course.SaveCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
@@ -22,6 +25,7 @@ public class CourseController {
 
     @Autowired private FindAllCourseService findAllCourseService;
     @Autowired private FindByIdCourseService findByIdCourseService;
+    @Autowired private SaveCourseService saveCourseService;
 
     @GetMapping
     public ResponseEntity<Page<CourseResponse>> findAll(Pageable page){
@@ -33,5 +37,12 @@ public class CourseController {
     public ResponseEntity<CourseResponse> findById(@PathVariable UUID id){
         CourseResponse courseResponse = findByIdCourseService.findById(id);
         return ResponseEntity.ok().body(courseResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PostMapping
+    public ResponseEntity<CourseResponse> save(@Valid @RequestBody CourseSaveForm courseSaveForm){
+        CourseResponse courseResponse = saveCourseService.save(courseSaveForm);
+        return ResponseEntity.status(HttpStatus.CREATED).body(courseResponse);
     }
 }

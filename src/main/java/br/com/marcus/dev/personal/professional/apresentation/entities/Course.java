@@ -4,6 +4,7 @@ import br.com.marcus.dev.personal.professional.apresentation.entities.enums.Leve
 import br.com.marcus.dev.personal.professional.apresentation.entities.enums.StatusCourse;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity
 @Table(name = "tb_courses")
 public class Course extends SuperEntity{
