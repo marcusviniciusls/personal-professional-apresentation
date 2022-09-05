@@ -28,4 +28,15 @@ public class FindByIdCourseService {
         CourseResponse courseResponse = courseFactory.convertEntityInDto(optionalCourse.get());
         return courseResponse;
     }
+
+    public Course findByIdEntity(UUID id){
+        Optional<Course> optionalCourse = courseRepository.findById(id);
+        if (optionalCourse.isEmpty()){
+            throw new ResourceNotFoundException("COURSE NOT FOUND EXCEPTION");
+        }
+        if (!optionalCourse.get().isStatus()){
+            throw new ResourceNotFoundException("COURSE NOT FOUND EXCEPTION");
+        }
+        return optionalCourse.get();
+    }
 }

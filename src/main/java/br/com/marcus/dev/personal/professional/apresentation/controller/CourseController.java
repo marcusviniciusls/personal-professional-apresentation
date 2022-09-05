@@ -5,6 +5,7 @@ import br.com.marcus.dev.personal.professional.apresentation.dto.request.Telepho
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.CourseResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Course;
+import br.com.marcus.dev.personal.professional.apresentation.services.course.DeleteCourseService;
 import br.com.marcus.dev.personal.professional.apresentation.services.course.FindAllCourseService;
 import br.com.marcus.dev.personal.professional.apresentation.services.course.FindByIdCourseService;
 import br.com.marcus.dev.personal.professional.apresentation.services.course.SaveCourseService;
@@ -26,6 +27,7 @@ public class CourseController {
     @Autowired private FindAllCourseService findAllCourseService;
     @Autowired private FindByIdCourseService findByIdCourseService;
     @Autowired private SaveCourseService saveCourseService;
+    @Autowired private DeleteCourseService deleteCourseService;
 
     @GetMapping
     public ResponseEntity<Page<CourseResponse>> findAll(Pageable page){
@@ -44,5 +46,12 @@ public class CourseController {
     public ResponseEntity<CourseResponse> save(@Valid @RequestBody CourseSaveForm courseSaveForm){
         CourseResponse courseResponse = saveCourseService.save(courseSaveForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(courseResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id){
+        deleteCourseService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }
