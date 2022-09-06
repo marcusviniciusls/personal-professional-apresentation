@@ -1,11 +1,11 @@
 package br.com.marcus.dev.personal.professional.apresentation.controller;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.CertificateSaveForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.CertificateUpdateForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormUpdate;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.CertificateResponse;
-import br.com.marcus.dev.personal.professional.apresentation.services.certificate.DeleteCertificateService;
-import br.com.marcus.dev.personal.professional.apresentation.services.certificate.FindAllCertificateService;
-import br.com.marcus.dev.personal.professional.apresentation.services.certificate.FindByIdCertificateService;
-import br.com.marcus.dev.personal.professional.apresentation.services.certificate.SaveCertificateService;
+import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
+import br.com.marcus.dev.personal.professional.apresentation.services.certificate.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +25,7 @@ public class CertificateController {
     @Autowired private FindByIdCertificateService findByIdCertificateService;
     @Autowired private SaveCertificateService saveCertificateService;
     @Autowired private DeleteCertificateService deleteCertificateService;
+    @Autowired private UpdateCertificateService updateCertificateService;
 
     @GetMapping
     public ResponseEntity<Page<CertificateResponse>> findAll(Pageable page){
@@ -43,6 +44,13 @@ public class CertificateController {
     public ResponseEntity<CertificateResponse> save(@Valid @RequestBody CertificateSaveForm certificateSaveForm){
         CertificateResponse certificateResponse = saveCertificateService.save(certificateSaveForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(certificateResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<CertificateResponse> update(@PathVariable UUID id, @Valid @RequestBody CertificateUpdateForm certificateUpdateForm){
+        CertificateResponse certificateResponse = updateCertificateService.update(certificateUpdateForm, id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(certificateResponse);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")

@@ -4,16 +4,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
 @NoArgsConstructor
 @Getter
 @Setter
-public class CertificateSaveForm {
+public class CertificateUpdateForm {
 
-    @NotBlank(message = "Name cannot be blank")
     private String name;
-    @NotBlank(message = "Partner ID cannot be blank")
     private UUID partnerId;
 }
