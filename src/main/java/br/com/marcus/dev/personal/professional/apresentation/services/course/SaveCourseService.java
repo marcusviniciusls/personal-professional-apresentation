@@ -8,6 +8,7 @@ import br.com.marcus.dev.personal.professional.apresentation.entities.LanguagePr
 import br.com.marcus.dev.personal.professional.apresentation.repository.CourseRepository;
 import br.com.marcus.dev.personal.professional.apresentation.repository.FrameworkRepository;
 import br.com.marcus.dev.personal.professional.apresentation.repository.LanguageProgrammerRepository;
+import br.com.marcus.dev.personal.professional.apresentation.services.activities.SaveActivitiesService;
 import br.com.marcus.dev.personal.professional.apresentation.services.course.factory.CourseFactory;
 import br.com.marcus.dev.personal.professional.apresentation.services.framework.FindAllListFrameworkService;
 import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
@@ -27,6 +28,7 @@ public class SaveCourseService {
     @Autowired private CourseRepository courseRepository;
     @Autowired private FrameworkRepository frameworkRepository;
     @Autowired private LanguageProgrammerRepository languageProgrammerRepository;
+    @Autowired private SaveActivitiesService saveActivitiesService;
 
     public CourseResponse save(CourseSaveForm courseSaveForm){
         Course course = courseFactory.convertFormSaveInEntity(courseSaveForm);
@@ -44,6 +46,7 @@ public class SaveCourseService {
             languageProgrammer = (LanguageProgrammer) centerEntityService.setDataToSave(languageProgrammer);
             languageProgrammerRepository.save(languageProgrammer);
         }
+        saveActivitiesService.saveMovementCourse(course);
         CourseResponse courseResponse = courseFactory.convertEntityInDto(course);
         return courseResponse;
     }

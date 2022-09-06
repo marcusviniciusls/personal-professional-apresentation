@@ -1,6 +1,7 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.activities.factory;
 
 import br.com.marcus.dev.personal.professional.apresentation.entities.Activities;
+import br.com.marcus.dev.personal.professional.apresentation.entities.Course;
 import br.com.marcus.dev.personal.professional.apresentation.entities.SoftSkills;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,14 @@ public class ActivitiesFactory {
         activities.setSoftSkills(softSkills);
         activities.setDate(LocalDate.now());
         activities.setDescription("Save Soft Skills");
+        return activities;
+    }
+
+    public Activities convertCourseToActivities(Course course){
+        Activities activities = new Activities();
+        activities.setCourse(course);
+        activities.setDate(LocalDate.now());
+        activities.setDescription("Save Course");
         return activities;
     }
 }

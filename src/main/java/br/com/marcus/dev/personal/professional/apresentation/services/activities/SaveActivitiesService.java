@@ -1,6 +1,7 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.activities;
 
 import br.com.marcus.dev.personal.professional.apresentation.entities.Activities;
+import br.com.marcus.dev.personal.professional.apresentation.entities.Course;
 import br.com.marcus.dev.personal.professional.apresentation.entities.SoftSkills;
 import br.com.marcus.dev.personal.professional.apresentation.repository.ActivitiesRepository;
 import br.com.marcus.dev.personal.professional.apresentation.services.activities.factory.ActivitiesFactory;
@@ -17,6 +18,12 @@ public class SaveActivitiesService {
 
     public void saveMovementSoftSkills(SoftSkills softSkills) {
         Activities activities = activitiesFactory.convertSoftSkillsToActivities(softSkills);
+        activities = (Activities) centerEntityService.setDataToSave(activities);
+        activitiesRepository.save(activities);
+    }
+
+    public void saveMovementCourse(Course course) {
+        Activities activities = activitiesFactory.convertCourseToActivities(course);
         activities = (Activities) centerEntityService.setDataToSave(activities);
         activitiesRepository.save(activities);
     }
