@@ -1,9 +1,8 @@
 package br.com.marcus.dev.personal.professional.apresentation.controller;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.CertificateSaveForm;
-import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormSave;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.CertificateResponse;
-import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
+import br.com.marcus.dev.personal.professional.apresentation.services.certificate.DeleteCertificateService;
 import br.com.marcus.dev.personal.professional.apresentation.services.certificate.FindAllCertificateService;
 import br.com.marcus.dev.personal.professional.apresentation.services.certificate.FindByIdCertificateService;
 import br.com.marcus.dev.personal.professional.apresentation.services.certificate.SaveCertificateService;
@@ -25,6 +24,7 @@ public class CertificateController {
     @Autowired private FindAllCertificateService findAllCertificateService;
     @Autowired private FindByIdCertificateService findByIdCertificateService;
     @Autowired private SaveCertificateService saveCertificateService;
+    @Autowired private DeleteCertificateService deleteCertificateService;
 
     @GetMapping
     public ResponseEntity<Page<CertificateResponse>> findAll(Pageable page){
@@ -43,5 +43,12 @@ public class CertificateController {
     public ResponseEntity<CertificateResponse> save(@Valid @RequestBody CertificateSaveForm certificateSaveForm){
         CertificateResponse certificateResponse = saveCertificateService.save(certificateSaveForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(certificateResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id){
+        deleteCertificateService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }
