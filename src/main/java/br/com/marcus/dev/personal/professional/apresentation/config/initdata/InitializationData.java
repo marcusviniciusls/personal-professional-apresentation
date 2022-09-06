@@ -204,6 +204,8 @@ public class InitializationData implements CommandLineRunner {
         certificate1.setUserCreation(administrator.getName());
         certificate.setPartner(partner);
         certificate1.setPartner(partner1);
+        certificate.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff717"));
+        certificate1.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff718"));
         certificateRepository.saveAll(Arrays.asList(certificate, certificate1));
 
         // Office
