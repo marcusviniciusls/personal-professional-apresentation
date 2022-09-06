@@ -32,6 +32,7 @@ public class CourseFactory {
 
     public CourseResponse convertEntityInDto(Course course){
         CourseResponse courseResponse = new CourseResponse();
+        courseResponse.setId(course.getId());
         courseResponse.setLevelCourse(LevelCourse.toEnum(course.getLevelCourse().getNumber()));
         courseResponse.setStatusCourse(StatusCourse.toEnum(course.getStatusCourse().getNumber()));
         courseResponse.setDateFinishExpected(course.getDateFinishExpected());
