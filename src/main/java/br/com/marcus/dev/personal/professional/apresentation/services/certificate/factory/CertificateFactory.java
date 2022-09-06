@@ -1,5 +1,6 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.certificate.factory;
 
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.CertificateSaveForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.BranchActivityResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.CertificateResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.PartnerResponse;
@@ -20,5 +21,11 @@ public class CertificateFactory {
         BranchActivityResponse branchActivityResponse = new BranchActivityResponse(certificate.getPartner().getBranchActivity().getName());
         partnerResponse.setBranchActivityResponse(branchActivityResponse);
         return certificateResponse;
+    }
+
+    public Certificate convertSaveFormInEntity(CertificateSaveForm certificateSaveForm){
+        Certificate certificate = new Certificate();
+        certificate.setName(certificateSaveForm.getName());
+        return certificate;
     }
 }
