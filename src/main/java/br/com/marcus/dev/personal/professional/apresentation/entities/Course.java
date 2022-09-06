@@ -31,9 +31,15 @@ public class Course extends SuperEntity{
     private StatusCourse statusCourse;
     @Enumerated(EnumType.ORDINAL)
     private LevelCourse levelCourse;
-    @OneToMany(mappedBy = "course")
+    @ManyToMany
+    @JoinTable(name = "tb_course_language_programmer", joinColumns =
+            {@JoinColumn(name = "course_id")}, inverseJoinColumns =
+            {@JoinColumn(name="language_programmer_id")})
     private List<LanguageProgrammer> listLanguage = new ArrayList<>();
-    @OneToMany(mappedBy = "course")
+    @ManyToMany
+    @JoinTable(name = "tb_course_framework", joinColumns =
+            {@JoinColumn(name = "course_id")}, inverseJoinColumns =
+            {@JoinColumn(name="framework_id")})
     private List<Framework> listFramework = new ArrayList<>();
 
     public Course(String name, String description, BigDecimal duration, LocalDate dateInitExpected, LocalDate dateFinishExpected, LocalDate dateInitReal, LocalDate dateFinishReal, String logoImage, StatusCourse statusCourse, LevelCourse levelCourse) {

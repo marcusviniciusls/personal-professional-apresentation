@@ -14,5 +14,4 @@ public class FrameworkResponse {
     private UUID id;
     private String name;
     private String description;
-    private CourseResponse courseResponse;
 }

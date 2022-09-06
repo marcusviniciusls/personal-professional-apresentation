@@ -1,14 +1,13 @@
 package br.com.marcus.dev.personal.professional.apresentation.controller;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.CourseSaveForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.CourseUpdateForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormUpdate;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.CourseResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Course;
-import br.com.marcus.dev.personal.professional.apresentation.services.course.DeleteCourseService;
-import br.com.marcus.dev.personal.professional.apresentation.services.course.FindAllCourseService;
-import br.com.marcus.dev.personal.professional.apresentation.services.course.FindByIdCourseService;
-import br.com.marcus.dev.personal.professional.apresentation.services.course.SaveCourseService;
+import br.com.marcus.dev.personal.professional.apresentation.services.course.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +27,7 @@ public class CourseController {
     @Autowired private FindByIdCourseService findByIdCourseService;
     @Autowired private SaveCourseService saveCourseService;
     @Autowired private DeleteCourseService deleteCourseService;
+    @Autowired private UpdateCourseService updateCourseService;
 
     @GetMapping
     public ResponseEntity<Page<CourseResponse>> findAll(Pageable page){
@@ -46,6 +46,13 @@ public class CourseController {
     public ResponseEntity<CourseResponse> save(@Valid @RequestBody CourseSaveForm courseSaveForm){
         CourseResponse courseResponse = saveCourseService.save(courseSaveForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(courseResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<CourseResponse> update(@PathVariable UUID id, @Valid @RequestBody CourseUpdateForm courseUpdateForm){
+        CourseResponse courseResponse = updateCourseService.update(courseUpdateForm, id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(courseResponse);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")

@@ -38,12 +38,10 @@ public class SaveCourseService {
         course = courseRepository.save(course);
         for (Framework framework : listFramework){
             framework = (Framework) centerEntityService.setDataToSave(framework);
-            framework.setCourse(course);
             frameworkRepository.save(framework);
         }
         for (LanguageProgrammer languageProgrammer : listLanguageProgrammer){
             languageProgrammer = (LanguageProgrammer) centerEntityService.setDataToSave(languageProgrammer);
-            languageProgrammer.setCourse(course);
             languageProgrammerRepository.save(languageProgrammer);
         }
         CourseResponse courseResponse = courseFactory.convertEntityInDto(course);

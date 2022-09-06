@@ -22,10 +22,7 @@ public class FrameworkFactory {
         FrameworkResponse frameworkResponse = new FrameworkResponse();
         frameworkResponse.setDescription(framework.getDescription());
         frameworkResponse.setName(framework.getName());
-        if (centerEntityService.isStatusSuperEntity(framework.getCourse())){
-            CourseResponse courseResponse = courseFactory.convertEntityInDto(framework.getCourse());
-            frameworkResponse.setCourseResponse(courseResponse);
-        }
+        frameworkResponse.setId(framework.getId());
         return frameworkResponse;
     }
 
@@ -38,6 +35,7 @@ public class FrameworkFactory {
         FrameworkResponse frameworkResponse = new FrameworkResponse();
         frameworkResponse.setName(framework.getName());
         frameworkResponse.setDescription(framework.getDescription());
+        frameworkResponse.setId(framework.getId());
         return frameworkResponse;
     }
 

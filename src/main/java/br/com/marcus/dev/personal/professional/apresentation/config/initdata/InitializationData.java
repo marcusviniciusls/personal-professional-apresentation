@@ -145,8 +145,8 @@ public class InitializationData implements CommandLineRunner {
         courseRepository.saveAll(Arrays.asList(course, course1));
 
         // Framework
-        Framework framework = new Framework("Quarkus", "Curso de Quarkus" , "urlimage" ,course);
-        Framework framework1 = new Framework("Spring", "Spring Melhor Framework" , "urlImage",course1);
+        Framework framework = new Framework("Quarkus", "Curso de Quarkus" , "urlimage" );
+        Framework framework1 = new Framework("Spring", "Spring Melhor Framework" , "urlImage");
         framework.setUser(user);
         framework.setUserCreation(user.getName());
         framework1.setUser(administrator);
@@ -174,12 +174,10 @@ public class InitializationData implements CommandLineRunner {
         partRepository.saveAll(Arrays.asList(part, part1));
 
         // Linguagem de Programacao
-        LanguageProgrammer languageProgrammer = new LanguageProgrammer("Java",
-                "Linguagem Orientada a Objetos", course);
+        LanguageProgrammer languageProgrammer = new LanguageProgrammer("Java", "Linguagem Orientada a Objetos");
         languageProgrammer.setUser(user);
         languageProgrammer.setUserCreation(user.getName());
-        LanguageProgrammer languageProgrammer1 = new LanguageProgrammer("C#",
-                "Linguagem Orientada a Objetos", course1);
+        LanguageProgrammer languageProgrammer1 = new LanguageProgrammer("C#", "Linguagem Orientada a Objetos");
         languageProgrammer1.setUser(administrator);
         languageProgrammer1.setUserCreation(administrator.getName());
         languageProgrammer.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff715"));
