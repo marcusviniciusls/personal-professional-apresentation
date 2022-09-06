@@ -202,6 +202,8 @@ public class InitializationData implements CommandLineRunner {
         Certificate certificate1 = new Certificate("JAVA Programmer", "http://teste.com/teste.png", partner1);
         certificate1.setUser(administrator);
         certificate1.setUserCreation(administrator.getName());
+        certificate.setPartner(partner);
+        certificate1.setPartner(partner1);
         certificateRepository.saveAll(Arrays.asList(certificate, certificate1));
 
         // Office
