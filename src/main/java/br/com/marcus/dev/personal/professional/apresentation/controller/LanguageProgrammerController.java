@@ -4,6 +4,7 @@ import br.com.marcus.dev.personal.professional.apresentation.dto.request.Languag
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormSave;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.LanguageProgrammerResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
+import br.com.marcus.dev.personal.professional.apresentation.services.languageprogrammer.DeleteLanguageProgrammerService;
 import br.com.marcus.dev.personal.professional.apresentation.services.languageprogrammer.FindAllLanguageProgrammerService;
 import br.com.marcus.dev.personal.professional.apresentation.services.languageprogrammer.FindByIdLanguageProgrammerService;
 import br.com.marcus.dev.personal.professional.apresentation.services.languageprogrammer.SaveLanguageProgrammerService;
@@ -25,6 +26,7 @@ public class LanguageProgrammerController {
     @Autowired private FindAllLanguageProgrammerService findAllLanguageProgrammerService;
     @Autowired private FindByIdLanguageProgrammerService findByIdLanguageProgrammerService;
     @Autowired private SaveLanguageProgrammerService saveLanguageProgrammerService;
+    @Autowired private DeleteLanguageProgrammerService deleteLanguageProgrammerService;
 
     @GetMapping
     public ResponseEntity<Page<LanguageProgrammerResponse>> findAll(Pageable pageable){
@@ -43,5 +45,12 @@ public class LanguageProgrammerController {
     public ResponseEntity<LanguageProgrammerResponse> save(@Valid @RequestBody LanguageProgrammerSaveFrom languageProgrammerSaveFrom){
         LanguageProgrammerResponse languageProgrammerResponse = saveLanguageProgrammerService.save(languageProgrammerSaveFrom);
         return ResponseEntity.status(HttpStatus.CREATED).body(languageProgrammerResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id){
+        deleteLanguageProgrammerService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }

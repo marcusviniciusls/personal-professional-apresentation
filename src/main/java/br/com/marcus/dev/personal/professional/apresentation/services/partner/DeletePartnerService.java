@@ -19,7 +19,6 @@ public class DeletePartnerService {
     @Autowired private CenterEntityService centerEntityService;
 
     public void delete(UUID id){
-
         Optional<Partner> optionalPartner = partnerRepository.findById(id);
         if (optionalPartner.isEmpty()){
             throw new ResourceNotFoundException("ID Not Found Exception");
