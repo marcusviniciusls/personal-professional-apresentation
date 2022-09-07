@@ -1,13 +1,12 @@
 package br.com.marcus.dev.personal.professional.apresentation.controller;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.LanguageProgrammerSaveFrom;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.LanguageProgrammerUpdateFrom;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormUpdate;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.LanguageProgrammerResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
-import br.com.marcus.dev.personal.professional.apresentation.services.languageprogrammer.DeleteLanguageProgrammerService;
-import br.com.marcus.dev.personal.professional.apresentation.services.languageprogrammer.FindAllLanguageProgrammerService;
-import br.com.marcus.dev.personal.professional.apresentation.services.languageprogrammer.FindByIdLanguageProgrammerService;
-import br.com.marcus.dev.personal.professional.apresentation.services.languageprogrammer.SaveLanguageProgrammerService;
+import br.com.marcus.dev.personal.professional.apresentation.services.languageprogrammer.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +26,7 @@ public class LanguageProgrammerController {
     @Autowired private FindByIdLanguageProgrammerService findByIdLanguageProgrammerService;
     @Autowired private SaveLanguageProgrammerService saveLanguageProgrammerService;
     @Autowired private DeleteLanguageProgrammerService deleteLanguageProgrammerService;
+    @Autowired private UpdateLanguageProgrammerService updateLanguageProgrammerService;
 
     @GetMapping
     public ResponseEntity<Page<LanguageProgrammerResponse>> findAll(Pageable pageable){
@@ -45,6 +45,13 @@ public class LanguageProgrammerController {
     public ResponseEntity<LanguageProgrammerResponse> save(@Valid @RequestBody LanguageProgrammerSaveFrom languageProgrammerSaveFrom){
         LanguageProgrammerResponse languageProgrammerResponse = saveLanguageProgrammerService.save(languageProgrammerSaveFrom);
         return ResponseEntity.status(HttpStatus.CREATED).body(languageProgrammerResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<LanguageProgrammerResponse> update(@PathVariable UUID id, @Valid @RequestBody LanguageProgrammerUpdateFrom languageProgrammerUpdateFrom){
+        LanguageProgrammerResponse response = updateLanguageProgrammerService.update(id, languageProgrammerUpdateFrom);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(response);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
