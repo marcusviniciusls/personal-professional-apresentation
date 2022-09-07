@@ -1,5 +1,6 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.languageprogrammer.factory;
 
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.LanguageProgrammerSaveFrom;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.LanguageProgrammerResponse;
 import br.com.marcus.dev.personal.professional.apresentation.entities.LanguageProgrammer;
 import org.modelmapper.ModelMapper;
@@ -13,5 +14,9 @@ public class LanguageProgrammerFactory {
 
     public LanguageProgrammerResponse convertEntityInResponse(LanguageProgrammer languageProgrammer){
         return modelMapper.map(languageProgrammer, LanguageProgrammerResponse.class);
+    }
+
+    public LanguageProgrammer convertUpdateSaveInEntity(LanguageProgrammerSaveFrom languageProgrammerSaveFrom){
+        return modelMapper.map(languageProgrammerSaveFrom, LanguageProgrammer.class);
     }
 }
