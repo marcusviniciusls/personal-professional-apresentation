@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,10 +23,28 @@ public class HardSkills extends SuperEntity{
     private String description;
     @Enumerated(EnumType.ORDINAL)
     private Level level;
-    @ManyToOne
-    @JoinColumn(name = "language_id")
-    private LanguageProgrammer language;
-    @ManyToOne
-    @JoinColumn(name = "framework_id")
-    private Framework framework;
+    @ManyToMany
+    @JoinTable(name = "tb_hardskills_languageprogrammer", joinColumns =
+            {@JoinColumn(name = "hardskills_id")}, inverseJoinColumns =
+            {@JoinColumn(name="languageprogrammer_id")})
+    private List<LanguageProgrammer> listLanguage = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(name = "tb_hardskills_framework", joinColumns =
+            {@JoinColumn(name = "hardskills_id")}, inverseJoinColumns =
+            {@JoinColumn(name="framework_id")})
+    private List<Framework> listFramework = new ArrayList<>();
+
+    public HardSkills(String name, String description, Level level) {
+        this.name = name;
+        this.description = description;
+        this.level = level;
+    }
+
+    public void addListLanguageProgrammer(LanguageProgrammer languageProgrammer){
+        this.listLanguage.add(languageProgrammer);
+    }
+
+    public void addListFramework(Framework framework){
+        this.listFramework.add(framework);
+    }
 }

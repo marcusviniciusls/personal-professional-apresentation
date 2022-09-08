@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -16,6 +18,14 @@ public class HardSkillsResponse {
     private String name;
     private String description;
     private Level level;
-    private LanguageProgrammerResponse languageProgrammerResponse;
-    private FrameworkResponse frameworkResponse;
+    private List<LanguageProgrammerResponse> listLanguageProgrammerResponse = new ArrayList<>();
+    private List<FrameworkResponse> listFrameworkResponse = new ArrayList<>();
+
+    public void addListLanguageProgrammerResponse(LanguageProgrammerResponse languageProgrammerResponse){
+        this.listLanguageProgrammerResponse.add(languageProgrammerResponse);
+    }
+
+    public void addListFrameworkResponse(FrameworkResponse frameworkResponse){
+        this.listFrameworkResponse.add(frameworkResponse);
+    }
 }

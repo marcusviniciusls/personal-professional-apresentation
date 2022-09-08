@@ -186,15 +186,23 @@ public class InitializationData implements CommandLineRunner {
 
         // Hard Skills
         HardSkills hardSkills = new HardSkills("Java","Conhecimento em programar Java",
-                Level.ADVANCED, languageProgrammer, framework);
+                Level.ADVANCED);
         hardSkills.setUser(user);
         hardSkills.setUserCreation(user.getName());
         HardSkills hardSkills1 = new HardSkills("C#","Conhecimento em programar C#",
-                Level.ADVANCED, languageProgrammer1, framework1);
+                Level.ADVANCED);
         hardSkills1.setUser(administrator);
         hardSkills1.setUserCreation(administrator.getName());
         hardSkills.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff717"));
         hardSkills1.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff718"));
+        hardSkills.addListLanguageProgrammer(languageProgrammer);
+        hardSkills.addListLanguageProgrammer(languageProgrammer1);
+        hardSkills.addListFramework(framework);
+        hardSkills.addListFramework(framework1);
+        hardSkills1.addListLanguageProgrammer(languageProgrammer);
+        hardSkills1.addListLanguageProgrammer(languageProgrammer1);
+        hardSkills1.addListFramework(framework);
+        hardSkills1.addListFramework(framework1);
         hardSkillsRepository.saveAll(Arrays.asList(hardSkills, hardSkills1));
 
         // Certificacao
