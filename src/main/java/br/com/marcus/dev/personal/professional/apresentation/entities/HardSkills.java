@@ -14,6 +14,7 @@ import javax.persistence.*;
 @Table(name = "tb_hard_skills")
 public class HardSkills extends SuperEntity{
 
+    private String name;
     private String description;
     @Enumerated(EnumType.ORDINAL)
     private Level level;

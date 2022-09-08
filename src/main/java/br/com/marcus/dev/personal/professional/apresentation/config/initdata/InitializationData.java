@@ -185,11 +185,11 @@ public class InitializationData implements CommandLineRunner {
         languageProgrammerRepository.saveAll(Arrays.asList(languageProgrammer, languageProgrammer1));
 
         // Hard Skills
-        HardSkills hardSkills = new HardSkills("Conhecimento em programar Java",
+        HardSkills hardSkills = new HardSkills("Java","Conhecimento em programar Java",
                 Level.ADVANCED, languageProgrammer, framework);
         hardSkills.setUser(user);
         hardSkills.setUserCreation(user.getName());
-        HardSkills hardSkills1 = new HardSkills("Conhecimento em programar C#",
+        HardSkills hardSkills1 = new HardSkills("C#","Conhecimento em programar C#",
                 Level.ADVANCED, languageProgrammer1, framework1);
         hardSkills1.setUser(administrator);
         hardSkills1.setUserCreation(administrator.getName());
