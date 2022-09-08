@@ -193,6 +193,8 @@ public class InitializationData implements CommandLineRunner {
                 Level.ADVANCED, languageProgrammer1, framework1);
         hardSkills1.setUser(administrator);
         hardSkills1.setUserCreation(administrator.getName());
+        hardSkills.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff717"));
+        hardSkills1.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff718"));
         hardSkillsRepository.saveAll(Arrays.asList(hardSkills, hardSkills1));
 
         // Certificacao
