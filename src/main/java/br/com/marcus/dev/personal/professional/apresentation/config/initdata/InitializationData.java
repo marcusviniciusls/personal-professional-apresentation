@@ -226,6 +226,8 @@ public class InitializationData implements CommandLineRunner {
         office.setUserCreation(user.getName());
         office1.setUser(administrator);
         office1.setUserCreation(administrator.getName());
+        office.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff721"));
+        office1.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff722"));
         officeRepository.saveAll(Arrays.asList(office, office1));
 
         // SoftSkills
