@@ -31,4 +31,16 @@ public class FindByIdHardSkillsService {
         HardSkillsResponse hardSkillsResponse = hardSkillsFactory.convertEntityInResponse(hardSkills);
         return hardSkillsResponse;
     }
+
+    public HardSkills findByIdEntity(UUID id){
+        Optional<HardSkills> optionalHardSkills = hardSkillsRepository.findById(id);
+        if (optionalHardSkills.isEmpty()){
+            throw new ResourceNotFoundException("Hard Skills Not Found Exception");
+        }
+        HardSkills hardSkills = optionalHardSkills.get();
+        if (!centerEntityService.isStatusSuperEntity(hardSkills)){
+            throw new ResourceNotFoundException("ID Not Found Exception");
+        }
+        return hardSkills;
+    }
 }

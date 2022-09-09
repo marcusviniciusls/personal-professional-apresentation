@@ -4,6 +4,7 @@ import br.com.marcus.dev.personal.professional.apresentation.dto.request.HardSki
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormSave;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.HardSkillsResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
+import br.com.marcus.dev.personal.professional.apresentation.services.hardskills.DeleteHardSkillsService;
 import br.com.marcus.dev.personal.professional.apresentation.services.hardskills.FindAllHardSkillsService;
 import br.com.marcus.dev.personal.professional.apresentation.services.hardskills.FindByIdHardSkillsService;
 import br.com.marcus.dev.personal.professional.apresentation.services.hardskills.SaveHardSkillsService;
@@ -25,6 +26,7 @@ public class HardSkillsController {
     @Autowired private FindAllHardSkillsService findAllHardSkillsService;
     @Autowired private FindByIdHardSkillsService findByIdHardSkillsService;
     @Autowired private SaveHardSkillsService saveHardSkillsService;
+    @Autowired private DeleteHardSkillsService deleteHardSkillsService;
 
     @GetMapping
     public ResponseEntity<Page<HardSkillsResponse>> findAll(Pageable pageable){
@@ -43,5 +45,12 @@ public class HardSkillsController {
     public ResponseEntity<HardSkillsResponse> save(@Valid @RequestBody HardSkillsSaveForm hardSkillsSaveForm){
         HardSkillsResponse hardSkillsResponse = saveHardSkillsService.save(hardSkillsSaveForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(hardSkillsResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id){
+        deleteHardSkillsService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }
