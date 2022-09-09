@@ -43,4 +43,8 @@ public class FindByIdFrameworkService {
         }
         return framework;
     }
+
+    public Optional<Framework> findByIdNotError(UUID id){
+        return frameworkRepository.findById(id);
+    }
 }

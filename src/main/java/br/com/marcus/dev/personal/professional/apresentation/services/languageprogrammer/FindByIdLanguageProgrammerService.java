@@ -44,4 +44,8 @@ public class FindByIdLanguageProgrammerService {
         }
         return languageProgrammer;
     }
+
+    public Optional<LanguageProgrammer> findByIdNotError(UUID id){
+        return languageProgrammerRepository.findById(id);
+    }
 }
