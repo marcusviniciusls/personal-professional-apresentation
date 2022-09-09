@@ -1,5 +1,6 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.professionalgoal.factory;
 
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.ProfessionalGoalSaveForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.ProfessionalGoalResponse;
 import br.com.marcus.dev.personal.professional.apresentation.entities.ProfessionalGoal;
 import org.modelmapper.ModelMapper;
@@ -13,5 +14,9 @@ public class ProfessionalGoalFactory {
 
     public ProfessionalGoalResponse convertEntityInResponse(ProfessionalGoal professionalGoal){
         return modelMapper.map(professionalGoal, ProfessionalGoalResponse.class);
+    }
+
+    public ProfessionalGoal convertFormSaveInEntity(ProfessionalGoalSaveForm professionalGoalSaveForm){
+        return modelMapper.map(professionalGoalSaveForm, ProfessionalGoal.class);
     }
 }
