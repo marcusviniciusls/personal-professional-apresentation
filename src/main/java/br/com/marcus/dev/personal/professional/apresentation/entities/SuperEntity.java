@@ -18,6 +18,7 @@ public class SuperEntity {
     @Id
     @Type(type="org.hibernate.type.UUIDCharType")
     private UUID id;
+    private LocalDateTime dateIssue;
     private LocalDateTime dateCreation;
     private LocalDateTime dateUpdate;
     private String userCreation;
@@ -31,6 +32,7 @@ public class SuperEntity {
     public SuperEntity() {
         id = UUID.randomUUID();
         LocalDateTime now = LocalDateTime.now();
+        dateIssue = now;
         dateCreation = now;
         status = true;
     }

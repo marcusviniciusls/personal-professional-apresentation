@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.UUID;
 
@@ -274,6 +275,10 @@ public class InitializationData implements CommandLineRunner {
         professionalGoal.setUserCreation(user.getName());
         professionalGoal1.setUser(administrator);
         professionalGoal1.setUserCreation(administrator.getName());
+        professionalGoal.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff719"));
+        professionalGoal1.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff720"));
+        professionalGoal.setDateIssue(LocalDateTime.now());
+        professionalGoal1.setDateIssue(LocalDateTime.of(2022,04,20, 0, 0, 0));
         professionalGoalRepository.saveAll(Arrays.asList(professionalGoal, professionalGoal1));
 
         // Disciplina da Graduacao
