@@ -1,13 +1,12 @@
 package br.com.marcus.dev.personal.professional.apresentation.controller;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.ProfessionalGoalSaveForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.ProfessionalGoalUpdateForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormUpdate;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.ProfessionalGoalResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
-import br.com.marcus.dev.personal.professional.apresentation.services.professionalgoal.DeleteProfessionalGoalService;
-import br.com.marcus.dev.personal.professional.apresentation.services.professionalgoal.FindAllProfessionalGoalService;
-import br.com.marcus.dev.personal.professional.apresentation.services.professionalgoal.FindByIdProfessionalGoalService;
-import br.com.marcus.dev.personal.professional.apresentation.services.professionalgoal.SaveProfessionalGoalService;
+import br.com.marcus.dev.personal.professional.apresentation.services.professionalgoal.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +26,7 @@ public class ProfessionalGoalController {
     @Autowired private FindByIdProfessionalGoalService findByIdProfessionalGoalService;
     @Autowired private SaveProfessionalGoalService saveProfessionalGoalService;
     @Autowired private DeleteProfessionalGoalService deleteProfessionalGoalService;
+    @Autowired private UpdateProfessionalGoalService updateProfessionalGoalService;
 
     @GetMapping
     public ResponseEntity<Page<ProfessionalGoalResponse>> findAll(Pageable page){
@@ -45,6 +45,13 @@ public class ProfessionalGoalController {
     public ResponseEntity<ProfessionalGoalResponse> save(@Valid @RequestBody ProfessionalGoalSaveForm professionalGoalSaveForm){
         ProfessionalGoalResponse professionalGoalResponse = saveProfessionalGoalService.save(professionalGoalSaveForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(professionalGoalResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<ProfessionalGoalResponse> update(@PathVariable UUID id, @Valid @RequestBody ProfessionalGoalUpdateForm professionalGoalUpdateForm){
+        ProfessionalGoalResponse professionalGoalResponse = updateProfessionalGoalService.update(id, professionalGoalUpdateForm);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(professionalGoalResponse);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")

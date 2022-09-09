@@ -1,6 +1,7 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.professionalgoal.factory;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.ProfessionalGoalSaveForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.ProfessionalGoalUpdateForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.ProfessionalGoalResponse;
 import br.com.marcus.dev.personal.professional.apresentation.entities.ProfessionalGoal;
 import org.modelmapper.ModelMapper;
@@ -18,5 +19,15 @@ public class ProfessionalGoalFactory {
 
     public ProfessionalGoal convertFormSaveInEntity(ProfessionalGoalSaveForm professionalGoalSaveForm){
         return modelMapper.map(professionalGoalSaveForm, ProfessionalGoal.class);
+    }
+
+    public ProfessionalGoal convertFormUpdateInEntity(ProfessionalGoalUpdateForm professionalGoalUpdateForm, ProfessionalGoal professionalGoal){
+        if (professionalGoalUpdateForm.getDescription() != null){
+            professionalGoal.setDescription(professionalGoalUpdateForm.getDescription());
+        }
+        if (professionalGoalUpdateForm.getOffice() != null){
+            professionalGoal.setOffice(professionalGoalUpdateForm.getOffice());
+        }
+        return professionalGoal;
     }
 }
