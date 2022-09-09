@@ -31,4 +31,16 @@ public class FindByIdProfessionalGoalService {
         ProfessionalGoalResponse professionalGoalResponse = professionalGoalFactory.convertEntityInResponse(professionalGoal);
         return professionalGoalResponse;
     }
+
+    public ProfessionalGoal findByIdEntity(UUID id){
+        Optional<ProfessionalGoal> optionalProfessionalGoal = professionalGoalRepository.findById(id);
+        if (optionalProfessionalGoal.isEmpty()){
+            throw new ResourceNotFoundException("Professional Goal Not Found Exception");
+        }
+        ProfessionalGoal professionalGoal = optionalProfessionalGoal.get();
+        if (!centerEntityService.isStatusSuperEntity(professionalGoal)){
+            throw new ResourceNotFoundException("Professional Goal Not Found Exception");
+        }
+        return professionalGoal;
+    }
 }
