@@ -1,14 +1,9 @@
 package br.com.marcus.dev.personal.professional.apresentation.controller;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.OfficeSaveForm;
-import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.OfficeUpdateForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.OfficeResponse;
-import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
-import br.com.marcus.dev.personal.professional.apresentation.entities.Office;
-import br.com.marcus.dev.personal.professional.apresentation.services.office.DeleteOfficeService;
-import br.com.marcus.dev.personal.professional.apresentation.services.office.FindAllOfficeService;
-import br.com.marcus.dev.personal.professional.apresentation.services.office.FindByIdOfficeService;
-import br.com.marcus.dev.personal.professional.apresentation.services.office.SaveOfficeService;
+import br.com.marcus.dev.personal.professional.apresentation.services.office.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +23,7 @@ public class OfficeController {
     @Autowired private FindByIdOfficeService findByIdOfficeService;
     @Autowired private SaveOfficeService saveOfficeService;
     @Autowired private DeleteOfficeService deleteOfficeService;
+    @Autowired private UpdateOfficeService updateOfficeService;
 
     @GetMapping
     public ResponseEntity<Page<OfficeResponse>> findAll(Pageable page){
@@ -46,6 +42,13 @@ public class OfficeController {
     public ResponseEntity<OfficeResponse> save(@Valid @RequestBody OfficeSaveForm officeSaveForm){
         OfficeResponse officeResponse = saveOfficeService.save(officeSaveForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(officeResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<OfficeResponse> update(@PathVariable UUID id, @RequestBody OfficeUpdateForm officeUpdateForm){
+        OfficeResponse officeResponse = updateOfficeService.update(id, officeUpdateForm);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(officeResponse);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
