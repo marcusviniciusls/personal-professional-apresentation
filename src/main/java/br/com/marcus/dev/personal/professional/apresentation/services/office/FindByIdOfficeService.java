@@ -31,4 +31,16 @@ public class FindByIdOfficeService {
         }
         return officeFactory.convertEntityInResponse(office);
     }
+
+    public Office findByIdEntity(UUID id){
+        Optional<Office> optionalOffice = officeRepository.findById(id);
+        if (optionalOffice.isEmpty()){
+            throw new ResourceNotFoundException("Office Not Found Exception");
+        }
+        Office office = optionalOffice.get();
+        if (!centerEntityService.isStatusSuperEntity(office)){
+            throw new ResourceNotFoundException("Office Not Found Exception");
+        }
+        return office;
+    }
 }

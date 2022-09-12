@@ -5,6 +5,7 @@ import br.com.marcus.dev.personal.professional.apresentation.dto.request.Telepho
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.OfficeResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Office;
+import br.com.marcus.dev.personal.professional.apresentation.services.office.DeleteOfficeService;
 import br.com.marcus.dev.personal.professional.apresentation.services.office.FindAllOfficeService;
 import br.com.marcus.dev.personal.professional.apresentation.services.office.FindByIdOfficeService;
 import br.com.marcus.dev.personal.professional.apresentation.services.office.SaveOfficeService;
@@ -26,6 +27,7 @@ public class OfficeController {
     @Autowired private FindAllOfficeService findAllOfficeService;
     @Autowired private FindByIdOfficeService findByIdOfficeService;
     @Autowired private SaveOfficeService saveOfficeService;
+    @Autowired private DeleteOfficeService deleteOfficeService;
 
     @GetMapping
     public ResponseEntity<Page<OfficeResponse>> findAll(Pageable page){
@@ -44,5 +46,12 @@ public class OfficeController {
     public ResponseEntity<OfficeResponse> save(@Valid @RequestBody OfficeSaveForm officeSaveForm){
         OfficeResponse officeResponse = saveOfficeService.save(officeSaveForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(officeResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id){
+        deleteOfficeService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }
