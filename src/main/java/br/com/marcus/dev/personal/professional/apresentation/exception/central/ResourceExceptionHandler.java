@@ -88,4 +88,12 @@ public class ResourceExceptionHandler {
         StandardError standardError = new StandardError(Instant.now(), httpStatus.value(), error, amazonS3Exception.getMessage(), httpServletRequest.getRequestURI());
         return ResponseEntity.status(httpStatus).body(standardError);
     }
+
+    @ExceptionHandler(CurrentJobException.class)
+    public ResponseEntity<StandardError> currentJobException(CurrentJobException currentJobException, HttpServletRequest httpServletRequest) {
+        String error = "THERE IS A CURRENT JOB";
+        HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+        StandardError standardError = new StandardError(Instant.now(), httpStatus.value(), error, currentJobException.getMessage(), httpServletRequest.getRequestURI());
+        return ResponseEntity.status(httpStatus).body(standardError);
+    }
 }

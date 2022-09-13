@@ -307,8 +307,8 @@ public class InitializationData implements CommandLineRunner {
 
         // Experiencia Profissional
         ProfessionalExperience professionalExperience = new ProfessionalExperience(LocalDate.of(2014, 1, 1),
-                LocalDate.of(2014, 1, 1), OfficeEnum.CLT, StatusWork.CURRENT, partner, office,
-                professionalExperienceResume);
+                LocalDate.of(2014, 1, 1), OfficeEnum.CLT, StatusWork.OLD, partner, office,
+                professionalExperienceResume, "teste");
         professionalExperience.setUser(user);
         professionalExperience.setUserCreation(user.getName());
         professionalExperienceRepository.save(professionalExperience);
