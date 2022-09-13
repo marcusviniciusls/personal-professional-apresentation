@@ -311,6 +311,7 @@ public class InitializationData implements CommandLineRunner {
                 professionalExperienceResume, "teste");
         professionalExperience.setUser(user);
         professionalExperience.setUserCreation(user.getName());
+        professionalExperience.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff723"));
         professionalExperienceRepository.save(professionalExperience);
 
         // Atividade da Experiencia Profissional
