@@ -21,7 +21,6 @@ public class FindByIdProfessionalExperienceService {
     @Autowired private ProfessionalExperienceRepository repository;
     @Autowired private CenterEntityService centerEntityService;
     @Autowired private ProfessionalExperienceFactory factory;
-    @Autowired private AssignmentsFactory assignmentsFactory;
 
     public ProfessionalExperienceResponse findById(UUID id){
         Optional<ProfessionalExperience> optionalProfessionalExperience = repository.findById(id);
@@ -32,11 +31,6 @@ public class FindByIdProfessionalExperienceService {
         if (!centerEntityService.isStatusSuperEntity(professionalExperience)){
             throw new ResourceNotFoundException("Professional Experience Not Found Exception");
         }
-        ProfessionalExperienceResponse response = factory.convertEntityInResponse(professionalExperience);
-        for (Assignments assignments : professionalExperience.getListAssignments()){
-            AssignmentsResponse assignmentsResponse = assignmentsFactory.convertEntityInResponse(assignments);
-            response.addListAssignmentsResponse(assignmentsResponse);
-        }
-        return response;
+        return factory.convertEntityInResponse(professionalExperience);
     }
 }

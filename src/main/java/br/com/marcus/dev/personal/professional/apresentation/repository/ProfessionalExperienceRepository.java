@@ -13,4 +13,7 @@ public interface ProfessionalExperienceRepository extends JpaRepository<Professi
 
     @Query("SELECT pe FROM ProfessionalExperience pe WHERE pe.status = true AND pe.statusWork = 0")
     List<ProfessionalExperience> findAll();
+
+    @Query("SELECT pe FROM ProfessionalExperience pe WHERE pe.status = true ORDER BY pe.dateInit DESC, pe.dateFinish ASC")
+    List<ProfessionalExperience> findAllEntity();
 }

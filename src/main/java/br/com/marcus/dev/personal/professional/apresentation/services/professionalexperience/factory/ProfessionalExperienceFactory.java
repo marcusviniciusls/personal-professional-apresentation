@@ -2,6 +2,7 @@ package br.com.marcus.dev.personal.professional.apresentation.services.professio
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.AssignmentsSaveForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.ProfessionalExperienceFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.response.AssignmentsResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.OfficeResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.PartnerResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.ProfessionalExperienceResponse;
@@ -50,6 +51,10 @@ public class ProfessionalExperienceFactory {
         professionalExperienceResponse.setOfficeEnum(entity.getOfficeEnum());
         professionalExperienceResponse.setOfficeResponse(officeResponse);
         professionalExperienceResponse.setPartnerResponse(partnerResponse);
+        for (Assignments assignments : entity.getListAssignments()){
+            AssignmentsResponse assignmentsResponse = assignmentsFactory.convertEntityInResponse(assignments);
+            professionalExperienceResponse.addListAssignmentsResponse(assignmentsResponse);
+        }
 
         return professionalExperienceResponse;
     }
