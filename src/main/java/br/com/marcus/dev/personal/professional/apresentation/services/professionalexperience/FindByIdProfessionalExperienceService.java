@@ -33,4 +33,16 @@ public class FindByIdProfessionalExperienceService {
         }
         return factory.convertEntityInResponse(professionalExperience);
     }
+
+    public ProfessionalExperience findByIdEntity(UUID id){
+        Optional<ProfessionalExperience> optionalProfessionalExperience = repository.findById(id);
+        if (optionalProfessionalExperience.isEmpty()){
+            throw new ResourceNotFoundException("Professional Experience Not Found Exception");
+        }
+        ProfessionalExperience professionalExperience = optionalProfessionalExperience.get();
+        if (!centerEntityService.isStatusSuperEntity(professionalExperience)){
+            throw new ResourceNotFoundException("Professional Experience Not Found Exception");
+        }
+        return professionalExperience;
+    }
 }
