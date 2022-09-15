@@ -78,9 +78,9 @@ public class InitializationData implements CommandLineRunner {
         branchActivityRepository.saveAll(Arrays.asList(branchActivity, branchActivity1));
 
         // Empresas
-        Partner partner = new Partner("T&G Bolsas", "http://vivalinux.com/imagem.png", branchActivity,
+        Partner partner = new Partner("T&G Bolsas", "", branchActivity,
                "TESTE DE EMPRESA PARA INCLUSAO");
-        Partner partner1 = new Partner("Tech Informatica", "http://vivalinux.com/tech.png", branchActivity1,
+        Partner partner1 = new Partner("Tech Informatica", "", branchActivity1,
                "TESTE DE EMPRESA PARA INCLUSAO");
         partner.setUser(user);
         partner.setUserCreation(user.getName());

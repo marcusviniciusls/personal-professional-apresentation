@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.UUID;
@@ -29,6 +30,8 @@ public class PartnerController {
     @Autowired private SavePartnerIdBranchActivityService savePartnerIdBranchActivityService;
     @Autowired private UpdatePartnerService updatePartnerService;
     @Autowired private DeletePartnerService deletePartnerService;
+    @Autowired private SaveImagePartnerService saveImagePartnerService;
+    @Autowired private DeleteImagePartnerService deleteImagePartnerService;
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping
@@ -59,6 +62,13 @@ public class PartnerController {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
+    @PostMapping(value = "/{id}/image")
+    public ResponseEntity<?> saveImage(@RequestParam(name = "file") MultipartFile multipartFile, @PathVariable UUID id){
+        saveImagePartnerService.saveimage(multipartFile, id);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping(value = "/{id}")
     public ResponseEntity<PartnerResponse> update(@PathVariable UUID id, @Valid @RequestBody PartnerRequestFormUpdate partnerRequestFormUpdate){
         PartnerResponse partnerResponse = updatePartnerService.update(partnerRequestFormUpdate, id);
@@ -69,6 +79,13 @@ public class PartnerController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id){
         deletePartnerService.delete(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(value = "/{id}/image")
+    public ResponseEntity<?> deleteImage(@PathVariable UUID id){
+        deleteImagePartnerService.deleteImageS3(id);
         return ResponseEntity.ok().build();
     }
 }

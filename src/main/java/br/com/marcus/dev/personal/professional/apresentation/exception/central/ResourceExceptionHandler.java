@@ -3,6 +3,7 @@ package br.com.marcus.dev.personal.professional.apresentation.exception.central;
 import br.com.marcus.dev.personal.professional.apresentation.exception.custom.*;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
+import com.amazonaws.SdkClientException;
 import com.amazonaws.services.alexaforbusiness.AmazonAlexaForBusinessClient;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
 import org.springframework.http.HttpStatus;
@@ -94,6 +95,14 @@ public class ResourceExceptionHandler {
         String error = "THERE IS A CURRENT JOB";
         HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
         StandardError standardError = new StandardError(Instant.now(), httpStatus.value(), error, currentJobException.getMessage(), httpServletRequest.getRequestURI());
+        return ResponseEntity.status(httpStatus).body(standardError);
+    }
+
+    @ExceptionHandler(SdkClientException.class)
+    public ResponseEntity<StandardError> sdkClientException(SdkClientException sdkClientException, HttpServletRequest httpServletRequest) {
+        String error = "Error SDK Client Exception";
+        HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+        StandardError standardError = new StandardError(Instant.now(), httpStatus.value(), error, sdkClientException.getMessage(), httpServletRequest.getRequestURI());
         return ResponseEntity.status(httpStatus).body(standardError);
     }
 }
