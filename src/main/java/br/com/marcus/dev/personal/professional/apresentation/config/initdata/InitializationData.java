@@ -146,8 +146,8 @@ public class InitializationData implements CommandLineRunner {
         courseRepository.saveAll(Arrays.asList(course, course1));
 
         // Framework
-        Framework framework = new Framework("Quarkus", "Curso de Quarkus" , "urlimage" );
-        Framework framework1 = new Framework("Spring", "Spring Melhor Framework" , "urlImage");
+        Framework framework = new Framework("Quarkus", "Curso de Quarkus" , "" );
+        Framework framework1 = new Framework("Spring", "Spring Melhor Framework" , "");
         framework.setUser(user);
         framework.setUserCreation(user.getName());
         framework1.setUser(administrator);
