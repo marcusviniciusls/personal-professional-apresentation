@@ -50,6 +50,14 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(httpStatus).body(standardError);
     }
 
+    @ExceptionHandler(ErrorDateAfterNowProfessionalExperience.class)
+    public ResponseEntity<StandardError> errorDateInitAfterDateFinish(ErrorDateAfterNowProfessionalExperience errorDateAfterNowProfessionalExperience, HttpServletRequest httpServletRequest) {
+        String error = "ERROR DATE AFTER NOW";
+        HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+        StandardError standardError = new StandardError(Instant.now(), httpStatus.value(), error, errorDateAfterNowProfessionalExperience.getMessage(), httpServletRequest.getRequestURI());
+        return ResponseEntity.status(httpStatus).body(standardError);
+    }
+
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<StandardError> illegalArgumentException(IllegalArgumentException illegalArgumentException, HttpServletRequest httpServletRequest) {
         String error = "ENUM INCORRECT";

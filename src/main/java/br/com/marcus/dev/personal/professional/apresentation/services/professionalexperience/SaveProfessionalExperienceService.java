@@ -10,6 +10,7 @@ import br.com.marcus.dev.personal.professional.apresentation.entities.Partner;
 import br.com.marcus.dev.personal.professional.apresentation.entities.ProfessionalExperience;
 import br.com.marcus.dev.personal.professional.apresentation.entities.enums.StatusWork;
 import br.com.marcus.dev.personal.professional.apresentation.exception.custom.CurrentJobException;
+import br.com.marcus.dev.personal.professional.apresentation.exception.custom.ErrorDateAfterNowProfessionalExperience;
 import br.com.marcus.dev.personal.professional.apresentation.repository.ProfessionalExperienceRepository;
 import br.com.marcus.dev.personal.professional.apresentation.services.assignments.SaveAssignmentsService;
 import br.com.marcus.dev.personal.professional.apresentation.services.assignments.factory.AssignmentsFactory;
@@ -20,6 +21,7 @@ import br.com.marcus.dev.personal.professional.apresentation.services.profession
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -34,6 +36,7 @@ public class SaveProfessionalExperienceService {
     @Autowired private SaveAssignmentsService saveAssignmentsService;
 
     public ProfessionalExperienceResponse save(ProfessionalExperienceFormSave requestSave){
+        dateFinishBeforeNotAllowed(requestSave.getDateFinish());
         ProfessionalExperience professionalExperience = mountObject(requestSave);
         if (verifyStatusJob() && requestSave.getDateFinish() == null){
             throw new CurrentJobException("There is a current job");
@@ -67,5 +70,11 @@ public class SaveProfessionalExperienceService {
     private boolean verifyStatusJob(){
         List<ProfessionalExperience> listProfessionalExperience = professionalExperienceRepository.findAll();
         return listProfessionalExperience.size() > 0 ? true : false;
+    }
+
+    private void dateFinishBeforeNotAllowed(LocalDate date){
+        if (date.isAfter(LocalDate.now())){
+            throw new ErrorDateAfterNowProfessionalExperience("ERROR DATE FINISH AFTER NOW");
+        }
     }
 }
