@@ -19,6 +19,8 @@ import com.amazonaws.services.s3.AmazonS3;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.time.LocalDateTime;
+import java.util.Random;
 
 @Service
 @NoArgsConstructor
@@ -43,6 +45,8 @@ public class S3Service {
 
     public URI uploadFile(InputStream inputStream, String fileName, String contextType){
         try{
+            Random random = new Random();
+            fileName = random.nextInt() + fileName;
             ObjectMetadata objectMetadata = new ObjectMetadata();
             objectMetadata.setContentType(contextType);
             LOG.info("Iniciando Upload");

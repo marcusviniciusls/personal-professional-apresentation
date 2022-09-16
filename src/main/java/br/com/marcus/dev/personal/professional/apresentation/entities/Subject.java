@@ -22,6 +22,7 @@ public class Subject extends SuperEntity{
     private String description;
     private String period;
     private String imageReportRecord;
+    private String urlImage;
     @Enumerated(EnumType.ORDINAL)
     private SituationSubject situationSubject;
     @ManyToOne
