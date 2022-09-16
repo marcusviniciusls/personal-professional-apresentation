@@ -4,6 +4,7 @@ import br.com.marcus.dev.personal.professional.apresentation.dto.request.Project
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormSave;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.ProjectResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
+import br.com.marcus.dev.personal.professional.apresentation.services.project.DeleteProjectService;
 import br.com.marcus.dev.personal.professional.apresentation.services.project.FindAllProjectService;
 import br.com.marcus.dev.personal.professional.apresentation.services.project.FindByIdProjectService;
 import br.com.marcus.dev.personal.professional.apresentation.services.project.SaveProjectService;
@@ -25,6 +26,7 @@ public class ProjectController {
     @Autowired private FindAllProjectService findAllProjectService;
     @Autowired private FindByIdProjectService findByIdProjectService;
     @Autowired private SaveProjectService saveProjectService;
+    @Autowired private DeleteProjectService deleteProjectService;
 
     @GetMapping
     public ResponseEntity<Page<ProjectResponse>> findAll(Pageable page){
@@ -43,5 +45,12 @@ public class ProjectController {
     public ResponseEntity<ProjectResponse> save(@Valid @RequestBody ProjectSaveForm projectSaveForm){
         ProjectResponse projectResponse = saveProjectService.save(projectSaveForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(projectResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id){
+        deleteProjectService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }
