@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -25,4 +27,6 @@ public class CourseUpdateForm {
     private LocalDate dateFinishReal;
     private Integer statusCourse;
     private Integer levelCourse;
+    private List<ListLanguageProgrammer> listLanguageProgrammers = new ArrayList<>();
+    private List<ListFramework> listFramework = new ArrayList<>();
 }

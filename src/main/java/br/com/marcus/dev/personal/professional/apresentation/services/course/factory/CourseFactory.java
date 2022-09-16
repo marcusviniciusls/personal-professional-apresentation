@@ -12,6 +12,8 @@ import br.com.marcus.dev.personal.professional.apresentation.entities.Framework;
 import br.com.marcus.dev.personal.professional.apresentation.entities.LanguageProgrammer;
 import br.com.marcus.dev.personal.professional.apresentation.entities.enums.LevelCourse;
 import br.com.marcus.dev.personal.professional.apresentation.entities.enums.StatusCourse;
+import br.com.marcus.dev.personal.professional.apresentation.repository.FrameworkRepository;
+import br.com.marcus.dev.personal.professional.apresentation.repository.LanguageProgrammerRepository;
 import br.com.marcus.dev.personal.professional.apresentation.services.framework.factory.FrameworkFactory;
 import br.com.marcus.dev.personal.professional.apresentation.services.languageprogrammer.factory.LanguageProgrammerFactory;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -19,9 +21,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.awt.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class CourseFactory {
@@ -29,6 +34,8 @@ public class CourseFactory {
     @Autowired private LanguageProgrammerFactory languageProgrammerFactory;
     private FrameworkFactory frameworkFactory = new FrameworkFactory();
     @Autowired private ModelMapper modelMapper;
+    @Autowired private FrameworkRepository frameworkRepository;
+    @Autowired private LanguageProgrammerRepository languageProgrammerRepository;
 
     public CourseResponse convertEntityInDto(Course course){
         CourseResponse courseResponse = new CourseResponse();
@@ -76,10 +83,10 @@ public class CourseFactory {
     }
 
     public Course convertFormUpdateInEntity(CourseUpdateForm courseUpdateForm, Course course){
-        if (courseUpdateForm.getName() != null){
+        if (courseUpdateForm.getName() != null && !courseUpdateForm.getName().equals("")){
             course.setName(courseUpdateForm.getName());
         }
-        if (courseUpdateForm.getDescription() != null){
+        if (courseUpdateForm.getDescription() != null && !courseUpdateForm.getDescription().equals("")){
             course.setDescription(courseUpdateForm.getDescription());
         }
         if (courseUpdateForm.getDuration() != null){
@@ -103,6 +110,23 @@ public class CourseFactory {
         if (courseUpdateForm.getLevelCourse() != null){
             course.setLevelCourse(LevelCourse.toEnum(courseUpdateForm.getLevelCourse()));
         }
+
+        List<Framework> listFrameworkNew = new ArrayList<>();
+        List<LanguageProgrammer> listLanguageProgrammerNew = new ArrayList<>();
+        for (ListFramework listFramework : courseUpdateForm.getListFramework()){
+            Optional<Framework> optionalFramework = frameworkRepository.findById(listFramework.getId());
+            if (optionalFramework.isPresent()){
+                listFrameworkNew.add(optionalFramework.get());
+            }
+        }
+        for (ListLanguageProgrammer listLanguageProgrammer : courseUpdateForm.getListLanguageProgrammers()){
+            Optional<LanguageProgrammer> optionalLanguageProgrammer = languageProgrammerRepository.findById(listLanguageProgrammer.getId());
+            if (optionalLanguageProgrammer.isPresent()){
+                listLanguageProgrammerNew.add(optionalLanguageProgrammer.get());
+            }
+        }
+        course.setListFramework(listFrameworkNew);
+        course.setListLanguage(listLanguageProgrammerNew);
         return course;
     }
 }
