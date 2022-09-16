@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.UUID;
@@ -28,6 +29,8 @@ public class CourseController {
     @Autowired private SaveCourseService saveCourseService;
     @Autowired private DeleteCourseService deleteCourseService;
     @Autowired private UpdateCourseService updateCourseService;
+    @Autowired private SaveImageCourseService saveImageCourseService;
+    @Autowired private DeleteImageCourseService deleteImageCourseService;
 
     @GetMapping
     public ResponseEntity<Page<CourseResponse>> findAll(Pageable page){
@@ -49,6 +52,13 @@ public class CourseController {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
+    @PostMapping(value = "/{id}/image")
+    public ResponseEntity<?> saveImage(@RequestParam(name = "file") MultipartFile multipartFile, @PathVariable UUID id){
+        saveImageCourseService.saveImageCourse(multipartFile, id);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping(value = "/{id}")
     public ResponseEntity<CourseResponse> update(@PathVariable UUID id, @Valid @RequestBody CourseUpdateForm courseUpdateForm){
         CourseResponse courseResponse = updateCourseService.update(courseUpdateForm, id);
@@ -59,6 +69,13 @@ public class CourseController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id){
         deleteCourseService.delete(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(value = "/{id}/image")
+    public ResponseEntity<?> deleteImage(@PathVariable UUID id){
+        deleteImageCourseService.deleteImageS3(id);
         return ResponseEntity.ok().build();
     }
 }

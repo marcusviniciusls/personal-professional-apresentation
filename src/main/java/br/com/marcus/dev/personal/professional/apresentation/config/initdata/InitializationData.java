@@ -132,11 +132,11 @@ public class InitializationData implements CommandLineRunner {
         Course course = new Course("Java e Quarkus", "Test", BigDecimal.valueOf(20.00),
                 LocalDate.of(2022, 4, 1), LocalDate.of(2022, 6, 20),
                 LocalDate.of(2022, 4, 1), LocalDate.of(2022, 6, 20),
-                "logo_imagem", StatusCourse.CONCLUSION, LevelCourse.ADVANCED);
+                "", StatusCourse.CONCLUSION, LevelCourse.ADVANCED);
         Course course1 = new Course("Spring JPA", "Test", BigDecimal.valueOf(30.00),
                 LocalDate.of(2022, 4, 1), LocalDate.of(2022, 6, 20),
                 LocalDate.of(2022, 4, 1), LocalDate.of(2022, 6, 20),
-                "logo_imagem", StatusCourse.PROGRESS, LevelCourse.BASIC);
+                "", StatusCourse.PROGRESS, LevelCourse.BASIC);
         course.setUser(user);
         course.setUserCreation(user.getName());
         course1.setUser(administrator);
