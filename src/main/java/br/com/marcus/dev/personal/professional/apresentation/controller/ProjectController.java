@@ -1,13 +1,12 @@
 package br.com.marcus.dev.personal.professional.apresentation.controller;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.ProjectSaveForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.ProjectUpdateForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormUpdate;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.ProjectResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
-import br.com.marcus.dev.personal.professional.apresentation.services.project.DeleteProjectService;
-import br.com.marcus.dev.personal.professional.apresentation.services.project.FindAllProjectService;
-import br.com.marcus.dev.personal.professional.apresentation.services.project.FindByIdProjectService;
-import br.com.marcus.dev.personal.professional.apresentation.services.project.SaveProjectService;
+import br.com.marcus.dev.personal.professional.apresentation.services.project.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +26,7 @@ public class ProjectController {
     @Autowired private FindByIdProjectService findByIdProjectService;
     @Autowired private SaveProjectService saveProjectService;
     @Autowired private DeleteProjectService deleteProjectService;
+    @Autowired private UpdateProjectService updateProjectService;
 
     @GetMapping
     public ResponseEntity<Page<ProjectResponse>> findAll(Pageable page){
@@ -45,6 +45,13 @@ public class ProjectController {
     public ResponseEntity<ProjectResponse> save(@Valid @RequestBody ProjectSaveForm projectSaveForm){
         ProjectResponse projectResponse = saveProjectService.save(projectSaveForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(projectResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<ProjectResponse> update(@PathVariable UUID id, @Valid @RequestBody ProjectUpdateForm projectUpdateForm){
+        ProjectResponse projectResponse = updateProjectService.update(id, projectUpdateForm);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(projectResponse);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
