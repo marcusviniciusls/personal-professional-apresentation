@@ -19,7 +19,7 @@ public class SaveFrameworkSaveService {
 
     public void saveImageFramework(MultipartFile multipartFile, UUID idFramework){
         Framework framework = findByIdFrameworkService.findByIdEntity(idFramework);
-        if (framework.getUrlImage() != null){
+        if (framework.getUrlImage() != null && !framework.getUrlImage().equals("")){
             throw new FileException("RESOURCE IS ALREADY SAVED");
         }
         String url = sendFileAwsS3.uploadFile(multipartFile).toString();

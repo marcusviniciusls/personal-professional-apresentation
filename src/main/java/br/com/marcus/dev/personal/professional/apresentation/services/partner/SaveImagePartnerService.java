@@ -20,7 +20,7 @@ public class SaveImagePartnerService {
 
     public void saveimage(MultipartFile multipartFile, UUID idPartner){
         Partner partner = partnerRepository.findById(idPartner).get();
-        if (partner.getUrlImage() != null){
+        if (partner.getUrlImage() != null && !partner.getUrlImage().equals("")){
             throw new FileException("RESOURCE IS ALREADY SAVED");
         }
         String urlImage = sendFileAwsS3.uploadFile(multipartFile).toString();

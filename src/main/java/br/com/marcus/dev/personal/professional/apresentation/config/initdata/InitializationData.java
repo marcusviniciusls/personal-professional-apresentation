@@ -208,10 +208,10 @@ public class InitializationData implements CommandLineRunner {
         hardSkillsRepository.saveAll(Arrays.asList(hardSkills, hardSkills1));
 
         // Certificacao
-        Certificate certificate = new Certificate("ITIL V4", "http://teste.com/teste.png", partner);
+        Certificate certificate = new Certificate("ITIL V4", "", partner);
         certificate.setUser(user);
         certificate.setUserCreation(user.getName());
-        Certificate certificate1 = new Certificate("JAVA Programmer", "http://teste.com/teste.png", partner1);
+        Certificate certificate1 = new Certificate("JAVA Programmer", "", partner1);
         certificate1.setUser(administrator);
         certificate1.setUserCreation(administrator.getName());
         certificate.setPartner(partner);

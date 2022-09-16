@@ -20,7 +20,7 @@ public class SaveImageSubjectService {
 
     public void saveimage(MultipartFile multipartFile, UUID idSubject){
         Subject subject = subjectRepository.findById(idSubject).get();
-        if (subject.getUrlImage() != null){
+        if (subject.getUrlImage() != null && !subject.getUrlImage().equals("")){
             throw new FileException("RESOURCE IS ALREADY SAVED");
         }
         String urlImage = sendFileAwsS3.uploadFile(multipartFile).toString();

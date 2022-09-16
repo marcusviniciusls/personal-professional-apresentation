@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.UUID;
@@ -26,6 +27,8 @@ public class CertificateController {
     @Autowired private SaveCertificateService saveCertificateService;
     @Autowired private DeleteCertificateService deleteCertificateService;
     @Autowired private UpdateCertificateService updateCertificateService;
+    @Autowired private SaveImageCertificateService saveImageCertificateService;
+    @Autowired private DeleteImageCertificateService deleteImageCertificateService;
 
     @GetMapping
     public ResponseEntity<Page<CertificateResponse>> findAll(Pageable page){
@@ -47,6 +50,13 @@ public class CertificateController {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
+    @PostMapping(value = "/{id}/image")
+    public ResponseEntity<?> saveImage(@RequestParam(name = "file") MultipartFile multipartFile, @PathVariable UUID id){
+        saveImageCertificateService.saveImageCertificate(multipartFile, id);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping(value = "/{id}")
     public ResponseEntity<CertificateResponse> update(@PathVariable UUID id, @Valid @RequestBody CertificateUpdateForm certificateUpdateForm){
         CertificateResponse certificateResponse = updateCertificateService.update(certificateUpdateForm, id);
@@ -57,6 +67,13 @@ public class CertificateController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id){
         deleteCertificateService.delete(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(value = "/{id}/image")
+    public ResponseEntity<?> deleteImage(@PathVariable UUID id){
+        deleteImageCertificateService.deleteImageS3(id);
         return ResponseEntity.ok().build();
     }
 }
