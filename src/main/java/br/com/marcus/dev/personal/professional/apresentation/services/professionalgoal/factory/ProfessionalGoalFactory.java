@@ -22,10 +22,10 @@ public class ProfessionalGoalFactory {
     }
 
     public ProfessionalGoal convertFormUpdateInEntity(ProfessionalGoalUpdateForm professionalGoalUpdateForm, ProfessionalGoal professionalGoal){
-        if (professionalGoalUpdateForm.getDescription() != null){
+        if (professionalGoalUpdateForm.getDescription() != null && !professionalGoalUpdateForm.getDescription().equals("")){
             professionalGoal.setDescription(professionalGoalUpdateForm.getDescription());
         }
-        if (professionalGoalUpdateForm.getOffice() != null){
+        if (professionalGoalUpdateForm.getOffice() != null && !professionalGoalUpdateForm.getOffice().equals("")){
             professionalGoal.setOffice(professionalGoalUpdateForm.getOffice());
         }
         return professionalGoal;

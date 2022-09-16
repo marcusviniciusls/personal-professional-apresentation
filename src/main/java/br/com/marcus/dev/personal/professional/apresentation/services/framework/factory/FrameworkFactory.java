@@ -40,10 +40,10 @@ public class FrameworkFactory {
     }
 
     public Framework convertUpdateFormInEntity(FrameworkUpdateForm frameworkUpdateForm, Framework framework){
-        if (frameworkUpdateForm.getName() != null){
+        if (frameworkUpdateForm.getName() != null && !frameworkUpdateForm.getName().equals("")){
             framework.setName(frameworkUpdateForm.getName());
         }
-        if (frameworkUpdateForm.getDescription() != null){
+        if (frameworkUpdateForm.getDescription() != null && !frameworkUpdateForm.getDescription().equals("")){
             framework.setDescription(frameworkUpdateForm.getDescription());
         }
         return framework;

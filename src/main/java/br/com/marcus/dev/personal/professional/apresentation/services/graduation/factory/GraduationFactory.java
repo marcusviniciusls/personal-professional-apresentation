@@ -108,7 +108,7 @@ public class GraduationFactory {
     }
 
     public Graduation convertFormUpdateInEntity(GraduationFormUpdate graduationFormUpdate, Graduation graduation){
-        if (graduationFormUpdate.getName() != null){
+        if (graduationFormUpdate.getName() != null && !graduationFormUpdate.getName().equals("")){
             graduation.setName(graduationFormUpdate.getName());
         }
         if (graduationFormUpdate.getDateInitPreview() != null){
@@ -123,7 +123,7 @@ public class GraduationFactory {
         if (graduationFormUpdate.getDateFinishReal() != null){
             graduation.setDateFinishReal(graduationFormUpdate.getDateFinishReal());
         }
-        if (graduationFormUpdate.getLocation() != null){
+        if (graduationFormUpdate.getLocation() != null && !graduationFormUpdate.getLocation().equals("")){
             graduation.setLocation(graduationFormUpdate.getLocation());
         }
         if (graduationFormUpdate.getTypeGraduation() != null){

@@ -55,7 +55,7 @@ public class SubjectFactory {
     }
 
     public Subject convertUpdateFormInEntity(SubjectFormUpdate subjectFormUpdate, Subject subject){
-        if (subjectFormUpdate.getName() != null){
+        if (subjectFormUpdate.getName() != null && !subjectFormUpdate.getName().equals("")){
             subject.setName(subjectFormUpdate.getName());
         }
         if (subjectFormUpdate.getQtdHours() != null){
@@ -64,10 +64,10 @@ public class SubjectFactory {
         if (subjectFormUpdate.getNote() != null){
             subject.setNote(subjectFormUpdate.getNote());
         }
-        if (subjectFormUpdate.getDescription() != null){
+        if (subjectFormUpdate.getDescription() != null && !subjectFormUpdate.getDescription().equals("")){
             subject.setDescription(subjectFormUpdate.getDescription());
         }
-        if (subjectFormUpdate.getPeriod() != null){
+        if (subjectFormUpdate.getPeriod() != null && !subjectFormUpdate.getPeriod().equals("")){
             subject.setPeriod(subjectFormUpdate.getPeriod());
         }
         if (subjectFormUpdate.getSituationSubject() != null){

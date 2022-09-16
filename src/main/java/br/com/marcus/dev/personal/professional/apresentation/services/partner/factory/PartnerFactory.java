@@ -38,10 +38,10 @@ public class PartnerFactory {
     }
 
     public Partner convertUpdateFormInEntity(PartnerRequestFormUpdate partnerRequestFormUpdate, Partner partner){
-        if (partnerRequestFormUpdate.getName() != null){
+        if (partnerRequestFormUpdate.getName() != null && !partnerRequestFormUpdate.getName().equals("")){
             partner.setName(partnerRequestFormUpdate.getName());
         }
-        if (partnerRequestFormUpdate.getDescription() != null){
+        if (partnerRequestFormUpdate.getDescription() != null && !partnerRequestFormUpdate.getDescription().equals("")){
             partner.setDescription(partnerRequestFormUpdate.getDescription());
         }
         if (!partner.getBranchActivity().getId().equals(partnerRequestFormUpdate.getBranchActivityId())){

@@ -34,7 +34,7 @@ public class CertificateFactory {
     }
 
     public Certificate convertUpdateFormInEntity(CertificateUpdateForm certificateUpdateForm, Certificate certificate){
-        if (certificateUpdateForm.getName() != null){
+        if (certificateUpdateForm.getName() != null && !certificateUpdateForm.getName().equals("")){
             certificate.setName(certificateUpdateForm.getName());
         }
         if (certificateUpdateForm.getPartnerId() != null){

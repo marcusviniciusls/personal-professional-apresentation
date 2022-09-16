@@ -22,10 +22,10 @@ public class LanguageProgrammerFactory {
     }
 
     public LanguageProgrammer convertUpdateFormInEntity(LanguageProgrammer languageProgrammer, LanguageProgrammerUpdateFrom languageProgrammerUpdateFrom){
-        if (languageProgrammerUpdateFrom.getName() != null){
+        if (languageProgrammerUpdateFrom.getName() != null && !languageProgrammerUpdateFrom.getName().equals("")){
             languageProgrammer.setName(languageProgrammerUpdateFrom.getName());
         }
-        if (languageProgrammerUpdateFrom.getDescription() != null){
+        if (languageProgrammerUpdateFrom.getDescription() != null && !languageProgrammerUpdateFrom.getDescription().equals("")){
             languageProgrammer.setDescription(languageProgrammerUpdateFrom.getDescription());
         }
         return languageProgrammer;
