@@ -350,6 +350,7 @@ public class InitializationData implements CommandLineRunner {
         project.addListFramework(framework1);
         project.addListLanguageProgrammer(languageProgrammer);
         project.addListLanguageProgrammer(languageProgrammer1);
+        project.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff724"));
         projectRepository.save(project);
     }
 }
