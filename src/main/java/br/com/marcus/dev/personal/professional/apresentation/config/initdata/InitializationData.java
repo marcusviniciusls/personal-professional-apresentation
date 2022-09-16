@@ -46,6 +46,7 @@ public class InitializationData implements CommandLineRunner {
     @Autowired private ActivitiesRepository activitiesRepository;
     @Autowired private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired private S3Service s3Service;
+    @Autowired private ProjectRepository projectRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -339,5 +340,16 @@ public class InitializationData implements CommandLineRunner {
         activities.setUser(user);
         activities.setUserCreation(user.getName());
         activitiesRepository.save(activities);
+
+        Project project = new Project();
+        project.setDescription("Primeiro excelente Projeto");
+        project.setLinkGitHub("teste");
+        project.setLinkYoutube("youtube");
+        project.setTitle("Title");
+        project.addListFramework(framework);
+        project.addListFramework(framework1);
+        project.addListLanguageProgrammer(languageProgrammer);
+        project.addListLanguageProgrammer(languageProgrammer1);
+        projectRepository.save(project);
     }
 }
