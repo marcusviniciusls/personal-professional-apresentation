@@ -28,6 +28,7 @@ public class GraduationController {
     @Autowired private FindByIdGraduationService findByIdGraduationService;
     @Autowired private DeleteGraduationService deleteGraduationService;
     @Autowired private UpdateGraduationService updateGraduationService;
+    @Autowired private DeleteImageGraduationService deleteImageGraduationService;
 
     @GetMapping
     public ResponseEntity<Page<GraduationResponse>> findAll(Pageable page){
@@ -49,7 +50,7 @@ public class GraduationController {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @PostMapping(value = "/{id}")
+    @PostMapping(value = "/{id}/image/")
     public ResponseEntity<?> saveImage(@RequestParam(name = "file") MultipartFile multipartFile, @PathVariable UUID id){
         saveImageGraduationService.saveimage(multipartFile, id);
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -66,6 +67,13 @@ public class GraduationController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id){
         deleteGraduationService.delete(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(value = "/{id}/image/")
+    public ResponseEntity<?> deleteImage(@PathVariable UUID id){
+        deleteImageGraduationService.deleteImageS3(id);
         return ResponseEntity.ok().build();
     }
 }

@@ -2,6 +2,7 @@ package br.com.marcus.dev.personal.professional.apresentation.services.graduatio
 
 import br.com.marcus.dev.personal.professional.apresentation.config.amazon.SendFileAwsS3;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Graduation;
+import br.com.marcus.dev.personal.professional.apresentation.exception.custom.FileException;
 import br.com.marcus.dev.personal.professional.apresentation.repository.GraduationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,9 @@ public class SaveImageGraduationService {
 
     public void saveimage(MultipartFile multipartFile, UUID idGraduation){
         Graduation graduation = graduationRepository.findById(idGraduation).get();
+        if (graduation.getUrlUniversityDegree() != null && !graduation.getUrlUniversityDegree().equals("")){
+            throw new FileException("RESOURCE IS ALREADY SAVED");
+        }
         String urlImage = sendFileAwsS3.uploadFile(multipartFile).toString();
         graduation.setUrlUniversityDegree(urlImage);
         graduationRepository.save(graduation);

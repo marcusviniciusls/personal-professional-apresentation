@@ -256,7 +256,6 @@ public class InitializationData implements CommandLineRunner {
         graduation1.setUserCreation(administrator.getName());
         graduation.setDateInitPreview(LocalDate.now());
         graduation.setDateFinishPreview(LocalDate.now());
-        graduation.setUrlUniversityDegree("teste");
         graduation.setPartner(partner);
         graduation.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff711"));
         graduation1.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff712"));
