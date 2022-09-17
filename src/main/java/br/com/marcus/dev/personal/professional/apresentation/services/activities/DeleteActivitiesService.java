@@ -72,4 +72,18 @@ public class DeleteActivitiesService {
             activitiesRepository.save(activities);
         }
     }
+
+    public void deleteMovementProfessionalExperience(UUID idProfessionalExperience){
+        Optional<Activities> optionalActivities = activitiesRepository.findByProfessionalExperience(idProfessionalExperience);
+        if (optionalActivities.isEmpty()){
+            throw new ResourceNotFoundException("Activities Professional Experience Not Found Exception");
+        }
+        Activities activities = optionalActivities.get();
+        try {
+            activitiesRepository.delete(activities);
+        } catch(DataIntegrityViolationException ex){
+            activities = (Activities) centerEntityService.setDataToDelete(activities);
+            activitiesRepository.save(activities);
+        }
+    }
 }
