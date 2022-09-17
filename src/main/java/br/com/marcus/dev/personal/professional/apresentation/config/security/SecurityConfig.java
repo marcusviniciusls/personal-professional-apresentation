@@ -51,7 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/professionalgoal/**",
             "/office/**",
             "/professionalexperience/**",
-            "/project/**"
+            "/project/**",
+            "/activities/**"
     };
 
     private static final String[] PUBLIC_MATCHERS_POST = {

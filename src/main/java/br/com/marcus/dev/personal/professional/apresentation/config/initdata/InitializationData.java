@@ -351,5 +351,63 @@ public class InitializationData implements CommandLineRunner {
         project.addListLanguageProgrammer(languageProgrammer1);
         project.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff724"));
         projectRepository.save(project);
+
+        Activities activities1 = new Activities();
+        activities1.setDate(LocalDate.of(2011, 1,1));
+        activities1.setDescription("Hard Skills");
+        activities1.setHardSkills(hardSkills);
+
+        Activities activities2 = new Activities();
+        activities2.setDate(LocalDate.of(2012, 1,1));
+        activities2.setDescription("Certificate");
+        activities2.setCertificate(certificate);
+
+        Activities activities3 = new Activities();
+        activities3.setDate(LocalDate.of(2013, 1,1));
+        activities3.setDescription("Course");
+        activities3.setCourse(course);
+
+        Activities activities4 = new Activities();
+        activities4.setDate(LocalDate.of(2014, 1,1));
+        activities4.setDescription("Graduation");
+        activities4.setGraduation(graduation);
+
+        Activities activities5 = new Activities();
+        activities5.setDate(LocalDate.of(2015, 1,1));
+        activities5.setDescription("Professional Experience");
+        activities5.setProfessionalExperience(professionalExperience);
+
+        Activities activities6 = new Activities();
+        activities6.setDate(LocalDate.of(2016, 1,1));
+        activities6.setDescription("Professional Goal");
+        activities6.setProfessionalGoal(professionalGoal);
+
+        Activities activities7 = new Activities();
+        activities7.setDate(LocalDate.of(2017, 1,1));
+        activities7.setDescription("Soft Skills");
+        activities7.setSoftSkills(softSkills);
+
+        Activities activities8 = new Activities();
+        activities8.setDate(LocalDate.of(2018, 1,1));
+        activities8.setDescription("Hard Skills");
+        activities8.setHardSkills(hardSkills);
+
+        Activities activities9 = new Activities();
+        activities9.setDate(LocalDate.of(2019, 1,1));
+        activities9.setDescription("Certificate");
+        activities9.setCertificate(certificate);
+
+        Activities activities10 = new Activities();
+        activities10.setDate(LocalDate.of(2020, 1,1));
+        activities10.setDescription("Course");
+        activities10.setCourse(course);
+
+        Activities activities11 = new Activities();
+        activities11.setDate(LocalDate.of(2021, 1,1));
+        activities11.setDescription("Graduation");
+        activities11.setGraduation(graduation);
+
+        activitiesRepository.saveAll(Arrays.asList(activities1, activities2, activities3, activities4, activities5,
+                activities6, activities7, activities8, activities9, activities10, activities11));
     }
 }
