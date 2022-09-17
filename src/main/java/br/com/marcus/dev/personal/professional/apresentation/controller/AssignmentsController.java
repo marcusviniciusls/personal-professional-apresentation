@@ -5,7 +5,9 @@ import br.com.marcus.dev.personal.professional.apresentation.dto.request.Certifi
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.AssignmentsResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.BranchActivityResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.CertificateResponse;
+import br.com.marcus.dev.personal.professional.apresentation.services.assignments.DeleteAssignmentsService;
 import br.com.marcus.dev.personal.professional.apresentation.services.assignments.FindAllAssignmentsService;
+import br.com.marcus.dev.personal.professional.apresentation.services.assignments.FindByIdAssignmentsService;
 import br.com.marcus.dev.personal.professional.apresentation.services.assignments.SaveAssignmentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,6 +26,7 @@ public class AssignmentsController {
 
     @Autowired private SaveAssignmentsService saveAssignmentsService;
     @Autowired private FindAllAssignmentsService findAllAssignmentsService;
+    @Autowired private DeleteAssignmentsService deleteAssignmentsService;
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Page<AssignmentsResponse>> findAll(Pageable page, @PathVariable UUID id){
@@ -36,5 +39,12 @@ public class AssignmentsController {
     public ResponseEntity<AssignmentsResponse> save(@Valid @RequestBody AssignmentsSaveAddForm assignmentsSaveAddForm){
         AssignmentsResponse assignmentsResponse = saveAssignmentsService.addSave(assignmentsSaveAddForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(assignmentsResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id){
+        deleteAssignmentsService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }
