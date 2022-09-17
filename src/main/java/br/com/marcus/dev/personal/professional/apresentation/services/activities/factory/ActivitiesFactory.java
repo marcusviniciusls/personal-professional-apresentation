@@ -1,9 +1,6 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.activities.factory;
 
-import br.com.marcus.dev.personal.professional.apresentation.entities.Activities;
-import br.com.marcus.dev.personal.professional.apresentation.entities.Certificate;
-import br.com.marcus.dev.personal.professional.apresentation.entities.Course;
-import br.com.marcus.dev.personal.professional.apresentation.entities.SoftSkills;
+import br.com.marcus.dev.personal.professional.apresentation.entities.*;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -32,6 +29,14 @@ public class ActivitiesFactory {
         activities.setCertificate(certificate);
         activities.setDate(LocalDate.now());
         activities.setDescription("Save Certificate");
+        return activities;
+    }
+
+    public Activities convertHardSkillsToActivities(HardSkills hardSkills){
+        Activities activities = new Activities();
+        activities.setHardSkills(hardSkills);
+        activities.setDate(LocalDate.now());
+        activities.setDescription("Save Hard Skills");
         return activities;
     }
 }

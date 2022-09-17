@@ -1,9 +1,6 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.activities;
 
-import br.com.marcus.dev.personal.professional.apresentation.entities.Activities;
-import br.com.marcus.dev.personal.professional.apresentation.entities.Certificate;
-import br.com.marcus.dev.personal.professional.apresentation.entities.Course;
-import br.com.marcus.dev.personal.professional.apresentation.entities.SoftSkills;
+import br.com.marcus.dev.personal.professional.apresentation.entities.*;
 import br.com.marcus.dev.personal.professional.apresentation.repository.ActivitiesRepository;
 import br.com.marcus.dev.personal.professional.apresentation.services.activities.factory.ActivitiesFactory;
 import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
@@ -31,6 +28,12 @@ public class SaveActivitiesService {
 
     public void saveMovementCertificate(Certificate certificate) {
         Activities activities = activitiesFactory.convertCertificateToActivities(certificate);
+        activities = (Activities) centerEntityService.setDataToSave(activities);
+        activitiesRepository.save(activities);
+    }
+
+    public void saveMovementHardSkills(HardSkills hardSkills) {
+        Activities activities = activitiesFactory.convertHardSkillsToActivities(hardSkills);
         activities = (Activities) centerEntityService.setDataToSave(activities);
         activitiesRepository.save(activities);
     }
