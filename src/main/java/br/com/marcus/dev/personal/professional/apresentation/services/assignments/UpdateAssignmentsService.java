@@ -25,9 +25,11 @@ public class UpdateAssignmentsService {
         Assignments assignments = findByIdAssignmentsService.findByIdEntity(idAssignments);
         assignments = assignmentsFactory.convertUpdateFormInEntity(assignmentsUpdateForm, assignments);
         assignments = (Assignments) centerEntityService.setDataToUpdate(assignments);
-        if (!assignmentsUpdateForm.getIdProfessionalExperience().equals(assignments.getProfessionalExperience().getId())){
-            ProfessionalExperience professionalExperience = findByIdProfessionalExperienceService.findByIdEntity(assignmentsUpdateForm.getIdProfessionalExperience());
-            assignments.setProfessionalExperience(professionalExperience);
+        if (assignmentsUpdateForm.getIdProfessionalExperience() != null){
+            if (!assignmentsUpdateForm.getIdProfessionalExperience().equals(assignments.getProfessionalExperience().getId())){
+                ProfessionalExperience professionalExperience = findByIdProfessionalExperienceService.findByIdEntity(assignmentsUpdateForm.getIdProfessionalExperience());
+                assignments.setProfessionalExperience(professionalExperience);
+            }
         }
         assignmentsRepository.save(assignments);
     }
