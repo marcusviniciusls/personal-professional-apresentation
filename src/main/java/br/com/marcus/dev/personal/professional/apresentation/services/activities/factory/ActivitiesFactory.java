@@ -55,4 +55,12 @@ public class ActivitiesFactory {
         activities.setDescription("Save Professional Experience");
         return activities;
     }
+
+    public Activities convertProfessionalGoalToActivities(ProfessionalGoal professionalGoal){
+        Activities activities = new Activities();
+        activities.setProfessionalGoal(professionalGoal);
+        activities.setDate(LocalDate.now());
+        activities.setDescription("Save Professional Goal");
+        return activities;
+    }
 }

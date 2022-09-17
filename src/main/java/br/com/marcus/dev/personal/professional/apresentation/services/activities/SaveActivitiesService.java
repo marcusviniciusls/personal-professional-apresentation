@@ -49,4 +49,10 @@ public class SaveActivitiesService {
         activities = (Activities) centerEntityService.setDataToSave(activities);
         activitiesRepository.save(activities);
     }
+
+    public void saveMovementProfessionalGoal(ProfessionalGoal professionalGoal) {
+        Activities activities = activitiesFactory.convertProfessionalGoalToActivities(professionalGoal);
+        activities = (Activities) centerEntityService.setDataToSave(activities);
+        activitiesRepository.save(activities);
+    }
 }

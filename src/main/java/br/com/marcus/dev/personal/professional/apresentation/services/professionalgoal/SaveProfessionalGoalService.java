@@ -4,6 +4,7 @@ import br.com.marcus.dev.personal.professional.apresentation.dto.request.Profess
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.ProfessionalGoalResponse;
 import br.com.marcus.dev.personal.professional.apresentation.entities.ProfessionalGoal;
 import br.com.marcus.dev.personal.professional.apresentation.repository.ProfessionalGoalRepository;
+import br.com.marcus.dev.personal.professional.apresentation.services.activities.SaveActivitiesService;
 import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
 import br.com.marcus.dev.personal.professional.apresentation.services.professionalgoal.factory.ProfessionalGoalFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,14 @@ public class SaveProfessionalGoalService {
     @Autowired private ProfessionalGoalFactory professionalGoalFactory;
     @Autowired private CenterEntityService centerEntityService;
     @Autowired private ProfessionalGoalRepository professionalGoalRepository;
+    @Autowired private SaveActivitiesService saveActivitiesService;
 
     public ProfessionalGoalResponse save(ProfessionalGoalSaveForm professionalGoalSaveForm){
         ProfessionalGoal professionalGoal = professionalGoalFactory.convertFormSaveInEntity(professionalGoalSaveForm);
         professionalGoal = (ProfessionalGoal) centerEntityService.setDataToSave(professionalGoal);
         professionalGoal = professionalGoalRepository.save(professionalGoal);
         ProfessionalGoalResponse professionalGoalResponse = professionalGoalFactory.convertEntityInResponse(professionalGoal);
+        saveActivitiesService.saveMovementProfessionalGoal(professionalGoal);
         return professionalGoalResponse;
     }
 }
