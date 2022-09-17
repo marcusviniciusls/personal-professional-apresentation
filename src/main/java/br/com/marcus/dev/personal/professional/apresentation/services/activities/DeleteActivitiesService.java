@@ -1,14 +1,12 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.activities;
 
 import br.com.marcus.dev.personal.professional.apresentation.entities.Activities;
-import br.com.marcus.dev.personal.professional.apresentation.entities.Certificate;
 import br.com.marcus.dev.personal.professional.apresentation.exception.custom.ResourceNotFoundException;
 import br.com.marcus.dev.personal.professional.apresentation.repository.ActivitiesRepository;
 import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.ResourceAccessException;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -37,6 +35,20 @@ public class DeleteActivitiesService {
         Optional<Activities> optionalActivities = activitiesRepository.findByHardSkills(idHardSkills);
         if (optionalActivities.isEmpty()){
             throw new ResourceNotFoundException("Activities Hard Skills Not Found Exception");
+        }
+        Activities activities = optionalActivities.get();
+        try {
+            activitiesRepository.delete(activities);
+        } catch(DataIntegrityViolationException ex){
+            activities = (Activities) centerEntityService.setDataToDelete(activities);
+            activitiesRepository.save(activities);
+        }
+    }
+
+    public void deleteMovementCourse(UUID idCourse){
+        Optional<Activities> optionalActivities = activitiesRepository.findByCourse(idCourse);
+        if (optionalActivities.isEmpty()){
+            throw new ResourceNotFoundException("Activities Course Not Found Exception");
         }
         Activities activities = optionalActivities.get();
         try {
