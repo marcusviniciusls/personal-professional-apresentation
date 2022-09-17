@@ -2,8 +2,11 @@ package br.com.marcus.dev.personal.professional.apresentation.services.assignmen
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.AssignmentsSaveAddForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.AssignmentsSaveForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.AssignmentsUpdateForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.AssignmentsResponse;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Assignments;
+import br.com.marcus.dev.personal.professional.apresentation.entities.ProfessionalExperience;
+import br.com.marcus.dev.personal.professional.apresentation.services.professionalexperience.FindByIdProfessionalExperienceService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,5 +26,13 @@ public class AssignmentsFactory {
 
     public Assignments convertSaveFormAddInEntity(AssignmentsSaveAddForm assignmentsSaveAddForm){
         return modelMapper.map(assignmentsSaveAddForm, Assignments.class);
+    }
+
+    public Assignments convertUpdateFormInEntity(AssignmentsUpdateForm assignmentsUpdateForm, Assignments assignments){
+        if (assignmentsUpdateForm.getDescription() != null && !assignmentsUpdateForm.getDescription().equals("")){
+            assignments.setDescription(assignmentsUpdateForm.getDescription());
+        }
+
+        return assignments;
     }
 }

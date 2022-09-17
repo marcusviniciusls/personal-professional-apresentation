@@ -1,14 +1,14 @@
 package br.com.marcus.dev.personal.professional.apresentation.controller;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.AssignmentsSaveAddForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.AssignmentsUpdateForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.CertificateSaveForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormUpdate;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.AssignmentsResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.BranchActivityResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.CertificateResponse;
-import br.com.marcus.dev.personal.professional.apresentation.services.assignments.DeleteAssignmentsService;
-import br.com.marcus.dev.personal.professional.apresentation.services.assignments.FindAllAssignmentsService;
-import br.com.marcus.dev.personal.professional.apresentation.services.assignments.FindByIdAssignmentsService;
-import br.com.marcus.dev.personal.professional.apresentation.services.assignments.SaveAssignmentsService;
+import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
+import br.com.marcus.dev.personal.professional.apresentation.services.assignments.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +27,7 @@ public class AssignmentsController {
     @Autowired private SaveAssignmentsService saveAssignmentsService;
     @Autowired private FindAllAssignmentsService findAllAssignmentsService;
     @Autowired private DeleteAssignmentsService deleteAssignmentsService;
+    @Autowired private UpdateAssignmentsService updateAssignmentsService;
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Page<AssignmentsResponse>> findAll(Pageable page, @PathVariable UUID id){
@@ -39,6 +40,13 @@ public class AssignmentsController {
     public ResponseEntity<AssignmentsResponse> save(@Valid @RequestBody AssignmentsSaveAddForm assignmentsSaveAddForm){
         AssignmentsResponse assignmentsResponse = saveAssignmentsService.addSave(assignmentsSaveAddForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(assignmentsResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody AssignmentsUpdateForm assignmentsUpdateForm){
+        updateAssignmentsService.update(assignmentsUpdateForm, id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")

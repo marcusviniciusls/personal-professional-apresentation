@@ -312,6 +312,12 @@ public class InitializationData implements CommandLineRunner {
         professionalExperience.setUser(user);
         professionalExperience.setUserCreation(user.getName());
         professionalExperience.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff723"));
+        ProfessionalExperience professionalExperience1 = new ProfessionalExperience(LocalDate.of(2014, 1, 1),
+                LocalDate.of(2014, 1, 1), OfficeEnum.CLT, StatusWork.OLD, partner, office,
+                professionalExperienceResume, "teste");
+        professionalExperience1.setUser(user);
+        professionalExperience1.setUserCreation(user.getName());
+        professionalExperience1.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff724"));
         professionalExperienceRepository.save(professionalExperience);
 
         // Atividade da Experiencia Profissional
