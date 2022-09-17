@@ -1,5 +1,6 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.assignments.factory;
 
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.AssignmentsSaveAddForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.AssignmentsSaveForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.AssignmentsResponse;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Assignments;
@@ -18,5 +19,9 @@ public class AssignmentsFactory {
 
     public AssignmentsResponse convertEntityInResponse(Assignments assignments){
         return modelMapper.map(assignments, AssignmentsResponse.class);
+    }
+
+    public Assignments convertSaveFormAddInEntity(AssignmentsSaveAddForm assignmentsSaveAddForm){
+        return modelMapper.map(assignmentsSaveAddForm, Assignments.class);
     }
 }
