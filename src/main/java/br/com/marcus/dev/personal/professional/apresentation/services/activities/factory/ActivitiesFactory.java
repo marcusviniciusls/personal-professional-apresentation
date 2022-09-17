@@ -47,4 +47,12 @@ public class ActivitiesFactory {
         activities.setDescription("Save Graduation");
         return activities;
     }
+
+    public Activities convertProfessionalExperienceToActivities(ProfessionalExperience professionalExperience){
+        Activities activities = new Activities();
+        activities.setProfessionalExperience(professionalExperience);
+        activities.setDate(LocalDate.now());
+        activities.setDescription("Save Professional Experience");
+        return activities;
+    }
 }

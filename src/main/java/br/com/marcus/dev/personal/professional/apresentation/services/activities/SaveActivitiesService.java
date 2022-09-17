@@ -43,4 +43,10 @@ public class SaveActivitiesService {
         activities = (Activities) centerEntityService.setDataToSave(activities);
         activitiesRepository.save(activities);
     }
+
+    public void saveMovementProfessionalExperience(ProfessionalExperience professionalExperience) {
+        Activities activities = activitiesFactory.convertProfessionalExperienceToActivities(professionalExperience);
+        activities = (Activities) centerEntityService.setDataToSave(activities);
+        activitiesRepository.save(activities);
+    }
 }

@@ -12,6 +12,7 @@ import br.com.marcus.dev.personal.professional.apresentation.entities.enums.Stat
 import br.com.marcus.dev.personal.professional.apresentation.exception.custom.CurrentJobException;
 import br.com.marcus.dev.personal.professional.apresentation.exception.custom.ErrorDateAfterNowProfessionalExperience;
 import br.com.marcus.dev.personal.professional.apresentation.repository.ProfessionalExperienceRepository;
+import br.com.marcus.dev.personal.professional.apresentation.services.activities.SaveActivitiesService;
 import br.com.marcus.dev.personal.professional.apresentation.services.assignments.SaveAssignmentsService;
 import br.com.marcus.dev.personal.professional.apresentation.services.assignments.factory.AssignmentsFactory;
 import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
@@ -19,6 +20,7 @@ import br.com.marcus.dev.personal.professional.apresentation.services.office.Fin
 import br.com.marcus.dev.personal.professional.apresentation.services.partner.FindByIdPartnerService;
 import br.com.marcus.dev.personal.professional.apresentation.services.professionalexperience.factory.ProfessionalExperienceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -34,6 +36,7 @@ public class SaveProfessionalExperienceService {
     @Autowired private CenterEntityService centerEntityService;
     @Autowired private AssignmentsFactory assignmentsFactory;
     @Autowired private SaveAssignmentsService saveAssignmentsService;
+    @Autowired private SaveActivitiesService saveActivitiesService;
 
     public ProfessionalExperienceResponse save(ProfessionalExperienceFormSave requestSave){
         dateFinishBeforeNotAllowed(requestSave.getDateFinish());
@@ -53,6 +56,7 @@ public class SaveProfessionalExperienceService {
             AssignmentsResponse assignmentsResponse = assignmentsFactory.convertEntityInResponse(assignments);
             response.addListAssignmentsResponse(assignmentsResponse);
         }
+        saveActivitiesService.saveMovementProfessionalExperience(professionalExperience);
 
         return response;
     }
