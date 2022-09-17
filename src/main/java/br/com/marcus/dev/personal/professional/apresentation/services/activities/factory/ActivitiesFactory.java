@@ -39,4 +39,12 @@ public class ActivitiesFactory {
         activities.setDescription("Save Hard Skills");
         return activities;
     }
+
+    public Activities convertGraduationToActivities(Graduation graduation){
+        Activities activities = new Activities();
+        activities.setGraduation(graduation);
+        activities.setDate(LocalDate.now());
+        activities.setDescription("Save Graduation");
+        return activities;
+    }
 }

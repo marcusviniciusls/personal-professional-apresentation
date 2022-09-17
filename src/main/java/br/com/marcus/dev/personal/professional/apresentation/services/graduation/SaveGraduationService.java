@@ -4,6 +4,7 @@ import br.com.marcus.dev.personal.professional.apresentation.dto.request.Graduat
 import br.com.marcus.dev.personal.professional.apresentation.entities.Graduation;
 import br.com.marcus.dev.personal.professional.apresentation.exception.custom.ErrorDateInitAfterDateFinish;
 import br.com.marcus.dev.personal.professional.apresentation.repository.GraduationRepository;
+import br.com.marcus.dev.personal.professional.apresentation.services.activities.SaveActivitiesService;
 import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
 import br.com.marcus.dev.personal.professional.apresentation.services.graduation.factory.GraduationFactory;
 import br.com.marcus.dev.personal.professional.apresentation.services.utils.VerifyLocalDateService;
@@ -20,6 +21,7 @@ public class SaveGraduationService {
     @Autowired private GraduationRepository graduationRepository;
     @Autowired private CenterEntityService centerEntityService;
     @Autowired private VerifyLocalDateService verifyLocalDateService;
+    @Autowired private SaveActivitiesService saveActivitiesService;
 
     public UUID save(GraduationFormSave graduationFormSave){
         LocalDate dateInitPreview =  graduationFormSave.getDateInitPreview();
@@ -35,6 +37,7 @@ public class SaveGraduationService {
             }
         }
         Graduation graduation = graduationFactory.convertFormSaveToEntity(graduationFormSave);
+        saveActivitiesService.saveMovementGraduation(graduation);
         return graduation.getId();
     }
 }
