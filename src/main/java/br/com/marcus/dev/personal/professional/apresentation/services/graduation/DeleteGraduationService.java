@@ -4,6 +4,7 @@ import br.com.marcus.dev.personal.professional.apresentation.entities.Graduation
 import br.com.marcus.dev.personal.professional.apresentation.entities.SoftSkills;
 import br.com.marcus.dev.personal.professional.apresentation.exception.custom.ResourceNotFoundException;
 import br.com.marcus.dev.personal.professional.apresentation.repository.GraduationRepository;
+import br.com.marcus.dev.personal.professional.apresentation.services.activities.DeleteActivitiesService;
 import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -17,6 +18,7 @@ public class DeleteGraduationService {
 
     @Autowired private GraduationRepository graduationRepository;
     @Autowired private CenterEntityService centerEntityService;
+    @Autowired private DeleteActivitiesService deleteActivitiesService;
 
     public void delete(UUID id){
         Optional<Graduation> optionalGraduation = graduationRepository.findById(id);
@@ -26,6 +28,7 @@ public class DeleteGraduationService {
         if (!centerEntityService.isStatusSuperEntity(optionalGraduation.get())){
             throw new ResourceNotFoundException("ID Not Found Exception");
         }
+        deleteActivitiesService.deleteMovementGraduation(optionalGraduation.get().getId());
         try {
             graduationRepository.deleteById(id);
         } catch (DataIntegrityViolationException ex){

@@ -58,4 +58,18 @@ public class DeleteActivitiesService {
             activitiesRepository.save(activities);
         }
     }
+
+    public void deleteMovementGraduation(UUID idGraduation){
+        Optional<Activities> optionalActivities = activitiesRepository.findByGraduation(idGraduation);
+        if (optionalActivities.isEmpty()){
+            throw new ResourceNotFoundException("Activities Graduation Not Found Exception");
+        }
+        Activities activities = optionalActivities.get();
+        try {
+            activitiesRepository.delete(activities);
+        } catch(DataIntegrityViolationException ex){
+            activities = (Activities) centerEntityService.setDataToDelete(activities);
+            activitiesRepository.save(activities);
+        }
+    }
 }

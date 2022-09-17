@@ -20,4 +20,7 @@ public interface ActivitiesRepository extends JpaRepository<Activities, UUID> {
 
     @Query("SELECT a FROM Activities a WHERE a.course.id = :id")
     Optional<Activities> findByCourse(@Param("id") UUID id);
+
+    @Query("SELECT a FROM Activities a WHERE a.graduation.id = :id")
+    Optional<Activities> findByGraduation(@Param("id") UUID id);
 }
