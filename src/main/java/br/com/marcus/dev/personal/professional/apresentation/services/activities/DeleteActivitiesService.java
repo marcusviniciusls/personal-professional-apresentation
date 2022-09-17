@@ -32,4 +32,18 @@ public class DeleteActivitiesService {
             activitiesRepository.save(activities);
         }
     }
+
+    public void deleteMovementHardSkills(UUID idHardSkills){
+        Optional<Activities> optionalActivities = activitiesRepository.findByHardSkills(idHardSkills);
+        if (optionalActivities.isEmpty()){
+            throw new ResourceNotFoundException("Activities Hard Skills Not Found Exception");
+        }
+        Activities activities = optionalActivities.get();
+        try {
+            activitiesRepository.delete(activities);
+        } catch(DataIntegrityViolationException ex){
+            activities = (Activities) centerEntityService.setDataToDelete(activities);
+            activitiesRepository.save(activities);
+        }
+    }
 }
