@@ -1,13 +1,12 @@
 package br.com.marcus.dev.personal.professional.apresentation.controller;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.HardSkillsSaveForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.HardSkillsUpdateForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormUpdate;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.HardSkillsResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
-import br.com.marcus.dev.personal.professional.apresentation.services.hardskills.DeleteHardSkillsService;
-import br.com.marcus.dev.personal.professional.apresentation.services.hardskills.FindAllHardSkillsService;
-import br.com.marcus.dev.personal.professional.apresentation.services.hardskills.FindByIdHardSkillsService;
-import br.com.marcus.dev.personal.professional.apresentation.services.hardskills.SaveHardSkillsService;
+import br.com.marcus.dev.personal.professional.apresentation.services.hardskills.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +26,7 @@ public class HardSkillsController {
     @Autowired private FindByIdHardSkillsService findByIdHardSkillsService;
     @Autowired private SaveHardSkillsService saveHardSkillsService;
     @Autowired private DeleteHardSkillsService deleteHardSkillsService;
+    @Autowired private UpdateHardSkillsService updateHardSkillsService;
 
     @GetMapping
     public ResponseEntity<Page<HardSkillsResponse>> findAll(Pageable pageable){
@@ -45,6 +45,13 @@ public class HardSkillsController {
     public ResponseEntity<HardSkillsResponse> save(@Valid @RequestBody HardSkillsSaveForm hardSkillsSaveForm){
         HardSkillsResponse hardSkillsResponse = saveHardSkillsService.save(hardSkillsSaveForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(hardSkillsResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody HardSkillsUpdateForm hardSkillsUpdateForm){
+        updateHardSkillsService.update(id, hardSkillsUpdateForm);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
