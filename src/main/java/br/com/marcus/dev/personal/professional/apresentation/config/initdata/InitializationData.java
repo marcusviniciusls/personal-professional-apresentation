@@ -268,6 +268,9 @@ public class InitializationData implements CommandLineRunner {
         material.setUserCreation(user.getName());
         material1.setUser(administrator);
         material1.setUserCreation(administrator.getName());
+        material.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff730"));
+        material1.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff731"));
+        material1.setStatus(false);
         materialRepository.saveAll(Arrays.asList(material, material1));
 
         // Objetivos Profissionais
