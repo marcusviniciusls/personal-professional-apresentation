@@ -4,6 +4,7 @@ import br.com.marcus.dev.personal.professional.apresentation.dto.request.Materia
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormSave;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.MaterialResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
+import br.com.marcus.dev.personal.professional.apresentation.services.material.DeleteMaterialService;
 import br.com.marcus.dev.personal.professional.apresentation.services.material.FindAllMaterialService;
 import br.com.marcus.dev.personal.professional.apresentation.services.material.FindByIdMaterialService;
 import br.com.marcus.dev.personal.professional.apresentation.services.material.SaveMaterialService;
@@ -25,6 +26,7 @@ public class MaterialController {
     @Autowired private FindAllMaterialService findAllMaterialService;
     @Autowired private FindByIdMaterialService findByIdMaterialService;
     @Autowired private SaveMaterialService saveMaterialService;
+    @Autowired private DeleteMaterialService deleteMaterialService;
 
     @GetMapping
     public ResponseEntity<Page<MaterialResponse>> findAll(Pageable page){
@@ -43,5 +45,12 @@ public class MaterialController {
     public ResponseEntity<MaterialResponse> save(@Valid @RequestBody MaterialSaveForm materialSaveForm){
         MaterialResponse materialResponse = saveMaterialService.save(materialSaveForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(materialResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id){
+        deleteMaterialService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }
