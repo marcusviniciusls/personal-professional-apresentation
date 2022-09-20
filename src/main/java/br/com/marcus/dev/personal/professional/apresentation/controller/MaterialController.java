@@ -1,13 +1,9 @@
 package br.com.marcus.dev.personal.professional.apresentation.controller;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.MaterialSaveForm;
-import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.MaterialUpdateForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.MaterialResponse;
-import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
-import br.com.marcus.dev.personal.professional.apresentation.services.material.DeleteMaterialService;
-import br.com.marcus.dev.personal.professional.apresentation.services.material.FindAllMaterialService;
-import br.com.marcus.dev.personal.professional.apresentation.services.material.FindByIdMaterialService;
-import br.com.marcus.dev.personal.professional.apresentation.services.material.SaveMaterialService;
+import br.com.marcus.dev.personal.professional.apresentation.services.material.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +23,7 @@ public class MaterialController {
     @Autowired private FindByIdMaterialService findByIdMaterialService;
     @Autowired private SaveMaterialService saveMaterialService;
     @Autowired private DeleteMaterialService deleteMaterialService;
+    @Autowired private UpdateMaterialService updateMaterialService;
 
     @GetMapping
     public ResponseEntity<Page<MaterialResponse>> findAll(Pageable page){
@@ -45,6 +42,13 @@ public class MaterialController {
     public ResponseEntity<MaterialResponse> save(@Valid @RequestBody MaterialSaveForm materialSaveForm){
         MaterialResponse materialResponse = saveMaterialService.save(materialSaveForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(materialResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody MaterialUpdateForm materialUpdateForm){
+        updateMaterialService.update(id, materialUpdateForm);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
