@@ -38,15 +38,6 @@ public class LanguageFactory {
     }
 
     public Language convertSaveFormInEntity(LanguageSaveForm languageSaveForm){
-        Language language = new Language(languageSaveForm.getName(), Level.toEnum(languageSaveForm.getLevel()));
-        if (languageSaveForm.getListPart().size() > 0){
-            for (ListPart listPart : languageSaveForm.getListPart()){
-                Optional<Part> optionalPart = partRepository.findById(listPart.getId());
-                if (optionalPart.isPresent()){
-                    language.addListPart(optionalPart.get());
-                }
-            }
-        }
-        return language;
+        return new Language(languageSaveForm.getName(), Level.toEnum(languageSaveForm.getLevel()));
     }
 }

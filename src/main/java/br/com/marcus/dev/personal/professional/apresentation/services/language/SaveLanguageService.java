@@ -23,13 +23,6 @@ public class SaveLanguageService {
         Language language = languageFactory.convertSaveFormInEntity(languageSaveForm);
         language = (Language) centerEntityService.setDataToSave(language);
         language = languageRepository.save(language);
-        for (Part partList : language.getListPart()){
-            Part part = new Part();
-            part = partList;
-            part.setLanguage(language);
-            part = (Part) centerEntityService.setDataToSave(part);
-            part = partRepository.save(part);
-        }
 
         return languageFactory.convertEntityInResponse(language);
     }

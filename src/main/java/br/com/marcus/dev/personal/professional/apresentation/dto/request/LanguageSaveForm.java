@@ -6,8 +6,6 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -18,5 +16,4 @@ public class LanguageSaveForm {
     private String name;
     @NotNull(message = "Level cannot be blank")
     private Integer level;
-    private List<ListPart> listPart = new ArrayList<>();
 }

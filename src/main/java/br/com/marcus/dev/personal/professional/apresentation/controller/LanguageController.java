@@ -2,6 +2,7 @@ package br.com.marcus.dev.personal.professional.apresentation.controller;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.LanguageSaveForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.LanguageResponse;
+import br.com.marcus.dev.personal.professional.apresentation.services.language.DeleteLanguageService;
 import br.com.marcus.dev.personal.professional.apresentation.services.language.FindAllLanguageService;
 import br.com.marcus.dev.personal.professional.apresentation.services.language.FindByIdLanguageService;
 import br.com.marcus.dev.personal.professional.apresentation.services.language.SaveLanguageService;
@@ -24,6 +25,7 @@ public class LanguageController {
     @Autowired private FindByIdLanguageService findByIdLanguageService;
     @Autowired private FindAllLanguageService findAllLanguageService;
     @Autowired private SaveLanguageService saveLanguageService;
+    @Autowired private DeleteLanguageService deleteLanguageService;
 
     @GetMapping
     public ResponseEntity<Page<LanguageResponse>> findAll(Pageable page){
@@ -42,5 +44,12 @@ public class LanguageController {
     public ResponseEntity<LanguageResponse> save(@Valid @RequestBody LanguageSaveForm languageSaveForm){
         LanguageResponse languageResponse = saveLanguageService.save(languageSaveForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(languageResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id){
+        deleteLanguageService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }
