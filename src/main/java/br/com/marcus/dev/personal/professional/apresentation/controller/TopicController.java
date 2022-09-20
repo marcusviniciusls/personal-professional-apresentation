@@ -1,19 +1,22 @@
 package br.com.marcus.dev.personal.professional.apresentation.controller;
 
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.TopicSaveForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TopicResponse;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Topic;
 import br.com.marcus.dev.personal.professional.apresentation.services.topic.FindAllTopicService;
 import br.com.marcus.dev.personal.professional.apresentation.services.topic.FindByIdTopicService;
+import br.com.marcus.dev.personal.professional.apresentation.services.topic.SaveTopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
@@ -22,6 +25,7 @@ public class TopicController {
 
     @Autowired private FindAllTopicService findAllTopicService;
     @Autowired private FindByIdTopicService findByIdTopicService;
+    @Autowired private SaveTopicService saveTopicService;
 
     @GetMapping(value = "/studyplan/{id}")
     public ResponseEntity<Page<TopicResponse>> findById(Pageable pageable, @PathVariable UUID id){
@@ -33,5 +37,12 @@ public class TopicController {
     public ResponseEntity<TopicResponse> findById(@PathVariable UUID id){
         TopicResponse topicResponse = findByIdTopicService.findById(id);
         return ResponseEntity.ok().body(topicResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PostMapping
+    public ResponseEntity<TopicResponse> save(@Valid @RequestBody TopicSaveForm topicSaveForm){
+        TopicResponse topicResponse = saveTopicService.save(topicSaveForm);
+        return ResponseEntity.status(HttpStatus.CREATED).body(topicResponse);
     }
 }

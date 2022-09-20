@@ -1,5 +1,6 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.topic.factory;
 
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.TopicSaveForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TopicResponse;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Topic;
 import org.modelmapper.ModelMapper;
@@ -13,5 +14,9 @@ public class TopicFactory {
 
     public TopicResponse convertEntityInResponse(Topic topic){
         return modelMapper.map(topic, TopicResponse.class);
+    }
+
+    public Topic convertSaveFormInEntity(TopicSaveForm topicSaveForm){
+        return new Topic(topicSaveForm.getName());
     }
 }
