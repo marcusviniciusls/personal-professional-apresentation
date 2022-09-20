@@ -4,6 +4,7 @@ import br.com.marcus.dev.personal.professional.apresentation.dto.request.PartSav
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormSave;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.PartResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
+import br.com.marcus.dev.personal.professional.apresentation.services.part.DeletePartService;
 import br.com.marcus.dev.personal.professional.apresentation.services.part.FindAllPartService;
 import br.com.marcus.dev.personal.professional.apresentation.services.part.FindByIdPartService;
 import br.com.marcus.dev.personal.professional.apresentation.services.part.SavePartService;
@@ -25,6 +26,7 @@ public class PartController {
     @Autowired private FindAllPartService findAllPartService;
     @Autowired private FindByIdPartService findByIdPartService;
     @Autowired private SavePartService savePartService;
+    @Autowired private DeletePartService deletePartService;
 
     @GetMapping
     public ResponseEntity<Page<PartResponse>> findAll(Pageable page){
@@ -43,5 +45,12 @@ public class PartController {
     public ResponseEntity<PartResponse> save(@Valid @RequestBody PartSaveForm partSaveForm){
         PartResponse partResponse = savePartService.save(partSaveForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(partResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id){
+        deletePartService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }
