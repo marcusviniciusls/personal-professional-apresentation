@@ -2,6 +2,7 @@ package br.com.marcus.dev.personal.professional.apresentation.services.part.fact
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.ListMaterial;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.PartSaveForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.PartUpdateForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.LanguageResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.PartResponse;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Language;
@@ -17,6 +18,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -55,6 +58,27 @@ public class PartFactory {
         part.setLanguage(language);
         part.setName(partSaveForm.getName());
         part.setLevel(Level.toEnum(partSaveForm.getLevel()));
+
+        return part;
+    }
+
+    public Part convertUpdateFormInEntity(Part part, PartUpdateForm partUpdateForm){
+        Language language = languageRepository.findById(partUpdateForm.getLanguageId()).get();
+        List<Material> newListMaterial = new ArrayList<>();
+
+        if (partUpdateForm.getListMaterial().size() > 0){
+            for (ListMaterial listMaterial : partUpdateForm.getListMaterial()){
+                Optional<Material> optionalMaterial = materialRepository.findById(listMaterial.getId());
+                if (optionalMaterial.isPresent()){
+                    Material material = optionalMaterial.get();
+                    newListMaterial.add(material);
+                }
+            }
+        }
+        part.setLanguage(language);
+        part.setName(partUpdateForm.getName());
+        part.setLevel(Level.toEnum(partUpdateForm.getLevel()));
+        part.setListMaterial(newListMaterial);
 
         return part;
     }

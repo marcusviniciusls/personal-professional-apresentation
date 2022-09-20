@@ -1,26 +1,20 @@
 package br.com.marcus.dev.personal.professional.apresentation.dto.request;
 
-import br.com.marcus.dev.personal.professional.apresentation.entities.Material;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @NoArgsConstructor
-@Setter
 @Getter
-public class PartSaveForm {
+@Setter
+public class PartUpdateForm {
 
-    @NotBlank(message = "Name cannot be blank")
     private String name;
-    @NotNull(message = "Level cannot be blank")
     private Integer level;
-    @NotNull(message = "Language Id cannot be blank")
     private UUID languageId;
     private List<ListMaterial> listMaterial = new ArrayList<>();
 }

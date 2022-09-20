@@ -1,13 +1,12 @@
 package br.com.marcus.dev.personal.professional.apresentation.controller;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.PartSaveForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.PartUpdateForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormUpdate;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.PartResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
-import br.com.marcus.dev.personal.professional.apresentation.services.part.DeletePartService;
-import br.com.marcus.dev.personal.professional.apresentation.services.part.FindAllPartService;
-import br.com.marcus.dev.personal.professional.apresentation.services.part.FindByIdPartService;
-import br.com.marcus.dev.personal.professional.apresentation.services.part.SavePartService;
+import br.com.marcus.dev.personal.professional.apresentation.services.part.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +26,7 @@ public class PartController {
     @Autowired private FindByIdPartService findByIdPartService;
     @Autowired private SavePartService savePartService;
     @Autowired private DeletePartService deletePartService;
+    @Autowired private UpdatePartService updatePartService;
 
     @GetMapping
     public ResponseEntity<Page<PartResponse>> findAll(Pageable page){
@@ -45,6 +45,13 @@ public class PartController {
     public ResponseEntity<PartResponse> save(@Valid @RequestBody PartSaveForm partSaveForm){
         PartResponse partResponse = savePartService.save(partSaveForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(partResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody PartUpdateForm partUpdateForm){
+        updatePartService.update(id, partUpdateForm);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
