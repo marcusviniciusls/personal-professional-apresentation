@@ -1,18 +1,21 @@
 package br.com.marcus.dev.personal.professional.apresentation.controller;
 
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.PartSaveForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormSave;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.PartResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
 import br.com.marcus.dev.personal.professional.apresentation.services.part.FindAllPartService;
 import br.com.marcus.dev.personal.professional.apresentation.services.part.FindByIdPartService;
+import br.com.marcus.dev.personal.professional.apresentation.services.part.SavePartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
@@ -21,6 +24,7 @@ public class PartController {
 
     @Autowired private FindAllPartService findAllPartService;
     @Autowired private FindByIdPartService findByIdPartService;
+    @Autowired private SavePartService savePartService;
 
     @GetMapping
     public ResponseEntity<Page<PartResponse>> findAll(Pageable page){
@@ -32,5 +36,12 @@ public class PartController {
     public ResponseEntity<PartResponse> findById(@PathVariable UUID id){
         PartResponse partResponse = findByIdPartService.findById(id);
         return ResponseEntity.ok().body(partResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PostMapping
+    public ResponseEntity<PartResponse> save(@Valid @RequestBody PartSaveForm partSaveForm){
+        PartResponse partResponse = savePartService.save(partSaveForm);
+        return ResponseEntity.status(HttpStatus.CREATED).body(partResponse);
     }
 }

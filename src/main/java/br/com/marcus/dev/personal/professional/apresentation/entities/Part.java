@@ -3,6 +3,7 @@ package br.com.marcus.dev.personal.professional.apresentation.entities;
 import br.com.marcus.dev.personal.professional.apresentation.entities.enums.Level;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity
 @Table(name = "tb_part")
 public class Part extends SuperEntity{
