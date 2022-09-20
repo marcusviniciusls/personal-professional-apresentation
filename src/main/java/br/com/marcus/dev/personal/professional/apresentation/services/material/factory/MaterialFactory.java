@@ -1,5 +1,6 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.material.factory;
 
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.MaterialSaveForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.MaterialResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.PartResponse;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Material;
@@ -18,5 +19,11 @@ public class MaterialFactory {
         PartResponse partResponse = partFactory.convertEntityInResponse(material.getPart());
         materialResponse.setPartResponse(partResponse);
         return materialResponse;
+    }
+
+    public Material convertSaveFormInEntity(MaterialSaveForm materialSaveForm){
+        Material material = new Material();
+        material.setName(materialSaveForm.getName());
+        return material;
     }
 }

@@ -173,6 +173,8 @@ public class InitializationData implements CommandLineRunner {
         part.setUserCreation(user.getName());
         part1.setUser(administrator);
         part1.setUserCreation(administrator.getName());
+        part.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff732"));
+        part1.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff733"));
         partRepository.saveAll(Arrays.asList(part, part1));
 
         // Linguagem de Programacao
