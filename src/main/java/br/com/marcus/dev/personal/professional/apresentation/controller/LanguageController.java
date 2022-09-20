@@ -1,12 +1,9 @@
 package br.com.marcus.dev.personal.professional.apresentation.controller;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.LanguageSaveForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.LanguageUpdateForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.LanguageResponse;
-import br.com.marcus.dev.personal.professional.apresentation.services.language.DeleteLanguageService;
-import br.com.marcus.dev.personal.professional.apresentation.services.language.FindAllLanguageService;
-import br.com.marcus.dev.personal.professional.apresentation.services.language.FindByIdLanguageService;
-import br.com.marcus.dev.personal.professional.apresentation.services.language.SaveLanguageService;
-import br.com.marcus.dev.personal.professional.apresentation.services.part.SavePartService;
+import br.com.marcus.dev.personal.professional.apresentation.services.language.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +23,7 @@ public class LanguageController {
     @Autowired private FindAllLanguageService findAllLanguageService;
     @Autowired private SaveLanguageService saveLanguageService;
     @Autowired private DeleteLanguageService deleteLanguageService;
+    @Autowired private UpdateLanguageService updateLanguageService;
 
     @GetMapping
     public ResponseEntity<Page<LanguageResponse>> findAll(Pageable page){
@@ -44,6 +42,13 @@ public class LanguageController {
     public ResponseEntity<LanguageResponse> save(@Valid @RequestBody LanguageSaveForm languageSaveForm){
         LanguageResponse languageResponse = saveLanguageService.save(languageSaveForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(languageResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody LanguageUpdateForm languageUpdateForm){
+        updateLanguageService.update(id, languageUpdateForm);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")

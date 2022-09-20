@@ -1,6 +1,7 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.language.factory;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.LanguageSaveForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.LanguageUpdateForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.ListPart;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.LanguageResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.PartResponse;
@@ -39,5 +40,15 @@ public class LanguageFactory {
 
     public Language convertSaveFormInEntity(LanguageSaveForm languageSaveForm){
         return new Language(languageSaveForm.getName(), Level.toEnum(languageSaveForm.getLevel()));
+    }
+
+    public Language convertUpdateFormInEntity(Language language, LanguageUpdateForm languageUpdateForm){
+        if (languageUpdateForm.getName() != null && !languageUpdateForm.getName().equals("")){
+            language.setName(languageUpdateForm.getName());
+        }
+        if (languageUpdateForm.getLevel() != null){
+            language.setLevel(Level.toEnum(languageUpdateForm.getLevel()));
+        }
+        return language;
     }
 }
