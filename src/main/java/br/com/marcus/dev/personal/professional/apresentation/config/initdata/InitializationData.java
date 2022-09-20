@@ -341,7 +341,11 @@ public class InitializationData implements CommandLineRunner {
         studyPlan.setUser(user);
         studyPlan.setUserCreation(user.getName());
         studyPlan.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff737"));
-        studyPlanRepository.saveAll(Arrays.asList(studyPlan));
+        StudyPlan studyPlan1 = new StudyPlan("Tech Lead", Level.ADVANCED, languageProgrammer, framework);
+        studyPlan1.setUser(user);
+        studyPlan1.setUserCreation(user.getName());
+        studyPlan1.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff738"));
+        studyPlanRepository.saveAll(Arrays.asList(studyPlan, studyPlan1));
 
         // Tópico do Plano de Estudos
         Topic topic = new Topic("Ser um excelente Tech Lead", studyPlan);

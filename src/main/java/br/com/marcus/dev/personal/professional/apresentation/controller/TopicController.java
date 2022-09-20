@@ -1,14 +1,13 @@
 package br.com.marcus.dev.personal.professional.apresentation.controller;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormUpdate;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.TopicSaveForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.TopicUpdateForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TopicResponse;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Topic;
-import br.com.marcus.dev.personal.professional.apresentation.services.topic.DeleteTopicService;
-import br.com.marcus.dev.personal.professional.apresentation.services.topic.FindAllTopicService;
-import br.com.marcus.dev.personal.professional.apresentation.services.topic.FindByIdTopicService;
-import br.com.marcus.dev.personal.professional.apresentation.services.topic.SaveTopicService;
+import br.com.marcus.dev.personal.professional.apresentation.services.topic.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +27,7 @@ public class TopicController {
     @Autowired private FindByIdTopicService findByIdTopicService;
     @Autowired private SaveTopicService saveTopicService;
     @Autowired private DeleteTopicService deleteTopicService;
+    @Autowired private UpdateTopicService updateTopicService;
 
     @GetMapping(value = "/studyplan/{id}")
     public ResponseEntity<Page<TopicResponse>> findById(Pageable pageable, @PathVariable UUID id){
@@ -46,6 +46,13 @@ public class TopicController {
     public ResponseEntity<TopicResponse> save(@Valid @RequestBody TopicSaveForm topicSaveForm){
         TopicResponse topicResponse = saveTopicService.save(topicSaveForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(topicResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody TopicUpdateForm topicUpdateForm){
+        updateTopicService.update(id, topicUpdateForm);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
