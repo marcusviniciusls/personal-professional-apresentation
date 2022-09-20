@@ -30,4 +30,16 @@ public class FindByIdTopicService {
         }
         return topicFactory.convertEntityInResponse(topic);
     }
+
+    public Topic findByIdEntity(UUID id){
+        Optional<Topic> optionalTopic = topicRepository.findById(id);
+        if (optionalTopic.isEmpty()){
+            throw new ResourceNotFoundException("Topic Not Found Exception");
+        }
+        Topic topic = optionalTopic.get();
+        if (!centerEntityService.isStatusSuperEntity(topic)){
+            throw new ResourceNotFoundException("Topic Not Found Exception");
+        }
+        return topic;
+    }
 }

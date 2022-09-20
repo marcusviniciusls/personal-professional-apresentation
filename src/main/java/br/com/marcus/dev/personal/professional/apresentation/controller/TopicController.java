@@ -5,6 +5,7 @@ import br.com.marcus.dev.personal.professional.apresentation.dto.request.TopicSa
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TopicResponse;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Topic;
+import br.com.marcus.dev.personal.professional.apresentation.services.topic.DeleteTopicService;
 import br.com.marcus.dev.personal.professional.apresentation.services.topic.FindAllTopicService;
 import br.com.marcus.dev.personal.professional.apresentation.services.topic.FindByIdTopicService;
 import br.com.marcus.dev.personal.professional.apresentation.services.topic.SaveTopicService;
@@ -26,6 +27,7 @@ public class TopicController {
     @Autowired private FindAllTopicService findAllTopicService;
     @Autowired private FindByIdTopicService findByIdTopicService;
     @Autowired private SaveTopicService saveTopicService;
+    @Autowired private DeleteTopicService deleteTopicService;
 
     @GetMapping(value = "/studyplan/{id}")
     public ResponseEntity<Page<TopicResponse>> findById(Pageable pageable, @PathVariable UUID id){
@@ -44,5 +46,12 @@ public class TopicController {
     public ResponseEntity<TopicResponse> save(@Valid @RequestBody TopicSaveForm topicSaveForm){
         TopicResponse topicResponse = saveTopicService.save(topicSaveForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(topicResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id){
+        deleteTopicService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }
