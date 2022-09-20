@@ -9,8 +9,10 @@ import br.com.marcus.dev.personal.professional.apresentation.entities.Part;
 import br.com.marcus.dev.personal.professional.apresentation.entities.enums.Level;
 import br.com.marcus.dev.personal.professional.apresentation.repository.LanguageRepository;
 import br.com.marcus.dev.personal.professional.apresentation.repository.PartRepository;
+import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -20,6 +22,7 @@ public class LanguageFactory {
 
     @Autowired private ModelMapper modelMapper;
     @Autowired private PartRepository partRepository;
+    @Autowired private CenterEntityService centerEntityService;
 
     public LanguageResponse convertEntityInResponse(Language language){
         LanguageResponse languageResponse = new LanguageResponse();
