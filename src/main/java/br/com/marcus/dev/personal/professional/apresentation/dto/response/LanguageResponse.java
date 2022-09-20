@@ -16,5 +16,9 @@ public class LanguageResponse {
 
     private String name;
     private Level level;
-    private List<Part> listPart = new ArrayList<>();
+    private List<PartResponse> listPart = new ArrayList<>();
+
+    public void addListPart(PartResponse partResponse){
+        this.listPart.add(partResponse);
+    }
 }
