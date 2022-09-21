@@ -334,6 +334,8 @@ public class InitializationData implements CommandLineRunner {
         assignments.setUserCreation(user.getName());
         assignments1.setUserCreation(user.getName());
         assignments1.setUser(user);
+        assignments.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff726"));
+        assignments1.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff727"));
         assignmentsRepository.saveAll(Arrays.asList(assignments1, assignments));
 
         // Plano de Estudos
