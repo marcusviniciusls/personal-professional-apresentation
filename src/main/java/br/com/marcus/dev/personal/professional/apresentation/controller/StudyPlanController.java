@@ -5,10 +5,7 @@ import br.com.marcus.dev.personal.professional.apresentation.dto.request.TopicSa
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.StudyPlanResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TopicResponse;
-import br.com.marcus.dev.personal.professional.apresentation.services.studyplan.FindAllStudyPlanService;
-import br.com.marcus.dev.personal.professional.apresentation.services.studyplan.FindByIdEntityStudyPlanService;
-import br.com.marcus.dev.personal.professional.apresentation.services.studyplan.FindByIdStudyPlanService;
-import br.com.marcus.dev.personal.professional.apresentation.services.studyplan.SaveStudyPlanService;
+import br.com.marcus.dev.personal.professional.apresentation.services.studyplan.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +24,7 @@ public class StudyPlanController {
     @Autowired private FindAllStudyPlanService findAllStudyPlanService;
     @Autowired private FindByIdEntityStudyPlanService findByIdStudyPlanService;
     @Autowired private SaveStudyPlanService saveStudyPlanService;
+    @Autowired private DeleteStudyPlanService deleteStudyPlanService;
 
     @GetMapping
     public ResponseEntity<Page<StudyPlanResponse>> findById(Pageable pageable){
@@ -45,5 +43,12 @@ public class StudyPlanController {
     public ResponseEntity<StudyPlanResponse> save(@Valid @RequestBody StudyPlanSaveForm studyPlanSaveForm){
         StudyPlanResponse studyPlanResponse = saveStudyPlanService.save(studyPlanSaveForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(studyPlanResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id){
+        deleteStudyPlanService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }
