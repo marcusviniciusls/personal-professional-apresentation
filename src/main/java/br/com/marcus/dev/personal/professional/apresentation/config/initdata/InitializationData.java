@@ -428,5 +428,18 @@ public class InitializationData implements CommandLineRunner {
 
         activitiesRepository.saveAll(Arrays.asList(activities1, activities2, activities3, activities4, activities5,
                 activities6, activities7, activities8, activities9, activities10, activities11));
+
+        studyPlan.addAssignments(assignments);
+        studyPlan.addAssignments(assignments1);
+        studyPlan.addCertificate(certificate);
+        studyPlan.addCertificate(certificate1);
+        studyPlan.addCourse(course);
+        studyPlan.addCourse(course1);
+        studyPlan.addGraduation(graduation);
+        studyPlan.addGraduation(graduation1);
+        studyPlan.addProfessionalExperience(professionalExperience);
+        studyPlan.addProfessionalExperience(professionalExperience1);
+        studyPlan.addTopic(topic);
+        studyPlanRepository.save(studyPlan);
     }
 }

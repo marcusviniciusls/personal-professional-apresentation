@@ -1,5 +1,6 @@
 package br.com.marcus.dev.personal.professional.apresentation.entities;
 
+import br.com.marcus.dev.personal.professional.apresentation.dto.response.*;
 import br.com.marcus.dev.personal.professional.apresentation.entities.enums.Level;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -65,7 +66,27 @@ public class StudyPlan extends SuperEntity{
         this.framework = framework;
     }
 
-    public void addListTopic(Topic topic){
+    public void addTopic(Topic topic){
         this.listTopic.add(topic);
+    }
+
+    public void addCourse(Course course){
+        this.listCourse.add(course);
+    }
+
+    public void addProfessionalExperience(ProfessionalExperience professionalExperience){
+        this.listProfessionalExperience.add(professionalExperience);
+    }
+
+    public void addAssignments(Assignments assignments){
+        this.listAssignments.add(assignments);
+    }
+
+    public void addGraduation(Graduation graduation){
+        this.listGraduation.add(graduation);
+    }
+
+    public void addCertificate(Certificate certificate){
+        this.listCertificate.add(certificate);
     }
 }
