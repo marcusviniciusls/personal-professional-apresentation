@@ -28,7 +28,7 @@ public class StudyPlanFactory {
     public StudyPlanResponse convertEntityInResponse(StudyPlan studyPlan){
         // Campos Normais
         StudyPlanResponse studyPlanResponse = new StudyPlanResponse();
-        studyPlanResponse.setName(studyPlanResponse.getName());
+        studyPlanResponse.setName(studyPlan.getName());
         studyPlanResponse.setLevel(studyPlan.getLevel().getNumber());
 
         // Language Programmer

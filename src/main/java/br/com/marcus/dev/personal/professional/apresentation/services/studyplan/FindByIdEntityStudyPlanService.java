@@ -7,18 +7,20 @@ import br.com.marcus.dev.personal.professional.apresentation.repository.StudyPla
 import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
 import br.com.marcus.dev.personal.professional.apresentation.services.studyplan.factory.StudyPlanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class FindByIdStudyPlanService {
+public class FindByIdEntityStudyPlanService {
 
     @Autowired private StudyPlanRepository studyPlanRepository;
     @Autowired private CenterEntityService centerEntityService;
+    @Autowired private StudyPlanFactory studyPlanFactory;
 
-    public StudyPlan findByIdEntity(UUID id){
+    public StudyPlanResponse findById(UUID id){
         Optional<StudyPlan> optionalStudyPlan = studyPlanRepository.findById(id);
         if (optionalStudyPlan.isEmpty()){
             throw new ResourceNotFoundException("Study Plan Not Found Exception");
@@ -27,6 +29,6 @@ public class FindByIdStudyPlanService {
         if (!centerEntityService.isStatusSuperEntity(studyPlan)){
             throw new ResourceNotFoundException("Study Plan Not Found Exception");
         }
-        return studyPlan;
+        return studyPlanFactory.convertEntityInResponse(studyPlan);
     }
 }
