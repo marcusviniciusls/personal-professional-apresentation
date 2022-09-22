@@ -1,13 +1,12 @@
 package br.com.marcus.dev.personal.professional.apresentation.controller;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.ProfessionalExperienceFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.ProfessionalExperienceFormUpdate;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormUpdate;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.ProfessionalExperienceResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
-import br.com.marcus.dev.personal.professional.apresentation.services.professionalexperience.DeleteProfessionalExperienceService;
-import br.com.marcus.dev.personal.professional.apresentation.services.professionalexperience.FindAllProfessionalExperienceService;
-import br.com.marcus.dev.personal.professional.apresentation.services.professionalexperience.FindByIdProfessionalExperienceService;
-import br.com.marcus.dev.personal.professional.apresentation.services.professionalexperience.SaveProfessionalExperienceService;
+import br.com.marcus.dev.personal.professional.apresentation.services.professionalexperience.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +26,7 @@ public class ProfessionalExperienceController {
     @Autowired private FindByIdProfessionalExperienceService findByIdProfessionalExperienceService;
     @Autowired private FindAllProfessionalExperienceService findAllProfessionalExperienceService;
     @Autowired private DeleteProfessionalExperienceService deleteProfessionalExperienceService;
+    @Autowired private UpdateProfessionalExperienceService updateProfessionalExperienceService;
 
     @GetMapping
     public ResponseEntity<Page<ProfessionalExperienceResponse>> findAll(Pageable page){
@@ -45,6 +45,13 @@ public class ProfessionalExperienceController {
     public ResponseEntity<ProfessionalExperienceResponse> save(@Valid @RequestBody ProfessionalExperienceFormSave request){
         ProfessionalExperienceResponse response = saveProfessionalExperienceService.save(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<TelephoneDto> update(@PathVariable UUID id, @RequestBody ProfessionalExperienceFormUpdate update){
+        updateProfessionalExperienceService.update(id, update);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
