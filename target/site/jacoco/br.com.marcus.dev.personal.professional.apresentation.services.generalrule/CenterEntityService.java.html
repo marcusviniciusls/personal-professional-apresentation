@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CenterEntityService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">personal.professional.apresentation</a> &gt; <a href="index.source.html" class="el_package">br.com.marcus.dev.personal.professional.apresentation.services.generalrule</a> &gt; <span class="el_source">CenterEntityService.java</span></div><h1>CenterEntityService.java</h1><pre class="source lang-java linenums">package br.com.marcus.dev.personal.professional.apresentation.services.generalrule;
+
+import br.com.marcus.dev.personal.professional.apresentation.config.security.UserSS;
+import br.com.marcus.dev.personal.professional.apresentation.config.security.UserService;
+import br.com.marcus.dev.personal.professional.apresentation.entities.SuperEntity;
+import br.com.marcus.dev.personal.professional.apresentation.entities.User;
+import br.com.marcus.dev.personal.professional.apresentation.services.user.FindByIdUserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+
+@Service
+<span class="fc" id="L14">public class CenterEntityService {</span>
+
+    @Autowired private FindByIdUserService findByIdUserService;
+
+    public SuperEntity setDataToSave(SuperEntity entity){
+<span class="nc" id="L19">        UserSS userSS = UserService.authenticated();</span>
+<span class="nc" id="L20">        User user = findByIdUserService.findById(userSS.getId());</span>
+<span class="nc" id="L21">        entity.setUser(user);</span>
+<span class="nc" id="L22">        entity.setUserCreation(user.getName());</span>
+<span class="nc" id="L23">        entity.setDateCreation(LocalDateTime.now());</span>
+<span class="nc" id="L24">        return entity;</span>
+    }
+
+    public SuperEntity setDataToUpdate(SuperEntity entity){
+<span class="nc" id="L28">        UserSS userSS = UserService.authenticated();</span>
+<span class="nc" id="L29">        User user = findByIdUserService.findById(userSS.getId());</span>
+<span class="nc" id="L30">        entity.setUserUpdate(user.getName());</span>
+<span class="nc" id="L31">        entity.setDateUpdate(LocalDateTime.now());</span>
+<span class="nc" id="L32">        return entity;</span>
+    }
+
+    public SuperEntity setDataToDelete(SuperEntity entity){
+<span class="nc" id="L36">        UserSS userSS = UserService.authenticated();</span>
+<span class="nc" id="L37">        User user = findByIdUserService.findById(userSS.getId());</span>
+<span class="nc" id="L38">        entity.setStatus(false);</span>
+<span class="nc" id="L39">        entity.setDateUpdate(LocalDateTime.now());</span>
+<span class="nc" id="L40">        entity.setUserUpdate(user.getName());</span>
+<span class="nc" id="L41">        return entity;</span>
+    }
+
+    public boolean isStatusSuperEntity(SuperEntity entity){
+<span class="nc" id="L45">        return entity.isStatus();</span>
+    }
+
+    public User userLogged(){
+<span class="nc" id="L49">        UserSS userSS = UserService.authenticated();</span>
+<span class="nc" id="L50">        User user = findByIdUserService.findById(userSS.getId());</span>
+<span class="nc" id="L51">        return user;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

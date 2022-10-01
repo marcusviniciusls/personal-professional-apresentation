@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProjectController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">personal.professional.apresentation</a> &gt; <a href="index.source.html" class="el_package">br.com.marcus.dev.personal.professional.apresentation.controller</a> &gt; <span class="el_source">ProjectController.java</span></div><h1>ProjectController.java</h1><pre class="source lang-java linenums">package br.com.marcus.dev.personal.professional.apresentation.controller;
+
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.ProjectSaveForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.ProjectUpdateForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.TelephoneFormUpdate;
+import br.com.marcus.dev.personal.professional.apresentation.dto.response.ProjectResponse;
+import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
+import br.com.marcus.dev.personal.professional.apresentation.services.project.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.UUID;
+
+@RestController
+@RequestMapping(value=&quot;/project&quot;)
+<span class="fc" id="L23">public class ProjectController {</span>
+
+    @Autowired private FindAllProjectService findAllProjectService;
+    @Autowired private FindByIdProjectService findByIdProjectService;
+    @Autowired private SaveProjectService saveProjectService;
+    @Autowired private DeleteProjectService deleteProjectService;
+    @Autowired private UpdateProjectService updateProjectService;
+
+    @GetMapping
+    public ResponseEntity&lt;Page&lt;ProjectResponse&gt;&gt; findAll(Pageable page){
+<span class="nc" id="L33">        Page&lt;ProjectResponse&gt; projectResponses = findAllProjectService.findAll(page);</span>
+<span class="nc" id="L34">        return ResponseEntity.ok().body(projectResponses);</span>
+    }
+
+    @GetMapping(value = &quot;/{id}&quot;)
+    public ResponseEntity&lt;ProjectResponse&gt; findById(@PathVariable UUID id){
+<span class="nc" id="L39">        ProjectResponse projectResponse = findByIdProjectService.findById(id);</span>
+<span class="nc" id="L40">        return ResponseEntity.ok().body(projectResponse);</span>
+    }
+
+    @PreAuthorize(&quot;hasAnyRole('ADMIN')&quot;)
+    @PostMapping
+    public ResponseEntity&lt;ProjectResponse&gt; save(@Valid @RequestBody ProjectSaveForm projectSaveForm){
+<span class="nc" id="L46">        ProjectResponse projectResponse = saveProjectService.save(projectSaveForm);</span>
+<span class="nc" id="L47">        return ResponseEntity.status(HttpStatus.CREATED).body(projectResponse);</span>
+    }
+
+    @PreAuthorize(&quot;hasAnyRole('ADMIN')&quot;)
+    @PutMapping(value = &quot;/{id}&quot;)
+    public ResponseEntity&lt;ProjectResponse&gt; update(@PathVariable UUID id, @Valid @RequestBody ProjectUpdateForm projectUpdateForm){
+<span class="nc" id="L53">        ProjectResponse projectResponse = updateProjectService.update(id, projectUpdateForm);</span>
+<span class="nc" id="L54">        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(projectResponse);</span>
+    }
+
+    @PreAuthorize(&quot;hasAnyRole('ADMIN')&quot;)
+    @DeleteMapping(value = &quot;/{id}&quot;)
+    public ResponseEntity&lt;?&gt; delete(@PathVariable UUID id){
+<span class="nc" id="L60">        deleteProjectService.delete(id);</span>
+<span class="nc" id="L61">        return ResponseEntity.ok().build();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

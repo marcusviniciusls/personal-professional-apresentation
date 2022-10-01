@@ -3,8 +3,6 @@ package br.com.marcus.dev.personal.professional.apresentation.repository;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Activities;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Certificate;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Course;
-import br.com.marcus.dev.personal.professional.apresentation.entities.enums.LevelCourse;
-import br.com.marcus.dev.personal.professional.apresentation.entities.enums.StatusCourse;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

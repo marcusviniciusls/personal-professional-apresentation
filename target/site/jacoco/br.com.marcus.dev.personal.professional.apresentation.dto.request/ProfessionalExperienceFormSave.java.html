@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProfessionalExperienceFormSave.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">personal.professional.apresentation</a> &gt; <a href="index.source.html" class="el_package">br.com.marcus.dev.personal.professional.apresentation.dto.request</a> &gt; <span class="el_source">ProfessionalExperienceFormSave.java</span></div><h1>ProfessionalExperienceFormSave.java</h1><pre class="source lang-java linenums">package br.com.marcus.dev.personal.professional.apresentation.dto.request;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+<span class="nc" id="L17">@NoArgsConstructor</span>
+@Getter
+<span class="nc" id="L19">@Setter</span>
+public class ProfessionalExperienceFormSave {
+
+    @NotNull(message = &quot;Date Init cannot be blank&quot;)
+    @JsonFormat(pattern = &quot;dd/MM/yyyy&quot;)
+<span class="nc" id="L24">    private LocalDate dateInit;</span>
+    @JsonFormat(pattern = &quot;dd/MM/yyyy&quot;)
+<span class="nc" id="L26">    private LocalDate dateFinish;</span>
+    @NotBlank(message = &quot;Description cannot be blank&quot;)
+<span class="nc" id="L28">    private String description;</span>
+    @NotNull(message = &quot;Office cannot be blank&quot;)
+<span class="nc" id="L30">    private Integer officeEnum;</span>
+    @NotNull(message = &quot;Partner cannot be blank&quot;)
+<span class="nc" id="L32">    private UUID partnerId;</span>
+    @NotNull(message = &quot;Office cannot be blank&quot;)
+<span class="nc" id="L34">    private UUID officeId;</span>
+<span class="nc" id="L35">    @NotEmpty</span>
+<span class="nc" id="L36">    private List&lt;@Valid AssignmentsSaveForm&gt; listAssignmentsSaveForm = new ArrayList&lt;&gt;();</span>
+
+    public void addListAssignmentsSaveForm(AssignmentsSaveForm assignmentsSaveForm){
+<span class="nc" id="L39">        this.listAssignmentsSaveForm.add(assignmentsSaveForm);</span>
+<span class="nc" id="L40">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

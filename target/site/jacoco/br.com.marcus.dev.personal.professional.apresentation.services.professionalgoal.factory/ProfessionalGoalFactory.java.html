@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProfessionalGoalFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">personal.professional.apresentation</a> &gt; <a href="index.source.html" class="el_package">br.com.marcus.dev.personal.professional.apresentation.services.professionalgoal.factory</a> &gt; <span class="el_source">ProfessionalGoalFactory.java</span></div><h1>ProfessionalGoalFactory.java</h1><pre class="source lang-java linenums">package br.com.marcus.dev.personal.professional.apresentation.services.professionalgoal.factory;
+
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.ProfessionalGoalSaveForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.ProfessionalGoalUpdateForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.response.ProfessionalGoalResponse;
+import br.com.marcus.dev.personal.professional.apresentation.entities.ProfessionalGoal;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+<span class="fc" id="L12">public class ProfessionalGoalFactory {</span>
+
+    @Autowired private ModelMapper modelMapper;
+
+    public ProfessionalGoalResponse convertEntityInResponse(ProfessionalGoal professionalGoal){
+<span class="nc" id="L17">        return modelMapper.map(professionalGoal, ProfessionalGoalResponse.class);</span>
+    }
+
+    public ProfessionalGoal convertFormSaveInEntity(ProfessionalGoalSaveForm professionalGoalSaveForm){
+<span class="nc" id="L21">        return modelMapper.map(professionalGoalSaveForm, ProfessionalGoal.class);</span>
+    }
+
+    public ProfessionalGoal convertFormUpdateInEntity(ProfessionalGoalUpdateForm professionalGoalUpdateForm, ProfessionalGoal professionalGoal){
+<span class="nc bnc" id="L25" title="All 4 branches missed.">        if (professionalGoalUpdateForm.getDescription() != null &amp;&amp; !professionalGoalUpdateForm.getDescription().equals(&quot;&quot;)){</span>
+<span class="nc" id="L26">            professionalGoal.setDescription(professionalGoalUpdateForm.getDescription());</span>
+        }
+<span class="nc bnc" id="L28" title="All 4 branches missed.">        if (professionalGoalUpdateForm.getOffice() != null &amp;&amp; !professionalGoalUpdateForm.getOffice().equals(&quot;&quot;)){</span>
+<span class="nc" id="L29">            professionalGoal.setOffice(professionalGoalUpdateForm.getOffice());</span>
+        }
+<span class="nc" id="L31">        return professionalGoal;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HardSkillsResponse.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">personal.professional.apresentation</a> &gt; <a href="index.source.html" class="el_package">br.com.marcus.dev.personal.professional.apresentation.dto.response</a> &gt; <span class="el_source">HardSkillsResponse.java</span></div><h1>HardSkillsResponse.java</h1><pre class="source lang-java linenums">package br.com.marcus.dev.personal.professional.apresentation.dto.response;
+
+import br.com.marcus.dev.personal.professional.apresentation.entities.enums.Level;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+<span class="nc" id="L12">@NoArgsConstructor</span>
+@Getter
+<span class="nc" id="L14">@Setter</span>
+public class HardSkillsResponse {
+
+<span class="nc" id="L17">    private UUID id;</span>
+<span class="nc" id="L18">    private String name;</span>
+<span class="nc" id="L19">    private String description;</span>
+<span class="nc" id="L20">    private Level level;</span>
+<span class="nc" id="L21">    private List&lt;LanguageProgrammerResponse&gt; listLanguageProgrammerResponse = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L22">    private List&lt;FrameworkResponse&gt; listFrameworkResponse = new ArrayList&lt;&gt;();</span>
+
+    public void addListLanguageProgrammerResponse(LanguageProgrammerResponse languageProgrammerResponse){
+<span class="nc" id="L25">        this.listLanguageProgrammerResponse.add(languageProgrammerResponse);</span>
+<span class="nc" id="L26">    }</span>
+
+    public void addListFrameworkResponse(FrameworkResponse frameworkResponse){
+<span class="nc" id="L29">        this.listFrameworkResponse.add(frameworkResponse);</span>
+<span class="nc" id="L30">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

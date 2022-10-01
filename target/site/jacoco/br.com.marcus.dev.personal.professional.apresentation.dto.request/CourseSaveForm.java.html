@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CourseSaveForm.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">personal.professional.apresentation</a> &gt; <a href="index.source.html" class="el_package">br.com.marcus.dev.personal.professional.apresentation.dto.request</a> &gt; <span class="el_source">CourseSaveForm.java</span></div><h1>CourseSaveForm.java</h1><pre class="source lang-java linenums">package br.com.marcus.dev.personal.professional.apresentation.dto.request;
+
+import br.com.marcus.dev.personal.professional.apresentation.entities.enums.LevelCourse;
+import br.com.marcus.dev.personal.professional.apresentation.entities.enums.StatusCourse;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.UUID;
+
+<span class="nc" id="L19">@NoArgsConstructor</span>
+@Getter
+<span class="nc" id="L21">@Setter</span>
+public class CourseSaveForm {
+
+    @NotBlank(message = &quot;Name cannot be blank&quot;)
+<span class="nc" id="L25">    private String name;</span>
+<span class="nc" id="L26">    private String description;</span>
+    @NotNull(message = &quot;Duration cannot be blank&quot;)
+<span class="nc" id="L28">    private BigDecimal duration;</span>
+    @NotNull(message = &quot;Date Init Expected cannot be blank&quot;)
+    @JsonFormat(pattern = &quot;dd/MM/yyyy&quot;)
+<span class="nc" id="L31">    private LocalDate dateInitExpected;</span>
+    @NotNull(message = &quot;Date Finish Expected cannot be blank&quot;)
+    @JsonFormat(pattern = &quot;dd/MM/yyyy&quot;)
+<span class="nc" id="L34">    private LocalDate dateFinishExpected;</span>
+    @JsonFormat(pattern = &quot;dd/MM/yyyy&quot;)
+<span class="nc" id="L36">    private LocalDate dateInitReal;</span>
+    @JsonFormat(pattern = &quot;dd/MM/yyyy&quot;)
+<span class="nc" id="L38">    private LocalDate dateFinishReal;</span>
+<span class="nc" id="L39">    private String logoImage;</span>
+    @NotNull(message = &quot;Status Course cannot be blank&quot;)
+<span class="nc" id="L41">    private Integer statusCourse;</span>
+    @NotNull(message = &quot;Level Course cannot be blank&quot;)
+<span class="nc" id="L43">    private Integer levelCourse;</span>
+<span class="nc" id="L44">    private List&lt;ListFramework&gt; listFrameworkId;</span>
+<span class="nc" id="L45">    private List&lt;ListLanguageProgrammer&gt; listLanguageProgrammerId;</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>
