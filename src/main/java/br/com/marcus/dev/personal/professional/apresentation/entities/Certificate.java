@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,4 +24,8 @@ public class Certificate extends SuperEntity {
     @ManyToOne
     @JoinColumn(name = "partner_id")
     private Partner partner;
+
+    public Certificate(UUID id) {
+        super(id);
+    }
 }

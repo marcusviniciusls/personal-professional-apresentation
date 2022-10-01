@@ -1,7 +1,10 @@
 package br.com.marcus.dev.personal.professional.apresentation.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Type;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -10,6 +13,7 @@ import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@AllArgsConstructor
 @Getter
 @Setter
 @MappedSuperclass
@@ -35,5 +39,9 @@ public class SuperEntity {
         dateIssue = now;
         dateCreation = now;
         status = true;
+    }
+
+    public SuperEntity(UUID id) {
+        this.id = id;
     }
 }

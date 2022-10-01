@@ -2,16 +2,16 @@ package br.com.marcus.dev.personal.professional.apresentation.entities;
 
 import br.com.marcus.dev.personal.professional.apresentation.entities.enums.LevelCourse;
 import br.com.marcus.dev.personal.professional.apresentation.entities.enums.StatusCourse;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -53,6 +53,10 @@ public class Course extends SuperEntity{
         this.logoImage = logoImage;
         this.statusCourse = statusCourse;
         this.levelCourse = levelCourse;
+    }
+
+    public Course(UUID id) {
+        super(id);
     }
 
     public void addListLanguage(LanguageProgrammer language){
