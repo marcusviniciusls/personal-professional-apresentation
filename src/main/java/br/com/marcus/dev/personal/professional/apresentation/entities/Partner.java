@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,4 +25,8 @@ public class Partner extends SuperEntity{
     @JoinColumn(name = "branch_activity_id")
     private BranchActivity branchActivity;
     private String description;
+
+    public Partner(UUID id) {
+        super(id);
+    }
 }

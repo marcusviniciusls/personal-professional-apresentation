@@ -10,18 +10,23 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
+import java.util.UUID;
 
-<span class="fc" id="L14">@AllArgsConstructor</span>
-<span class="fc" id="L15">@NoArgsConstructor</span>
+<span class="fc" id="L15">@AllArgsConstructor</span>
+<span class="fc" id="L16">@NoArgsConstructor</span>
 @Getter
-<span class="nc" id="L17">@Setter</span>
+<span class="nc" id="L18">@Setter</span>
 @Entity
 @Table(name = &quot;tb_office&quot;)
 public class Office extends SuperEntity{
 
-<span class="nc" id="L22">    private String name;</span>
-<span class="nc" id="L23">    private String description;</span>
+<span class="nc" id="L23">    private String name;</span>
+<span class="nc" id="L24">    private String description;</span>
     @Enumerated(EnumType.ORDINAL)
-<span class="nc" id="L25">    private OfficeLevel officeLevel;</span>
+<span class="nc" id="L26">    private OfficeLevel officeLevel;</span>
+
+    public Office(UUID id) {
+<span class="fc" id="L29">        super(id);</span>
+<span class="fc" id="L30">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

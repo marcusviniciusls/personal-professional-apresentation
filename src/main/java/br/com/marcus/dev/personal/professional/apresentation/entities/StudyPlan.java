@@ -10,6 +10,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -66,6 +67,10 @@ public class StudyPlan extends SuperEntity{
         this.level = level;
         this.languageProgrammer = languageProgrammer;
         this.framework = framework;
+    }
+
+    public StudyPlan(UUID id) {
+        super(id);
     }
 
     public void addTopic(Topic topic){

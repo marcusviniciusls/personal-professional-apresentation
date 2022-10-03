@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,4 +25,8 @@ public class Telephone extends SuperEntity{
     @ManyToOne
     @JoinColumn(name = "data_personal_id")
     private DataPersonal dataPersonal;
+
+    public Telephone(UUID id) {
+        super(id);
+    }
 }

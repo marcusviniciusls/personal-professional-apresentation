@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,4 +19,8 @@ public class LanguageProgrammer extends SuperEntity{
 
     private String name;
     private String description;
+
+    public LanguageProgrammer(UUID id) {
+        super(id);
+    }
 }

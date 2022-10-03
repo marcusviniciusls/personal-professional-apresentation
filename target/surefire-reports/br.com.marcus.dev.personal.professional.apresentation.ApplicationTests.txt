@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: br.com.marcus.dev.personal.professional.apresentation.ApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 14.931 s - in br.com.marcus.dev.personal.professional.apresentation.ApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 14.366 s - in br.com.marcus.dev.personal.professional.apresentation.ApplicationTests

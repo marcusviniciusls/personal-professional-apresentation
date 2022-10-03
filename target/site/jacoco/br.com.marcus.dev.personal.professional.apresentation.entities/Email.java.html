@@ -9,18 +9,23 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.UUID;
 
-<span class="fc" id="L13">@AllArgsConstructor</span>
-<span class="fc" id="L14">@NoArgsConstructor</span>
+<span class="fc" id="L14">@AllArgsConstructor</span>
+<span class="fc" id="L15">@NoArgsConstructor</span>
 @Getter
-<span class="nc" id="L16">@Setter</span>
+<span class="nc" id="L17">@Setter</span>
 @Entity
 @Table(name = &quot;tb_email&quot;)
 public class Email extends SuperEntity {
 
-<span class="nc" id="L21">    private String email;</span>
+<span class="nc" id="L22">    private String email;</span>
     @ManyToOne
     @JoinColumn(name = &quot;data_personal_id&quot;)
-<span class="nc" id="L24">    private DataPersonal dataPersonal;</span>
+<span class="nc" id="L25">    private DataPersonal dataPersonal;</span>
+
+    public Email(UUID id) {
+<span class="fc" id="L28">        super(id);</span>
+<span class="fc" id="L29">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

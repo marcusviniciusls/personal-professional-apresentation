@@ -9,28 +9,33 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-<span class="fc" id="L13">@NoArgsConstructor</span>
+<span class="fc" id="L14">@NoArgsConstructor</span>
 @Getter
 @Entity
 @Table(name = &quot;tb_branch_activity&quot;)
 public class BranchActivity extends SuperEntity{
 
     @Column(unique=true)
-<span class="nc" id="L20">    private String name;</span>
-<span class="fc" id="L21">    @OneToMany(mappedBy = &quot;branchActivity&quot;)</span>
-<span class="nc" id="L22">    private List&lt;Partner&gt; listPartner = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L21">    private String name;</span>
+<span class="fc" id="L22">    @OneToMany(mappedBy = &quot;branchActivity&quot;)</span>
+<span class="nc" id="L23">    private List&lt;Partner&gt; listPartner = new ArrayList&lt;&gt;();</span>
 
-<span class="fc" id="L24">    public BranchActivity(String name) {</span>
-<span class="fc" id="L25">        this.name = name;</span>
-<span class="fc" id="L26">    }</span>
+    public BranchActivity(UUID id) {
+<span class="fc" id="L26">        super(id);</span>
+<span class="fc" id="L27">    }</span>
+
+<span class="fc" id="L29">    public BranchActivity(String name) {</span>
+<span class="fc" id="L30">        this.name = name;</span>
+<span class="fc" id="L31">    }</span>
 
     public void addListPartner(Partner partner){
-<span class="nc" id="L29">        this.listPartner.add(partner);</span>
-<span class="nc" id="L30">    }</span>
+<span class="nc" id="L34">        this.listPartner.add(partner);</span>
+<span class="nc" id="L35">    }</span>
 
     public void setName(String name) {
-<span class="nc" id="L33">        this.name = name;</span>
-<span class="nc" id="L34">    }</span>
+<span class="nc" id="L38">        this.name = name;</span>
+<span class="nc" id="L39">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,4 +24,8 @@ public class Office extends SuperEntity{
     private String description;
     @Enumerated(EnumType.ORDINAL)
     private OfficeLevel officeLevel;
+
+    public Office(UUID id) {
+        super(id);
+    }
 }

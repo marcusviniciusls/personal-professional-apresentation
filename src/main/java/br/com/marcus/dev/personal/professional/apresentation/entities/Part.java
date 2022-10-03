@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @NoArgsConstructor
 @Getter
@@ -29,6 +30,10 @@ public class Part extends SuperEntity{
         this.name = name;
         this.level = level;
         this.language = language;
+    }
+
+    public Part(UUID id) {
+        super(id);
     }
 
     public void addListMaterial(Material material){

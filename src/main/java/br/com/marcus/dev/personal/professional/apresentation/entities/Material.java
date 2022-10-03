@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,4 +23,8 @@ public class Material extends SuperEntity{
     @ManyToOne
     @JoinColumn(name = "part_id")
     private Part part;
+
+    public Material(UUID id) {
+        super(id);
+    }
 }

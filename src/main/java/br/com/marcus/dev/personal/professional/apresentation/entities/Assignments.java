@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,4 +23,8 @@ public class Assignments extends SuperEntity{
     @ManyToOne
     @JoinColumn(name = "professionalExperience_id")
     private ProfessionalExperience professionalExperience;
+
+    public Assignments(UUID id) {
+        super(id);
+    }
 }

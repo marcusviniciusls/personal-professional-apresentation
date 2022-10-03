@@ -9,20 +9,25 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.UUID;
 
-<span class="fc" id="L13">@AllArgsConstructor</span>
-<span class="fc" id="L14">@NoArgsConstructor</span>
+<span class="fc" id="L14">@AllArgsConstructor</span>
+<span class="fc" id="L15">@NoArgsConstructor</span>
 @Getter
-<span class="nc" id="L16">@Setter</span>
+<span class="nc" id="L17">@Setter</span>
 @Entity
 @Table(name = &quot;tb_partner&quot;)
 public class Partner extends SuperEntity{
 
-<span class="nc" id="L21">    private String name;</span>
-<span class="nc" id="L22">    private String urlImage;</span>
+<span class="nc" id="L22">    private String name;</span>
+<span class="nc" id="L23">    private String urlImage;</span>
     @ManyToOne
     @JoinColumn(name = &quot;branch_activity_id&quot;)
-<span class="nc" id="L25">    private BranchActivity branchActivity;</span>
-<span class="nc" id="L26">    private String description;</span>
+<span class="nc" id="L26">    private BranchActivity branchActivity;</span>
+<span class="nc" id="L27">    private String description;</span>
+
+    public Partner(UUID id) {
+<span class="fc" id="L30">        super(id);</span>
+<span class="fc" id="L31">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

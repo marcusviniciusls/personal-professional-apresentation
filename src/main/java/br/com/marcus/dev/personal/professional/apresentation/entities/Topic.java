@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,5 +26,9 @@ public class Topic extends SuperEntity{
 
     public Topic(String name) {
         this.name = name;
+    }
+
+    public Topic(UUID id) {
+        super(id);
     }
 }

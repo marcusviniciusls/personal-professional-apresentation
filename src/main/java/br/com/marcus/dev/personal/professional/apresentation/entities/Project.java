@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -31,6 +32,10 @@ public class Project extends SuperEntity{
             {@JoinColumn(name = "project_id")}, inverseJoinColumns =
             {@JoinColumn(name="framework_id")})
     private List<Framework> listFramework = new ArrayList<>();
+
+    public Project(UUID id) {
+        super(id);
+    }
 
     public void addListLanguageProgrammer(LanguageProgrammer languageProgrammer){
         this.listLanguageProgrammer.add(languageProgrammer);

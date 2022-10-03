@@ -9,6 +9,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @NoArgsConstructor
 @Getter
@@ -20,6 +21,10 @@ public class BranchActivity extends SuperEntity{
     private String name;
     @OneToMany(mappedBy = "branchActivity")
     private List<Partner> listPartner = new ArrayList<>();
+
+    public BranchActivity(UUID id) {
+        super(id);
+    }
 
     public BranchActivity(String name) {
         this.name = name;

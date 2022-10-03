@@ -1,6 +1,5 @@
 package br.com.marcus.dev.personal.professional.apresentation.repository;
 
-import br.com.marcus.dev.personal.professional.apresentation.entities.Email;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Framework;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

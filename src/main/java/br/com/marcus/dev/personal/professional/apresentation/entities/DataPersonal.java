@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @NoArgsConstructor
 @Getter
@@ -32,6 +33,10 @@ public class DataPersonal extends SuperEntity {
         this.age = age;
         this.birthDate = birthDate;
         this.maritalStatus = maritalStatus;
+    }
+
+    public DataPersonal(UUID id) {
+        super(id);
     }
 
     public void addListTelephone(Telephone telephone){

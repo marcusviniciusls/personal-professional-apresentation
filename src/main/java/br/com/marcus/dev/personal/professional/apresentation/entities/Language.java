@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @NoArgsConstructor
 @Getter
@@ -25,6 +26,10 @@ public class Language extends SuperEntity{
     public Language(String name, Level level) {
         this.name = name;
         this.level = level;
+    }
+
+    public Language(UUID id) {
+        super(id);
     }
 
     public void addListPart(Part part){
