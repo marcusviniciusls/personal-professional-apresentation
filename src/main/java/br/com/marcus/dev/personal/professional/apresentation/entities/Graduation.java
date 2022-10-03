@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @NoArgsConstructor
 @Getter
@@ -48,6 +49,10 @@ public class Graduation extends SuperEntity {
         this.situationGraduation = situationGraduation;
         this.typeGraduation = typeGraduation;
         this.partner = partner;
+    }
+
+    public Graduation(UUID id) {
+        super(id);
     }
 
     public void addListSubject(Subject subject){

@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -38,6 +39,10 @@ public class HardSkills extends SuperEntity{
         this.name = name;
         this.description = description;
         this.level = level;
+    }
+
+    public HardSkills(UUID id) {
+        super(id);
     }
 
     public void addListLanguageProgrammer(LanguageProgrammer languageProgrammer){

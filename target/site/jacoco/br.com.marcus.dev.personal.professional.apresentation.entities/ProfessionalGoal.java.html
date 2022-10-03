@@ -7,16 +7,21 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.UUID;
 
-<span class="fc" id="L11">@AllArgsConstructor</span>
-<span class="fc" id="L12">@NoArgsConstructor</span>
+<span class="fc" id="L12">@AllArgsConstructor</span>
+<span class="fc" id="L13">@NoArgsConstructor</span>
 @Getter
-<span class="nc" id="L14">@Setter</span>
+<span class="nc" id="L15">@Setter</span>
 @Entity
 @Table(name = &quot;tb_professional_goal&quot;)
 public class ProfessionalGoal extends SuperEntity{
 
-<span class="nc" id="L19">    private String description;</span>
-<span class="nc" id="L20">    private String office;</span>
+<span class="nc" id="L20">    private String description;</span>
+<span class="nc" id="L21">    private String office;</span>
+
+    public ProfessionalGoal(UUID id) {
+<span class="fc" id="L24">        super(id);</span>
+<span class="fc" id="L25">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,4 +19,8 @@ public class SoftSkills extends SuperEntity {
 
     private String name;
     private boolean statusHas;
+
+    public SoftSkills(UUID id) {
+        super(id);
+    }
 }

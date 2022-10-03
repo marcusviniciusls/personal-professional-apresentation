@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @NoArgsConstructor
 @Getter
@@ -46,6 +47,10 @@ public class ProfessionalExperience extends SuperEntity{
         this.office = office;
         this.professionalExperienceResume = professionalExperienceResume;
         this.description = description;
+    }
+
+    public ProfessionalExperience(UUID id) {
+        super(id);
     }
 
     public void addListAssignments(Assignments assignments){
