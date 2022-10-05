@@ -28,6 +28,12 @@ public class UserSS implements UserDetails {
         this.authorities = profiles.stream().map(x -> new SimpleGrantedAuthority(x.getDescription())).collect(Collectors.toSet());
     }
 
+    public UserSS(UUID uuid, String email, String password) {
+        this.uuid = uuid;
+        this.email = email;
+        this.password = password;
+    }
+
     public UUID getId(){
         return this.uuid;
     }

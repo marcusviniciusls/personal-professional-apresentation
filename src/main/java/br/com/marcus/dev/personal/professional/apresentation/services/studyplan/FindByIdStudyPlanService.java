@@ -1,11 +1,9 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.studyplan;
 
-import br.com.marcus.dev.personal.professional.apresentation.dto.response.StudyPlanResponse;
 import br.com.marcus.dev.personal.professional.apresentation.entities.StudyPlan;
 import br.com.marcus.dev.personal.professional.apresentation.exception.custom.ResourceNotFoundException;
 import br.com.marcus.dev.personal.professional.apresentation.repository.StudyPlanRepository;
 import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
-import br.com.marcus.dev.personal.professional.apresentation.services.studyplan.factory.StudyPlanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

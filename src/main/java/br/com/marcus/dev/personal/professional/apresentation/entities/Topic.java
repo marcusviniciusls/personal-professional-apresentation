@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -20,7 +17,7 @@ import java.util.UUID;
 public class Topic extends SuperEntity{
 
     private String name;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "study_plan_id")
     private StudyPlan studyPlan;
 
