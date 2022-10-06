@@ -5,8 +5,6 @@ import br.com.marcus.dev.personal.professional.apresentation.dto.request.Assignm
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.AssignmentsUpdateForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.AssignmentsResponse;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Assignments;
-import br.com.marcus.dev.personal.professional.apresentation.entities.ProfessionalExperience;
-import br.com.marcus.dev.personal.professional.apresentation.services.professionalexperience.FindByIdProfessionalExperienceService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

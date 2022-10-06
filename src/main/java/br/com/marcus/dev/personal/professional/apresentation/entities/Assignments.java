@@ -38,4 +38,8 @@ public class Assignments extends SuperEntity{
         super(id);
         this.description = description;
     }
+
+    public Assignments(String description) {
+        this.description = description;
+    }
 }

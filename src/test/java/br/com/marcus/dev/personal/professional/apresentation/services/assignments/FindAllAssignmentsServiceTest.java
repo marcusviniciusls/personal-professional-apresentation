@@ -58,10 +58,10 @@ public class FindAllAssignmentsServiceTest {
     }
 
     @Test
-    //@DisplayName("Deletar um Assignments com sucesso")
+    @DisplayName("Deletar um Assignments com sucesso")
     public void findAllTest(){
         UUID id = UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff712");
         Page<AssignmentsResponse> response = findAllAssignmentsService.findAll(PageRequest.of(1, 6), id);
-        //Assertions.assertEquals(6, response.getSize());
+        Assertions.assertEquals(6, response.getSize());
     }
 }
