@@ -2,18 +2,14 @@ package br.com.marcus.dev.personal.professional.apresentation.services.activitie
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.ActivitiesResponse;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Activities;
-import br.com.marcus.dev.personal.professional.apresentation.entities.Course;
-import br.com.marcus.dev.personal.professional.apresentation.entities.Framework;
 import br.com.marcus.dev.personal.professional.apresentation.repository.ActivitiesRepository;
 import br.com.marcus.dev.personal.professional.apresentation.repository.CourseRepository;
 import br.com.marcus.dev.personal.professional.apresentation.repository.FrameworkRepository;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
