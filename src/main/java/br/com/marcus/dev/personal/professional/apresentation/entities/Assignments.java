@@ -27,4 +27,15 @@ public class Assignments extends SuperEntity{
     public Assignments(UUID id) {
         super(id);
     }
+
+    public Assignments(UUID id, String description, ProfessionalExperience professionalExperience) {
+        super(id);
+        this.description = description;
+        this.professionalExperience = professionalExperience;
+    }
+
+    public Assignments(UUID id, String description) {
+        super(id);
+        this.description = description;
+    }
 }
