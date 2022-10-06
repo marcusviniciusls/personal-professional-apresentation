@@ -43,6 +43,9 @@ public class SuperEntity {
 
     public SuperEntity(UUID id) {
         this.id = id;
+        LocalDateTime now = LocalDateTime.now();
+        dateIssue = now;
+        dateCreation = now;
         this.status = true;
     }
 }
