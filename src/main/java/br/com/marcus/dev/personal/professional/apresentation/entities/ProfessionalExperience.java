@@ -49,6 +49,16 @@ public class ProfessionalExperience extends SuperEntity{
         this.description = description;
     }
 
+    public ProfessionalExperience(LocalDate dateInit, LocalDate dateFinish, OfficeEnum officeEnum, StatusWork statusWork, Partner partner, Office office, String description) {
+        this.dateInit = dateInit;
+        this.dateFinish = dateFinish;
+        this.officeEnum = officeEnum;
+        this.statusWork = statusWork;
+        this.partner = partner;
+        this.office = office;
+        this.description = description;
+    }
+
     public ProfessionalExperience(UUID id) {
         super(id);
     }
