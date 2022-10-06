@@ -29,7 +29,7 @@ public class StudyPlan extends SuperEntity{
     @ManyToOne
     @JoinColumn(name = "framework_id")
     private Framework framework;
-    @OneToMany(mappedBy = "studyPlan")
+    @OneToMany(mappedBy = "studyPlan", fetch = FetchType.EAGER)
     private List<Topic> listTopic = new ArrayList<>();
 
     @ManyToMany

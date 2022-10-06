@@ -43,5 +43,6 @@ public class SuperEntity {
 
     public SuperEntity(UUID id) {
         this.id = id;
+        this.status = true;
     }
 }

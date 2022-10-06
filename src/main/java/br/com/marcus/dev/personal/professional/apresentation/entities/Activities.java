@@ -7,6 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -44,5 +45,9 @@ public class Activities extends SuperEntity{
         this.date = date;
         this.description = description;
         this.course = course;
+    }
+
+    public Activities(UUID id) {
+        super(id);
     }
 }
