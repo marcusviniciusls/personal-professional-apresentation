@@ -31,12 +31,12 @@ public class Course extends SuperEntity{
     private StatusCourse statusCourse;
     @Enumerated(EnumType.ORDINAL)
     private LevelCourse levelCourse;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tb_course_language_programmer", joinColumns =
             {@JoinColumn(name = "course_id")}, inverseJoinColumns =
             {@JoinColumn(name="language_programmer_id")})
     private List<LanguageProgrammer> listLanguage = new ArrayList<>();
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "tb_course_framework", joinColumns =
             {@JoinColumn(name = "course_id")}, inverseJoinColumns =
             {@JoinColumn(name="framework_id")})

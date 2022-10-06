@@ -81,7 +81,7 @@ public class ActivitiesFactory {
         return activities;
     }
 
-    public ActivitiesResponse ConvertEntityInResponse(Activities activities){
+    public ActivitiesResponse convertEntityInResponse(Activities activities){
         ActivitiesResponse activitiesResponse = new ActivitiesResponse();
         activitiesResponse.setDate(activities.getDate());
         activitiesResponse.setDescription(activities.getDescription());

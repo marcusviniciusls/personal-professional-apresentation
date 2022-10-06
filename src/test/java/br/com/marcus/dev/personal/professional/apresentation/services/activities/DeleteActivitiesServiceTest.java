@@ -3,7 +3,6 @@ package br.com.marcus.dev.personal.professional.apresentation.services.activitie
 import br.com.marcus.dev.personal.professional.apresentation.entities.*;
 import br.com.marcus.dev.personal.professional.apresentation.exception.custom.ResourceNotFoundException;
 import br.com.marcus.dev.personal.professional.apresentation.repository.*;
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import javax.validation.constraints.AssertTrue;
 import java.util.Optional;
 import java.util.UUID;
 

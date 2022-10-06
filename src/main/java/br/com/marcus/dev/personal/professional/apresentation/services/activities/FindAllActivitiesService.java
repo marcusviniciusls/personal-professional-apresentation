@@ -20,7 +20,7 @@ public class FindAllActivitiesService {
         List<Activities> listActivities = activitiesRepository.findAll();
         List<ActivitiesResponse> listActivitiesResponse = new ArrayList<>();
         for (Activities activities : listActivities){
-            ActivitiesResponse activitiesResponse = activitiesFactory.ConvertEntityInResponse(activities);
+            ActivitiesResponse activitiesResponse = activitiesFactory.convertEntityInResponse(activities);
             listActivitiesResponse.add(activitiesResponse);
             if (listActivitiesResponse.size() == 10){
                 break;

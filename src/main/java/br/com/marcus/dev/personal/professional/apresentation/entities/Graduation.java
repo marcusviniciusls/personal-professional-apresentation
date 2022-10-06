@@ -36,7 +36,7 @@ public class Graduation extends SuperEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "partner_id")
     private Partner partner;
-    @OneToMany(mappedBy = "graduation", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "graduation", fetch = FetchType.LAZY)
     private List<Subject> listSubject = new ArrayList<>();
 
     public Graduation(String name, BigDecimal qtdHours, LocalDate dateInit, LocalDate dateFinish, String location, BigDecimal noteFinish, SituationGraduation situationGraduation, TypeGraduation typeGraduation, Partner partner) {
