@@ -19,13 +19,6 @@ public class DeleteBranchActivityService {
 
     public void deleteBranchActivity(UUID id){
         try {
-            Optional<BranchActivity> optionalBranchActivity = branchActivityRepository.findById(id);
-            if (optionalBranchActivity.isEmpty()){
-                throw new ResourceNotFoundException("ID Not Found Exception");
-            }
-            if (!centerEntityService.isStatusSuperEntity(optionalBranchActivity.get())){
-                throw new ResourceNotFoundException("ID Not Found Exception");
-            }
             branchActivityRepository.deleteById(id);
         } catch (DataIntegrityViolationException ex){
             Optional<BranchActivity> optionalBranchActivity = branchActivityRepository.findById(id);

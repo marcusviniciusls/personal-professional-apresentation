@@ -30,6 +30,11 @@ public class BranchActivity extends SuperEntity{
         this.name = name;
     }
 
+    public BranchActivity(UUID id, String name) {
+        super(id);
+        this.name = name;
+    }
+
     public void addListPartner(Partner partner){
         this.listPartner.add(partner);
     }
