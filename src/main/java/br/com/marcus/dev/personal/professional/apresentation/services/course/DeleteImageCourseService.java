@@ -1,10 +1,7 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.course;
 
-import br.com.marcus.dev.personal.professional.apresentation.entities.Certificate;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Course;
-import br.com.marcus.dev.personal.professional.apresentation.repository.CertificateRepository;
 import br.com.marcus.dev.personal.professional.apresentation.repository.CourseRepository;
-import br.com.marcus.dev.personal.professional.apresentation.services.certificate.FindByIdCertificateService;
 import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
 import br.com.marcus.dev.personal.professional.apresentation.services.s3.DeleteFileService;
 import br.com.marcus.dev.personal.professional.apresentation.services.utils.GetKeyFile;
