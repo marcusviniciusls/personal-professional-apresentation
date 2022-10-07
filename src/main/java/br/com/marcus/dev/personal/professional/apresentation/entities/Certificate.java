@@ -28,4 +28,10 @@ public class Certificate extends SuperEntity {
     public Certificate(UUID id) {
         super(id);
     }
+
+    public Certificate(UUID id, String name, String logoImage) {
+        super(id);
+        this.name = name;
+        this.logoImage = logoImage;
+    }
 }

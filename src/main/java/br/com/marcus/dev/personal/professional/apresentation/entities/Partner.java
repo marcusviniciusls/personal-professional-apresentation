@@ -29,4 +29,12 @@ public class Partner extends SuperEntity{
     public Partner(UUID id) {
         super(id);
     }
+
+    public Partner(UUID id, String name, String urlImage, BranchActivity branchActivity, String description) {
+        super(id);
+        this.name = name;
+        this.urlImage = urlImage;
+        this.branchActivity = branchActivity;
+        this.description = description;
+    }
 }
