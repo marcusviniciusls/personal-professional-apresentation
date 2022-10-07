@@ -26,10 +26,11 @@ public class SaveActivitiesService {
         activitiesRepository.save(activities);
     }
 
-    public void saveMovementCertificate(Certificate certificate) {
+    public boolean saveMovementCertificate(Certificate certificate) {
         Activities activities = activitiesFactory.convertCertificateToActivities(certificate);
         activities = (Activities) centerEntityService.setDataToSave(activities);
         activitiesRepository.save(activities);
+        return true;
     }
 
     public void saveMovementHardSkills(HardSkills hardSkills) {

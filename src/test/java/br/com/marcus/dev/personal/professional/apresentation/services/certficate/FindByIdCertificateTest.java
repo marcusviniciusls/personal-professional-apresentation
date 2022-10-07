@@ -31,24 +31,17 @@ public class FindByIdCertificateTest {
     @Autowired private PartnerRepository partnerRepository;
     @Autowired private FindByIdCertificateService findByIdCertificateService;
 
-    @BeforeEach
-    public void setupInit(){
-        BranchActivity branchActivity = new BranchActivity("Branch Activity 1234567");
+    @Test
+    @DisplayName("Buscar Certificacao com sucesso")
+    public void findByIdTest(){
+        BranchActivity branchActivity = new BranchActivity("Branch Activity 12345672132131");
         branchActivityRepository.save(branchActivity);
         Partner partner = new Partner(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff801"), "name09876", ""
                 , branchActivity, "description");
         partnerRepository.save(partner);
         Certificate certificate1 = new Certificate(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff501"));
         certificate1.setPartner(partner);
-        Certificate certificate2 = new Certificate(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff502"));
-        certificate2.setStatus(false);
-        certificate2.setPartner(partner);
-        certificateRepository.saveAll(Arrays.asList(certificate1, certificate2));
-    }
-
-    @Test
-    @DisplayName("Buscar Certificacao com sucesso")
-    public void findByIdTest(){
+        certificateRepository.saveAll(Arrays.asList(certificate1));
         UUID id = UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff501");
         CertificateResponse certificateResponse = findByIdCertificateService.findById(id);
         Assertions.assertTrue(certificateResponse != null);
@@ -57,6 +50,15 @@ public class FindByIdCertificateTest {
     @Test
     @DisplayName("Buscar Certificacao e retornar not found Status false")
     public void findByIdStatusFalseTest(){
+        BranchActivity branchActivity = new BranchActivity("Branch Activity 123456712313");
+        branchActivityRepository.save(branchActivity);
+        Partner partner = new Partner(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff801"), "name09876", ""
+                , branchActivity, "description");
+        partnerRepository.save(partner);
+        Certificate certificate1 = new Certificate(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff502"));
+        certificate1.setPartner(partner);
+        certificate1.setStatus(false);
+        certificateRepository.saveAll(Arrays.asList(certificate1));
         UUID id = UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff502");
         Assertions.assertThrows(ResourceNotFoundException.class, () -> findByIdCertificateService.findById(id));
     }
@@ -71,6 +73,14 @@ public class FindByIdCertificateTest {
     @Test
     @DisplayName("Buscar Certificacao com sucesso")
     public void findByIdEntityTest(){
+        BranchActivity branchActivity = new BranchActivity("Branch Activity 12345678");
+        branchActivityRepository.save(branchActivity);
+        Partner partner = new Partner(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff801"), "name09876", ""
+                , branchActivity, "description");
+        partnerRepository.save(partner);
+        Certificate certificate1 = new Certificate(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff501"));
+        certificate1.setPartner(partner);
+        certificateRepository.saveAll(Arrays.asList(certificate1));
         UUID id = UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff501");
         Certificate certificate = findByIdCertificateService.findByIdEntity(id);
         Assertions.assertTrue(certificate != null);
@@ -79,6 +89,15 @@ public class FindByIdCertificateTest {
     @Test
     @DisplayName("Buscar Certificacao e retornar not found Status false")
     public void findByIdEntityStatusFalseTest(){
+        BranchActivity branchActivity = new BranchActivity("Branch Activity 12345679");
+        branchActivityRepository.save(branchActivity);
+        Partner partner = new Partner(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff801"), "name09876", ""
+                , branchActivity, "description");
+        partnerRepository.save(partner);
+        Certificate certificate1 = new Certificate(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff502"));
+        certificate1.setPartner(partner);
+        certificate1.setStatus(false);
+        certificateRepository.save(certificate1);
         UUID id = UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff502");
         Assertions.assertThrows(ResourceNotFoundException.class, () -> findByIdCertificateService.findByIdEntity(id));
     }
