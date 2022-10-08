@@ -16,9 +16,10 @@ public class DeleteFileService {
     @Value("${s3.bucket}")
     private String bucketName;
 
-    public void deleteObjectS3(String idObject){
+    public boolean deleteObjectS3(String idObject){
         try {
             s3Client.deleteObject(new DeleteObjectRequest(bucketName, idObject));
+            return true;
         } catch (AmazonServiceException e){
             e.printStackTrace();
             throw new AmazonServiceException("Error delete file!!" + e.getClass());

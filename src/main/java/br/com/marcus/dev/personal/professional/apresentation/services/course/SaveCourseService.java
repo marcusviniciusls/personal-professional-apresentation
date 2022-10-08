@@ -16,6 +16,7 @@ import br.com.marcus.dev.personal.professional.apresentation.services.languagepr
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -39,11 +40,15 @@ public class SaveCourseService {
         course = (Course) centerEntityService.setDataToSave(course);
         course = courseRepository.save(course);
         for (Framework framework : listFramework){
-            framework = (Framework) centerEntityService.setDataToSave(framework);
+            framework.setUserCreation(course.getUserCreation());
+            framework.setUser(course.getUser());
+            framework.setDateCreation(course.getDateCreation());
             frameworkRepository.save(framework);
         }
         for (LanguageProgrammer languageProgrammer : listLanguageProgrammer){
-            languageProgrammer = (LanguageProgrammer) centerEntityService.setDataToSave(languageProgrammer);
+            languageProgrammer.setUserCreation(course.getUserCreation());
+            languageProgrammer.setUser(course.getUser());
+            languageProgrammer.setDateCreation(LocalDateTime.now());
             languageProgrammerRepository.save(languageProgrammer);
         }
         saveActivitiesService.saveMovementCourse(course);

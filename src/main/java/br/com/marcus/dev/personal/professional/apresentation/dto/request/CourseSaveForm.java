@@ -1,22 +1,19 @@
 package br.com.marcus.dev.personal.professional.apresentation.dto.request;
 
-import br.com.marcus.dev.personal.professional.apresentation.entities.enums.LevelCourse;
-import br.com.marcus.dev.personal.professional.apresentation.entities.enums.StatusCourse;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class CourseSaveForm {
@@ -43,4 +40,17 @@ public class CourseSaveForm {
     private Integer levelCourse;
     private List<ListFramework> listFrameworkId;
     private List<ListLanguageProgrammer> listLanguageProgrammerId;
+
+    public CourseSaveForm(String name, String description, BigDecimal duration, LocalDate dateInitExpected, LocalDate dateFinishExpected, LocalDate dateInitReal, LocalDate dateFinishReal, String logoImage, Integer statusCourse, Integer levelCourse) {
+        this.name = name;
+        this.description = description;
+        this.duration = duration;
+        this.dateInitExpected = dateInitExpected;
+        this.dateFinishExpected = dateFinishExpected;
+        this.dateInitReal = dateInitReal;
+        this.dateFinishReal = dateFinishReal;
+        this.logoImage = logoImage;
+        this.statusCourse = statusCourse;
+        this.levelCourse = levelCourse;
+    }
 }

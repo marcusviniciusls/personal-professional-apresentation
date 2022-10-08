@@ -67,7 +67,7 @@ public class CourseFactory {
     public Course convertFormSaveInEntity(CourseSaveForm courseSaveForm){
         Course course = new Course();
         course.setName(courseSaveForm.getName());
-        course.setDescription(course.getDescription());
+        course.setDescription(courseSaveForm.getDescription());
         course.setDuration(courseSaveForm.getDuration());
         course.setDateInitExpected(courseSaveForm.getDateInitExpected());
         course.setDateFinishExpected(courseSaveForm.getDateFinishExpected());
