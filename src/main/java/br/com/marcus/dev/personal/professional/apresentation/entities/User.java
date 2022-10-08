@@ -45,6 +45,15 @@ public class User{
         status = true;
     }
 
+    public User(UUID uuid, LocalDateTime dateCreation, String userCreation, boolean status, String name, String email) {
+        this.uuid = uuid;
+        this.dateCreation = dateCreation;
+        this.userCreation = userCreation;
+        this.status = status;
+        this.name = name;
+        this.email = email;
+    }
+
     public Set<Profile> getProfiles(){
         return profiles.stream().map(x -> Profile.toEnum(x)).collect(Collectors.toSet());
     }

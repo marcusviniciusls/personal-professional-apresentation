@@ -29,4 +29,10 @@ public class Telephone extends SuperEntity{
     public Telephone(UUID id) {
         super(id);
     }
+
+    public Telephone(String ddi, String ddd, String number) {
+        this.ddi = ddi;
+        this.ddd = ddd;
+        this.number = number;
+    }
 }

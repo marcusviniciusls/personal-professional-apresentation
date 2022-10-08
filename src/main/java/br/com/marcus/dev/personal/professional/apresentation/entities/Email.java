@@ -27,4 +27,8 @@ public class Email extends SuperEntity {
     public Email(UUID id) {
         super(id);
     }
+
+    public Email(String email) {
+        this.email = email;
+    }
 }

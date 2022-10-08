@@ -17,12 +17,11 @@ public class CheckSaveDataPersonalService {
 
     public boolean verifyCheckSaveDataPersonal(){
         User user = centerEntityService.userLogged();
-        List<DataPersonal> listDataPersonal =  dataPersonalRepository.checkHaveDataPersonal(user.getUuid());
+        List<DataPersonal> listDataPersonal = dataPersonalRepository.checkHaveDataPersonal(user.getUuid());
         if (listDataPersonal.size() > 0){
             return false;
-        } else if (listDataPersonal.size() == 0){
+        } else {
             return true;
         }
-        return false;
     }
 }
