@@ -16,16 +16,11 @@ public class DeleteEmailService {
 
     @Autowired private EmailRepository emailRepository;
     @Autowired private CenterEntityService centerEntityService;
+    @Autowired private FindByIdEmailService findByIdEmailService;
 
     public void delete(UUID id){
         try{
-            Optional<Email> optionalEmail = emailRepository.findById(id);
-            if (optionalEmail.isEmpty()){
-                throw new ResourceNotFoundException("ID Not Found Exception");
-            }
-            if (!centerEntityService.isStatusSuperEntity(optionalEmail.get())){
-                throw new ResourceNotFoundException("ID Not Found Exception");
-            }
+            findByIdEmailService.findById(id);
             emailRepository.deleteById(id);
         } catch(DataIntegrityViolationException ex){
             Optional<Email> optionalEmail = emailRepository.findById(id);

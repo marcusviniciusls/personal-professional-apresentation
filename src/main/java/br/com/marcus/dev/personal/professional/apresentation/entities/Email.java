@@ -31,4 +31,10 @@ public class Email extends SuperEntity {
     public Email(String email) {
         this.email = email;
     }
+
+    public Email(UUID id, String email, DataPersonal dataPersonal) {
+        super(id);
+        this.email = email;
+        this.dataPersonal = dataPersonal;
+    }
 }

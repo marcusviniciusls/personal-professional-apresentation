@@ -68,15 +68,15 @@ public class DataPersonalFactory {
         return dataPersonal;
     }
 
-    private int returnDay(String date){
+    public int returnDay(String date){
         return Integer.parseInt(date.substring(0,2));
     }
 
-    private int returnMonth(String date){
+    public int returnMonth(String date){
         return Integer.parseInt(date.substring(3,5));
     }
 
-    private int returnYear(String date){
+    public int returnYear(String date){
         return Integer.parseInt(date.substring(6));
     }
 
