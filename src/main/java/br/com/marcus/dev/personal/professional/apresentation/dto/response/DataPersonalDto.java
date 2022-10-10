@@ -1,6 +1,5 @@
 package br.com.marcus.dev.personal.professional.apresentation.dto.response;
 
-import br.com.marcus.dev.personal.professional.apresentation.entities.Telephone;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +19,13 @@ public class DataPersonalDto {
     private LocalDate birthDate;
     private List<TelephoneDto> listTelephoneDto = new ArrayList<>();
     private List<EmailDto> listEmailDto = new ArrayList<>();
+
+    public DataPersonalDto(String fullname, Integer age, Integer martialStatus, LocalDate birthDate) {
+        this.fullname = fullname;
+        this.age = age;
+        this.martialStatus = martialStatus;
+        this.birthDate = birthDate;
+    }
 
     public void addListTelephoneDto(TelephoneDto telephoneDto){
         this.listTelephoneDto.add(telephoneDto);

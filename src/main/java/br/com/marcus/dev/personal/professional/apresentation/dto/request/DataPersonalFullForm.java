@@ -1,15 +1,10 @@
 package br.com.marcus.dev.personal.professional.apresentation.dto.request;
 
-import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,4 +20,18 @@ public class DataPersonalFullForm {
     private Integer maritalStatus;
     private List<TelephoneForm> listTelephoneForm = new ArrayList<>();
     private List<EmailForm> listEmailForm = new ArrayList<>();
+
+    public DataPersonalFullForm(String fullName, String birthDate, Integer maritalStatus) {
+        this.fullName = fullName;
+        this.birthDate = birthDate;
+        this.maritalStatus = maritalStatus;
+    }
+
+    public void addListTelephoneForm(TelephoneForm telephoneForm){
+        this.listTelephoneForm.add(telephoneForm);
+    }
+
+    public void addListEmailForm(EmailForm emailForm){
+        this.listEmailForm.add(emailForm);
+    }
 }

@@ -1,6 +1,7 @@
 package br.com.marcus.dev.personal.professional.apresentation.entities;
 
 import br.com.marcus.dev.personal.professional.apresentation.entities.enums.MaritalStatus;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Entity

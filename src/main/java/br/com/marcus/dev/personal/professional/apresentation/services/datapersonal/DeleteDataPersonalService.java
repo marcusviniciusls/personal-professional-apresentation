@@ -25,13 +25,6 @@ public class DeleteDataPersonalService {
 
     public void delete(UUID uuid){
         try {
-            Optional<DataPersonal> optionalDataPersonal = dataPersonalRepository.findById(uuid);
-            if (optionalDataPersonal.isEmpty()){
-                throw new ResourceNotFoundException("ID Not Found Exception");
-            }
-            if (!centerEntityService.isStatusSuperEntity(optionalDataPersonal.get())){
-                throw new ResourceNotFoundException("ID Not Found Exception");
-            }
             dataPersonalRepository.deleteById(uuid);
         } catch (DataIntegrityViolationException ex){
             Optional<DataPersonal> optionalBranchActivity = dataPersonalRepository.findById(uuid);

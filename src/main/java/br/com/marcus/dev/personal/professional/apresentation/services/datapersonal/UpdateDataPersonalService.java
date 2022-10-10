@@ -19,16 +19,10 @@ public class UpdateDataPersonalService {
     @Autowired private DataPersonalRepository dataPersonalRepository;
     @Autowired private CenterEntityService centerEntityService;
     @Autowired private DataPersonalFactory dataPersonalFactory;
+    @Autowired private FindByIdDataPersonalService findByIdDataPersonalService;
 
     public DataPersonalDto update(DataPersonalFullFormUpdate update, UUID id){
-        Optional<DataPersonal> optionalDataPersonal = dataPersonalRepository.findById(id);
-        if (optionalDataPersonal.isEmpty()){
-            throw new ResourceNotFoundException("ID Not Found Exception");
-        }
-        DataPersonal dataPersonal = optionalDataPersonal.get();
-        if (!centerEntityService.isStatusSuperEntity(dataPersonal)){
-            throw new ResourceNotFoundException("ID Not Found Exception");
-        }
+        DataPersonal dataPersonal = findByIdDataPersonalService.findByIdDataPersonal(id);
         dataPersonal = dataPersonalFactory.convertDtoInEntityUpdate(update, dataPersonal);
         dataPersonal = (DataPersonal) centerEntityService.setDataToUpdate(dataPersonal);
         dataPersonal = dataPersonalRepository.save(dataPersonal);
