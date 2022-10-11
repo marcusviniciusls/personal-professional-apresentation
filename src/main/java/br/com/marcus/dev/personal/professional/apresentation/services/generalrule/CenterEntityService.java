@@ -14,9 +14,10 @@ import java.time.LocalDateTime;
 public class CenterEntityService {
 
     @Autowired private FindByIdUserService findByIdUserService;
+    @Autowired private UserService userService;
 
     public SuperEntity setDataToSave(SuperEntity entity){
-        UserSS userSS = UserService.authenticated();
+        UserSS userSS = userService.authenticated();
         User user = findByIdUserService.findById(userSS.getId());
         entity.setUser(user);
         entity.setUserCreation(user.getName());
@@ -25,7 +26,7 @@ public class CenterEntityService {
     }
 
     public SuperEntity setDataToUpdate(SuperEntity entity){
-        UserSS userSS = UserService.authenticated();
+        UserSS userSS = userService.authenticated();
         User user = findByIdUserService.findById(userSS.getId());
         entity.setUserUpdate(user.getName());
         entity.setDateUpdate(LocalDateTime.now());
@@ -33,7 +34,7 @@ public class CenterEntityService {
     }
 
     public SuperEntity setDataToDelete(SuperEntity entity){
-        UserSS userSS = UserService.authenticated();
+        UserSS userSS = userService.authenticated();
         User user = findByIdUserService.findById(userSS.getId());
         entity.setStatus(false);
         entity.setDateUpdate(LocalDateTime.now());
@@ -46,7 +47,7 @@ public class CenterEntityService {
     }
 
     public User userLogged(){
-        UserSS userSS = UserService.authenticated();
+        UserSS userSS = userService.authenticated();
         User user = findByIdUserService.findById(userSS.getId());
         return user;
     }

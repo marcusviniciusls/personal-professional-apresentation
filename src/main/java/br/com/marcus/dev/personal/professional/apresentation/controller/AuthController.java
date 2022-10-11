@@ -16,10 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 public class AuthController {
 
     @Autowired private JWTUtil jwtUtil;
+    @Autowired private UserService userService;
 
     @RequestMapping(value="/refresh_token", method= RequestMethod.POST)
     public ResponseEntity<Void> refreshToken(HttpServletResponse response) {
-        UserSS user = UserService.authenticated();
+        UserSS user = userService.authenticated();
         String token = jwtUtil.generateToken(user.getUsername());
         response.addHeader("Authorization", "Bearer " + token);
         return ResponseEntity.noContent().build();

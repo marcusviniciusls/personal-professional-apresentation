@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PartnerFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">personal.professional.apresentation</a> &gt; <a href="index.source.html" class="el_package">br.com.marcus.dev.personal.professional.apresentation.services.partner.factory</a> &gt; <span class="el_source">PartnerFactory.java</span></div><h1>PartnerFactory.java</h1><pre class="source lang-java linenums">package br.com.marcus.dev.personal.professional.apresentation.services.partner.factory;
+
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.PartnerRequestFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.PartnerRequestFormUpdate;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.PartnerRequestFullFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.response.BranchActivityResponse;
+import br.com.marcus.dev.personal.professional.apresentation.dto.response.PartnerResponse;
+import br.com.marcus.dev.personal.professional.apresentation.entities.BranchActivity;
+import br.com.marcus.dev.personal.professional.apresentation.entities.Partner;
+import br.com.marcus.dev.personal.professional.apresentation.services.branchactivity.FindByIdBranchActivity;
+import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
+import br.com.marcus.dev.personal.professional.apresentation.services.branchactivity.factory.BranchActivityFactory;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+<span class="fc" id="L18">public class PartnerFactory {</span>
+
+    @Autowired private BranchActivityFactory branchActivityFactory;
+    @Autowired private CenterEntityService centerEntityService;
+    @Autowired private ModelMapper modelMapper;
+    @Autowired private FindByIdBranchActivity findByIdBranchActivity;
+
+    public PartnerResponse convertEntityInDto(Partner partner){
+<span class="fc" id="L26">        PartnerResponse partnerResponse = modelMapper.map(partner, PartnerResponse.class);</span>
+<span class="fc" id="L27">        return partnerResponse;</span>
+    }
+
+    public Partner convertRequestFullFormInEntity(PartnerRequestFullFormSave partnerRequestFullFormSave){
+<span class="nc" id="L31">        Partner partner = modelMapper.map(partnerRequestFullFormSave, Partner.class);</span>
+<span class="nc" id="L32">        return partner;</span>
+    }
+
+    public Partner convertRequestFormInEntity(PartnerRequestFormSave partnerRequestFormSave){
+<span class="nc" id="L36">        Partner partner = modelMapper.map(partnerRequestFormSave, Partner.class);</span>
+<span class="nc" id="L37">        return partner;</span>
+    }
+
+    public Partner convertUpdateFormInEntity(PartnerRequestFormUpdate partnerRequestFormUpdate, Partner partner){
+<span class="nc bnc" id="L41" title="All 4 branches missed.">        if (partnerRequestFormUpdate.getName() != null &amp;&amp; !partnerRequestFormUpdate.getName().equals(&quot;&quot;)){</span>
+<span class="nc" id="L42">            partner.setName(partnerRequestFormUpdate.getName());</span>
+        }
+<span class="nc bnc" id="L44" title="All 4 branches missed.">        if (partnerRequestFormUpdate.getDescription() != null &amp;&amp; !partnerRequestFormUpdate.getDescription().equals(&quot;&quot;)){</span>
+<span class="nc" id="L45">            partner.setDescription(partnerRequestFormUpdate.getDescription());</span>
+        }
+<span class="nc bnc" id="L47" title="All 2 branches missed.">        if (!partner.getBranchActivity().getId().equals(partnerRequestFormUpdate.getBranchActivityId())){</span>
+<span class="nc" id="L48">            BranchActivity branchActivity = findByIdBranchActivity.findByIdEntity(partnerRequestFormUpdate.getBranchActivityId());</span>
+<span class="nc" id="L49">            partner.setBranchActivity(branchActivity);</span>
+        }
+<span class="nc" id="L51">        return partner;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

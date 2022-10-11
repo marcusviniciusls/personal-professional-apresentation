@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JWTUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">personal.professional.apresentation</a> &gt; <a href="index.source.html" class="el_package">br.com.marcus.dev.personal.professional.apresentation.config.security</a> &gt; <span class="el_source">JWTUtil.java</span></div><h1>JWTUtil.java</h1><pre class="source lang-java linenums">package br.com.marcus.dev.personal.professional.apresentation.config.security;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+import java.util.Calendar;
+import java.util.Date;
+
+@Component
+<span class="fc" id="L13">public class JWTUtil {</span>
+
+    @Value(&quot;${jwt.secret}&quot;)
+    private String secret;
+
+    @Value(&quot;${jwt.expiration}&quot;)
+    private String expiration;
+
+    public String generateToken(String email){
+<span class="nc" id="L22">        Long expirationLong = Long.parseLong(expiration);</span>
+<span class="nc" id="L23">        Date dateExpiration = new Date();</span>
+<span class="nc" id="L24">        dateExpiration.setTime(System.currentTimeMillis() + expirationLong);</span>
+<span class="nc" id="L25">        return Jwts.builder().setSubject(email).</span>
+<span class="nc" id="L26">                setExpiration(dateExpiration).</span>
+<span class="nc" id="L27">                signWith(SignatureAlgorithm.HS512, secret.getBytes()).compact();</span>
+    }
+
+    public boolean tokenValido(String token) {
+<span class="nc" id="L31">        Claims claims = getClaims(token);</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">        if (claims != null){</span>
+<span class="nc" id="L33">            String username = claims.getSubject();</span>
+<span class="nc" id="L34">            Date expirationDate = claims.getExpiration();</span>
+<span class="nc" id="L35">            Date now = new Date(System.currentTimeMillis());</span>
+<span class="nc bnc" id="L36" title="All 6 branches missed.">            if (username != null &amp;&amp; expirationDate != null &amp;&amp; now.before(expirationDate)){</span>
+<span class="nc" id="L37">                return true;</span>
+            }
+        }
+<span class="nc" id="L40">        return false;</span>
+    }
+
+    private Claims getClaims(String token) {
+        try {
+<span class="nc" id="L45">            return Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody();</span>
+<span class="nc" id="L46">        } catch (Exception e) {</span>
+<span class="nc" id="L47">            e.printStackTrace();</span>
+<span class="nc" id="L48">            return null;</span>
+        }
+    }
+
+    public String getUsername(String token) {
+<span class="nc" id="L53">        Claims claims = getClaims(token);</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">        if (claims != null) {</span>
+<span class="nc" id="L55">            String username = claims.getSubject();</span>
+<span class="nc" id="L56">            return username;</span>
+        }
+<span class="nc" id="L58">        return null;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

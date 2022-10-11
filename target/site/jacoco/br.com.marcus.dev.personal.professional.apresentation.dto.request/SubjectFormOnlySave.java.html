@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SubjectFormOnlySave.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">personal.professional.apresentation</a> &gt; <a href="index.source.html" class="el_package">br.com.marcus.dev.personal.professional.apresentation.dto.request</a> &gt; <span class="el_source">SubjectFormOnlySave.java</span></div><h1>SubjectFormOnlySave.java</h1><pre class="source lang-java linenums">package br.com.marcus.dev.personal.professional.apresentation.dto.request;
+
+import br.com.marcus.dev.personal.professional.apresentation.entities.Graduation;
+import br.com.marcus.dev.personal.professional.apresentation.entities.enums.SituationSubject;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+import java.util.UUID;
+
+<span class="nc" id="L18">@NoArgsConstructor</span>
+@Getter
+<span class="nc" id="L20">@Setter</span>
+public class SubjectFormOnlySave {
+
+    @NotBlank(message = &quot;Name cannot be blank&quot;)
+<span class="nc" id="L24">    private String name;</span>
+    @NotNull(message = &quot;Quantity Hours cannot be null&quot;)
+<span class="nc" id="L26">    private BigDecimal qtdHours;</span>
+    @NotNull(message = &quot;Note cannot be null&quot;)
+<span class="nc" id="L28">    private BigDecimal note;</span>
+<span class="nc" id="L29">    private String description;</span>
+<span class="nc" id="L30">    private String period;</span>
+    @NotNull(message = &quot;Situation Subject cannot be null&quot;)
+<span class="nc" id="L32">    private Integer situationSubject;</span>
+    @NotNull(message = &quot;Graduation Subject cannot be null&quot;)
+<span class="nc" id="L34">    private UUID graduationId;</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>
