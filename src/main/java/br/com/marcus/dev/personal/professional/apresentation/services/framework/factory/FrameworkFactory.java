@@ -2,7 +2,6 @@ package br.com.marcus.dev.personal.professional.apresentation.services.framework
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.FrameworkSaveForm;
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.FrameworkUpdateForm;
-import br.com.marcus.dev.personal.professional.apresentation.dto.response.CourseResponse;
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.FrameworkResponse;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Framework;
 import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;

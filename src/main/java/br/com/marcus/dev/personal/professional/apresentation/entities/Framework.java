@@ -24,4 +24,11 @@ public class Framework extends SuperEntity{
     public Framework(UUID id) {
         super(id);
     }
+
+    public Framework(UUID id, String name, String description, String urlImage) {
+        super(id);
+        this.name = name;
+        this.description = description;
+        this.urlImage = urlImage;
+    }
 }
