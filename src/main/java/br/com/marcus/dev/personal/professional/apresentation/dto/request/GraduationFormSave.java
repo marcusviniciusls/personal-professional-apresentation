@@ -1,26 +1,17 @@
 package br.com.marcus.dev.personal.professional.apresentation.dto.request;
 
-import br.com.marcus.dev.personal.professional.apresentation.entities.Partner;
-import br.com.marcus.dev.personal.professional.apresentation.entities.enums.SituationGraduation;
-import br.com.marcus.dev.personal.professional.apresentation.entities.enums.TypeGraduation;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @NoArgsConstructor
 @Setter
@@ -48,4 +39,31 @@ public class GraduationFormSave {
     private String urlUniversityDegree;
     @NotEmpty
     private List<@Valid SubjectFormSave> listSubjectFormSave = new ArrayList<>();
+
+    public GraduationFormSave(String name, LocalDate dateInitPreview, LocalDate dateFinishPreview, LocalDate dateInitReal, LocalDate dateFinishReal, String location, Integer typeGraduation, String partnerId, String urlUniversityDegree) {
+        this.name = name;
+        this.dateInitPreview = dateInitPreview;
+        this.dateFinishPreview = dateFinishPreview;
+        this.dateInitReal = dateInitReal;
+        this.dateFinishReal = dateFinishReal;
+        this.location = location;
+        this.typeGraduation = typeGraduation;
+        this.partnerId = partnerId;
+        this.urlUniversityDegree = urlUniversityDegree;
+    }
+
+    public GraduationFormSave(String name, LocalDate dateInitPreview, LocalDate dateFinishPreview, LocalDate dateInitReal, String location, Integer typeGraduation, String partnerId, String urlUniversityDegree) {
+        this.name = name;
+        this.dateInitPreview = dateInitPreview;
+        this.dateFinishPreview = dateFinishPreview;
+        this.dateInitReal = dateInitReal;
+        this.location = location;
+        this.typeGraduation = typeGraduation;
+        this.partnerId = partnerId;
+        this.urlUniversityDegree = urlUniversityDegree;
+    }
+
+    public void addListSubjectFormSave(SubjectFormSave subjectFormSave){
+        this.listSubjectFormSave.add(subjectFormSave);
+    }
 }

@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InitializationData.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">personal.professional.apresentation</a> &gt; <a href="index.source.html" class="el_package">br.com.marcus.dev.personal.professional.apresentation.config.initdata</a> &gt; <span class="el_source">InitializationData.java</span></div><h1>InitializationData.java</h1><pre class="source lang-java linenums">package br.com.marcus.dev.personal.professional.apresentation.config.initdata;
+
+import br.com.marcus.dev.personal.professional.apresentation.config.amazon.S3Service;
+import br.com.marcus.dev.personal.professional.apresentation.entities.*;
+import br.com.marcus.dev.personal.professional.apresentation.entities.enums.*;
+import br.com.marcus.dev.personal.professional.apresentation.repository.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.UUID;
+
+@Configuration
+@org.springframework.context.annotation.Profile(&quot;dev&quot;)
+<span class="fc" id="L20">public class InitializationData implements CommandLineRunner {</span>
+
+    @Autowired private UserRepository userRepository;
+    @Autowired private BranchActivityRepository branchActivityRepository;
+    @Autowired private PartnerRepository partnerRepository;
+    @Autowired private DataPersonalRepository dataPersonalRepository;
+    @Autowired private TelephoneRepository telephoneRepository;
+    @Autowired private EmailRepository emailRepository;
+    @Autowired private CourseRepository courseRepository;
+    @Autowired private FrameworkRepository frameworkRepository;
+    @Autowired private LanguageRepository languageRepository;
+    @Autowired private PartRepository partRepository;
+    @Autowired private LanguageProgrammerRepository languageProgrammerRepository;
+    @Autowired private HardSkillsRepository hardSkillsRepository;
+    @Autowired private CertificateRepository certificateRepository;
+    @Autowired private OfficeRepository officeRepository;
+    @Autowired private SoftSkillsRepository softSkillsRepository;
+    @Autowired private GraduationRepository graduationRepository;
+    @Autowired private MaterialRepository materialRepository;
+    @Autowired private ProfessionalGoalRepository professionalGoalRepository;
+    @Autowired private SubjectRepository subjectRepository;
+    @Autowired private ProfessionalExperienceResumeRepository professionalExperienceResumeRepository;
+    @Autowired private ProfessionalExperienceRepository professionalExperienceRepository;
+    @Autowired private AssignmentsRepository assignmentsRepository;
+    @Autowired private StudyPlanRepository studyPlanRepository;
+    @Autowired private TopicRepository topicRepository;
+    @Autowired private ActivitiesRepository activitiesRepository;
+    @Autowired private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired private S3Service s3Service;
+    @Autowired private ProjectRepository projectRepository;
+
+    @Override
+    public void run(String... args) throws Exception {
+
+        //s3Service.uploadFile(&quot;/Users/marcusvinicius/Downloads/tiringa.gif&quot;);
+
+        // User
+<span class="fc" id="L57">        User user = new User();</span>
+<span class="fc" id="L58">        User administrator = new User();</span>
+<span class="fc" id="L59">        user.setEmail(&quot;marcus@gmail.com&quot;);</span>
+<span class="fc" id="L60">        user.setPassword(bCryptPasswordEncoder.encode(&quot;1234567890&quot;));</span>
+<span class="fc" id="L61">        user.setName(&quot;Marcus&quot;);</span>
+<span class="fc" id="L62">        administrator.setEmail(&quot;vinicius@email.com&quot;);</span>
+<span class="fc" id="L63">        administrator.setPassword(bCryptPasswordEncoder.encode(&quot;1234567890&quot;));</span>
+<span class="fc" id="L64">        administrator.setName(&quot;Vinicius&quot;);</span>
+<span class="fc" id="L65">        user.addProfile(Profile.ADMIN);</span>
+<span class="fc" id="L66">        administrator.addProfile(Profile.CLIENT);</span>
+<span class="fc" id="L67">        userRepository.saveAll(Arrays.asList(user, administrator));</span>
+
+        // Ramo de Atividade
+<span class="fc" id="L70">        BranchActivity branchActivity = new BranchActivity(&quot;Tecnologia&quot;);</span>
+<span class="fc" id="L71">        branchActivity.setUser(user);</span>
+<span class="fc" id="L72">        branchActivity.setUserCreation(user.getName());</span>
+<span class="fc" id="L73">        BranchActivity branchActivity1 = new BranchActivity(&quot;Consultoria&quot;);</span>
+<span class="fc" id="L74">        branchActivity1.setUser(administrator);</span>
+<span class="fc" id="L75">        branchActivity1.setUserCreation(administrator.getName());</span>
+<span class="fc" id="L76">        branchActivity.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff701&quot;));</span>
+<span class="fc" id="L77">        branchActivity1.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff702&quot;));</span>
+<span class="fc" id="L78">        branchActivity1.setStatus(false);</span>
+<span class="fc" id="L79">        branchActivityRepository.saveAll(Arrays.asList(branchActivity, branchActivity1));</span>
+
+        // Empresas
+<span class="fc" id="L82">        Partner partner = new Partner(&quot;T&amp;G Bolsas&quot;, &quot;&quot;, branchActivity,</span>
+               &quot;TESTE DE EMPRESA PARA INCLUSAO&quot;);
+<span class="fc" id="L84">        Partner partner1 = new Partner(&quot;Tech Informatica&quot;, &quot;&quot;, branchActivity1,</span>
+               &quot;TESTE DE EMPRESA PARA INCLUSAO&quot;);
+<span class="fc" id="L86">        partner.setUser(user);</span>
+<span class="fc" id="L87">        partner.setUserCreation(user.getName());</span>
+<span class="fc" id="L88">        partner1.setUser(administrator);</span>
+<span class="fc" id="L89">        partner1.setUserCreation(administrator.getName());</span>
+        //partner.setStatus(false);
+<span class="fc" id="L91">        partner.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff709&quot;));</span>
+<span class="fc" id="L92">        partner1.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff710&quot;));</span>
+<span class="fc" id="L93">        partnerRepository.saveAll(Arrays.asList(partner, partner1));</span>
+
+        // Dados Pessoais
+<span class="fc" id="L96">        DataPersonal dataPersonal = new DataPersonal(&quot;Marcus Vinicius&quot;,  27, LocalDate.of(2022, 4, 20), MaritalStatus.MARRIED);</span>
+<span class="fc" id="L97">        DataPersonal dataPersonal1 = new DataPersonal(&quot;Nicolas Silva&quot;, 19, LocalDate.of(2010, 9, 1), MaritalStatus.SINGLE);</span>
+<span class="fc" id="L98">        dataPersonal1.setUser(administrator);</span>
+<span class="fc" id="L99">        dataPersonal1.setUserCreation(administrator.getName());</span>
+<span class="fc" id="L100">        dataPersonal.setUser(user);</span>
+<span class="fc" id="L101">        dataPersonal.setUserCreation(user.getName());</span>
+<span class="fc" id="L102">        dataPersonal.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff703&quot;));</span>
+<span class="fc" id="L103">        dataPersonal1.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff704&quot;));</span>
+<span class="fc" id="L104">        dataPersonal1.setStatus(false);</span>
+<span class="fc" id="L105">        dataPersonalRepository.saveAll(Arrays.asList(dataPersonal, dataPersonal1));</span>
+
+        // Telefone
+<span class="fc" id="L108">        Telephone telephone = new Telephone(&quot;55&quot;, &quot;11&quot;, &quot;993527709&quot;, dataPersonal);</span>
+<span class="fc" id="L109">        Telephone telephone1 = new Telephone(&quot;55&quot;, &quot;21&quot;, &quot;987392918&quot;, dataPersonal1);</span>
+<span class="fc" id="L110">        telephone1.setUser(administrator);</span>
+<span class="fc" id="L111">        telephone1.setUserCreation(administrator.getName());</span>
+<span class="fc" id="L112">        telephone.setUser(user);</span>
+<span class="fc" id="L113">        telephone.setUserCreation(user.getName());</span>
+<span class="fc" id="L114">        telephone1.setStatus(false);</span>
+<span class="fc" id="L115">        telephone.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff707&quot;));</span>
+<span class="fc" id="L116">        telephone1.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff708&quot;));</span>
+<span class="fc" id="L117">        telephoneRepository.saveAll(Arrays.asList(telephone, telephone1));</span>
+
+        // Email
+<span class="fc" id="L120">        Email email = new Email(&quot;viniciusmls@outlook.com&quot;, dataPersonal);</span>
+<span class="fc" id="L121">        Email email1 = new Email(&quot;nicolas@gmail.com&quot;, dataPersonal1);</span>
+<span class="fc" id="L122">        email.setUser(user);</span>
+<span class="fc" id="L123">        email.setUserCreation(user.getName());</span>
+<span class="fc" id="L124">        email1.setUser(administrator);</span>
+<span class="fc" id="L125">        email1.setUserCreation(administrator.getName());</span>
+<span class="fc" id="L126">        email1.setStatus(false);</span>
+<span class="fc" id="L127">        email.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff705&quot;));</span>
+<span class="fc" id="L128">        email1.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff706&quot;));</span>
+<span class="fc" id="L129">        emailRepository.saveAll(Arrays.asList(email, email1));</span>
+
+        // Curso
+<span class="fc" id="L132">        Course course = new Course(&quot;Java e Quarkus&quot;, &quot;Test&quot;, BigDecimal.valueOf(20.00),</span>
+<span class="fc" id="L133">                LocalDate.of(2022, 4, 1), LocalDate.of(2022, 6, 20),</span>
+<span class="fc" id="L134">                LocalDate.of(2022, 4, 1), LocalDate.of(2022, 6, 20),</span>
+                &quot;&quot;, StatusCourse.CONCLUSION, LevelCourse.ADVANCED);
+<span class="fc" id="L136">        Course course1 = new Course(&quot;Spring JPA&quot;, &quot;Test&quot;, BigDecimal.valueOf(30.00),</span>
+<span class="fc" id="L137">                LocalDate.of(2022, 4, 1), LocalDate.of(2022, 6, 20),</span>
+<span class="fc" id="L138">                LocalDate.of(2022, 4, 1), LocalDate.of(2022, 6, 20),</span>
+                &quot;&quot;, StatusCourse.PROGRESS, LevelCourse.BASIC);
+<span class="fc" id="L140">        course.setUser(user);</span>
+<span class="fc" id="L141">        course.setUserCreation(user.getName());</span>
+<span class="fc" id="L142">        course1.setUser(administrator);</span>
+<span class="fc" id="L143">        course1.setUserCreation(administrator.getName());</span>
+<span class="fc" id="L144">        course1.setStatus(false);</span>
+<span class="fc" id="L145">        course.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff713&quot;));</span>
+<span class="fc" id="L146">        course1.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff714&quot;));</span>
+<span class="fc" id="L147">        courseRepository.saveAll(Arrays.asList(course, course1));</span>
+
+        // Framework
+<span class="fc" id="L150">        Framework framework = new Framework(&quot;Quarkus&quot;, &quot;Curso de Quarkus&quot; , &quot;&quot; );</span>
+<span class="fc" id="L151">        Framework framework1 = new Framework(&quot;Spring&quot;, &quot;Spring Melhor Framework&quot; , &quot;&quot;);</span>
+<span class="fc" id="L152">        framework.setUser(user);</span>
+<span class="fc" id="L153">        framework.setUserCreation(user.getName());</span>
+<span class="fc" id="L154">        framework1.setUser(administrator);</span>
+<span class="fc" id="L155">        framework1.setUserCreation(administrator.getName());</span>
+<span class="fc" id="L156">        framework.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff711&quot;));</span>
+<span class="fc" id="L157">        framework1.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff712&quot;));</span>
+<span class="fc" id="L158">        frameworkRepository.saveAll(Arrays.asList(framework, framework1));</span>
+
+        // Linguagem
+<span class="fc" id="L161">        Language language = new Language(&quot;Ingles&quot;, Level.BASIC);</span>
+<span class="fc" id="L162">        Language language1 = new Language(&quot;Portugues&quot;, Level.INTERMEDIARY);</span>
+<span class="fc" id="L163">        language.setUser(user);</span>
+<span class="fc" id="L164">        language1.setUser(administrator);</span>
+<span class="fc" id="L165">        language.setUserCreation(user.getName());</span>
+<span class="fc" id="L166">        language1.setUserCreation(administrator.getName());</span>
+<span class="fc" id="L167">        language.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff734&quot;));</span>
+<span class="fc" id="L168">        language1.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff735&quot;));</span>
+<span class="fc" id="L169">        languageRepository.saveAll(Arrays.asList(language, language1));</span>
+
+        // Part
+<span class="fc" id="L172">        Part part = new Part(&quot;POO&quot;, Level.INTERMEDIARY, language);</span>
+<span class="fc" id="L173">        Part part1 = new Part(&quot;THREAD&quot;, Level.ADVANCED, language1);</span>
+<span class="fc" id="L174">        part.setUser(user);</span>
+<span class="fc" id="L175">        part.setUserCreation(user.getName());</span>
+<span class="fc" id="L176">        part1.setUser(administrator);</span>
+<span class="fc" id="L177">        part1.setUserCreation(administrator.getName());</span>
+<span class="fc" id="L178">        part.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff732&quot;));</span>
+<span class="fc" id="L179">        part1.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff733&quot;));</span>
+<span class="fc" id="L180">        partRepository.saveAll(Arrays.asList(part, part1));</span>
+
+        // Linguagem de Programacao
+<span class="fc" id="L183">        LanguageProgrammer languageProgrammer = new LanguageProgrammer(&quot;Java&quot;, &quot;Linguagem Orientada a Objetos&quot;);</span>
+<span class="fc" id="L184">        languageProgrammer.setUser(user);</span>
+<span class="fc" id="L185">        languageProgrammer.setUserCreation(user.getName());</span>
+<span class="fc" id="L186">        LanguageProgrammer languageProgrammer1 = new LanguageProgrammer(&quot;C#&quot;, &quot;Linguagem Orientada a Objetos&quot;);</span>
+<span class="fc" id="L187">        languageProgrammer1.setUser(administrator);</span>
+<span class="fc" id="L188">        languageProgrammer1.setUserCreation(administrator.getName());</span>
+<span class="fc" id="L189">        languageProgrammer.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff715&quot;));</span>
+<span class="fc" id="L190">        languageProgrammer1.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff716&quot;));</span>
+<span class="fc" id="L191">        languageProgrammerRepository.saveAll(Arrays.asList(languageProgrammer, languageProgrammer1));</span>
+
+        // Hard Skills
+<span class="fc" id="L194">        HardSkills hardSkills = new HardSkills(&quot;Java&quot;,&quot;Conhecimento em programar Java&quot;,</span>
+                Level.ADVANCED);
+<span class="fc" id="L196">        hardSkills.setUser(user);</span>
+<span class="fc" id="L197">        hardSkills.setUserCreation(user.getName());</span>
+<span class="fc" id="L198">        HardSkills hardSkills1 = new HardSkills(&quot;C#&quot;,&quot;Conhecimento em programar C#&quot;,</span>
+                Level.ADVANCED);
+<span class="fc" id="L200">        hardSkills1.setUser(administrator);</span>
+<span class="fc" id="L201">        hardSkills1.setUserCreation(administrator.getName());</span>
+<span class="fc" id="L202">        hardSkills.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff717&quot;));</span>
+<span class="fc" id="L203">        hardSkills1.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff718&quot;));</span>
+<span class="fc" id="L204">        hardSkills.addListLanguageProgrammer(languageProgrammer);</span>
+<span class="fc" id="L205">        hardSkills.addListLanguageProgrammer(languageProgrammer1);</span>
+<span class="fc" id="L206">        hardSkills.addListFramework(framework);</span>
+<span class="fc" id="L207">        hardSkills.addListFramework(framework1);</span>
+<span class="fc" id="L208">        hardSkills1.addListLanguageProgrammer(languageProgrammer);</span>
+<span class="fc" id="L209">        hardSkills1.addListLanguageProgrammer(languageProgrammer1);</span>
+<span class="fc" id="L210">        hardSkills1.addListFramework(framework);</span>
+<span class="fc" id="L211">        hardSkills1.addListFramework(framework1);</span>
+<span class="fc" id="L212">        hardSkillsRepository.saveAll(Arrays.asList(hardSkills, hardSkills1));</span>
+
+        // Certificacao
+<span class="fc" id="L215">        Certificate certificate = new Certificate(&quot;ITIL V4&quot;, &quot;&quot;, partner);</span>
+<span class="fc" id="L216">        certificate.setUser(user);</span>
+<span class="fc" id="L217">        certificate.setUserCreation(user.getName());</span>
+<span class="fc" id="L218">        Certificate certificate1 = new Certificate(&quot;JAVA Programmer&quot;, &quot;&quot;, partner1);</span>
+<span class="fc" id="L219">        certificate1.setUser(administrator);</span>
+<span class="fc" id="L220">        certificate1.setUserCreation(administrator.getName());</span>
+<span class="fc" id="L221">        certificate.setPartner(partner);</span>
+<span class="fc" id="L222">        certificate1.setPartner(partner1);</span>
+<span class="fc" id="L223">        certificate.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff717&quot;));</span>
+<span class="fc" id="L224">        certificate1.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff718&quot;));</span>
+<span class="fc" id="L225">        certificateRepository.saveAll(Arrays.asList(certificate, certificate1));</span>
+
+        // Office
+<span class="fc" id="L228">        Office office = new Office(&quot;Desenvolvedor de Software Java&quot;, &quot;teste&quot;, OfficeLevel.JUNIOR);</span>
+<span class="fc" id="L229">        Office office1 = new Office(&quot;Suporte de TI&quot;, &quot;teste&quot;, OfficeLevel.INTERNSHIP);</span>
+<span class="fc" id="L230">        office.setUser(user);</span>
+<span class="fc" id="L231">        office.setUserCreation(user.getName());</span>
+<span class="fc" id="L232">        office1.setUser(administrator);</span>
+<span class="fc" id="L233">        office1.setUserCreation(administrator.getName());</span>
+<span class="fc" id="L234">        office.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff721&quot;));</span>
+<span class="fc" id="L235">        office1.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff722&quot;));</span>
+<span class="fc" id="L236">        officeRepository.saveAll(Arrays.asList(office, office1));</span>
+
+        // SoftSkills
+<span class="fc" id="L239">        SoftSkills softSkills = new SoftSkills(&quot;Comunicacao Assertiva&quot;, true);</span>
+<span class="fc" id="L240">        SoftSkills softSkills1 = new SoftSkills(&quot;Boa Escrita&quot;, false);</span>
+<span class="fc" id="L241">        softSkills.setUser(user);</span>
+<span class="fc" id="L242">        softSkills.setUserCreation(user.getName());</span>
+<span class="fc" id="L243">        softSkills1.setUser(administrator);</span>
+<span class="fc" id="L244">        softSkills1.setUserCreation(administrator.getName());</span>
+<span class="fc" id="L245">        softSkills.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff713&quot;));</span>
+<span class="fc" id="L246">        softSkills1.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff714&quot;));</span>
+<span class="fc" id="L247">        softSkills1.setStatusHas(false);</span>
+<span class="fc" id="L248">        softSkillsRepository.saveAll(Arrays.asList(softSkills, softSkills1));</span>
+
+        // Graduacao
+<span class="fc" id="L251">        Graduation graduation = new Graduation(&quot;Gestao de Tecnologia da Informacao&quot;, BigDecimal.valueOf(2400), LocalDate.of(2014, 1, 1),</span>
+<span class="fc" id="L252">                LocalDate.of(2016, 6, 30), &quot;Sao Paulo&quot;, BigDecimal.valueOf(9),</span>
+                SituationGraduation.CONCLUSION, TypeGraduation.TECHNOLOGIST, partner);
+<span class="fc" id="L254">        Graduation graduation1 = new Graduation(&quot;Gestao Estrategica de Tecnologia da Informacao&quot;, BigDecimal.valueOf(130), LocalDate.of(2018, 1, 1),</span>
+<span class="fc" id="L255">                LocalDate.of(2020, 12, 15), &quot;Braganca Paulista&quot;, BigDecimal.valueOf(10.0),</span>
+                SituationGraduation.NOT_CONCLUSION, TypeGraduation.POST_DOCTORAL, partner1);
+<span class="fc" id="L257">        graduation.setUser(user);</span>
+<span class="fc" id="L258">        graduation.setUserCreation(user.getName());</span>
+<span class="fc" id="L259">        graduation1.setUser(administrator);</span>
+<span class="fc" id="L260">        graduation1.setUserCreation(administrator.getName());</span>
+<span class="fc" id="L261">        graduation.setDateInitPreview(LocalDate.now());</span>
+<span class="fc" id="L262">        graduation.setDateFinishPreview(LocalDate.now());</span>
+<span class="fc" id="L263">        graduation.setPartner(partner);</span>
+<span class="fc" id="L264">        graduation.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff711&quot;));</span>
+<span class="fc" id="L265">        graduation1.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff712&quot;));</span>
+<span class="fc" id="L266">        graduationRepository.saveAll(Arrays.asList(graduation1, graduation));</span>
+
+        // Material
+<span class="fc" id="L269">        Material material = new Material(&quot;atividade1&quot;, part);</span>
+<span class="fc" id="L270">        Material material1 = new Material(&quot;atividade2&quot;, part1);</span>
+<span class="fc" id="L271">        material.setUser(user);</span>
+<span class="fc" id="L272">        material.setUserCreation(user.getName());</span>
+<span class="fc" id="L273">        material1.setUser(administrator);</span>
+<span class="fc" id="L274">        material1.setUserCreation(administrator.getName());</span>
+<span class="fc" id="L275">        material.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff730&quot;));</span>
+<span class="fc" id="L276">        material1.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff731&quot;));</span>
+<span class="fc" id="L277">        materialRepository.saveAll(Arrays.asList(material, material1));</span>
+
+        // Objetivos Profissionais
+<span class="fc" id="L280">        ProfessionalGoal professionalGoal = new ProfessionalGoal(&quot;Desenvolvedor Pleno&quot;, &quot;TESTE&quot;);</span>
+<span class="fc" id="L281">        ProfessionalGoal professionalGoal1 = new ProfessionalGoal(&quot;Tech Lead&quot;, &quot;TESTE&quot;);</span>
+<span class="fc" id="L282">        professionalGoal.setUser(user);</span>
+<span class="fc" id="L283">        professionalGoal.setUserCreation(user.getName());</span>
+<span class="fc" id="L284">        professionalGoal1.setUser(administrator);</span>
+<span class="fc" id="L285">        professionalGoal1.setUserCreation(administrator.getName());</span>
+<span class="fc" id="L286">        professionalGoal.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff719&quot;));</span>
+<span class="fc" id="L287">        professionalGoal1.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff720&quot;));</span>
+<span class="fc" id="L288">        professionalGoal.setDateIssue(LocalDateTime.now());</span>
+<span class="fc" id="L289">        professionalGoal1.setDateIssue(LocalDateTime.of(2022,04,20, 0, 0, 0));</span>
+<span class="fc" id="L290">        professionalGoalRepository.saveAll(Arrays.asList(professionalGoal, professionalGoal1));</span>
+
+        // Disciplina da Graduacao
+<span class="fc" id="L293">        Subject subject = new Subject(&quot;POO&quot;, BigDecimal.valueOf(40), BigDecimal.valueOf(9.9), &quot;teste&quot;, &quot;periodo&quot;, &quot;teste&quot;, SituationSubject.APPROVED,</span>
+                graduation);
+<span class="fc" id="L295">        Subject subject1 = new Subject(&quot;C#&quot;, BigDecimal.valueOf(40), BigDecimal.valueOf(8.9), &quot;teste&quot;, &quot;periodo&quot;, &quot;teste&quot;, SituationSubject.APPROVED,</span>
+                graduation1);
+<span class="fc" id="L297">        Subject subject2 = new Subject(&quot;HTML&quot;, BigDecimal.valueOf(40), BigDecimal.valueOf(8.9), &quot;teste&quot;, &quot;periodo&quot;, &quot;teste&quot;, SituationSubject.APPROVED,</span>
+                graduation1);
+<span class="fc" id="L299">        subject.setUser(user);</span>
+<span class="fc" id="L300">        subject.setUserCreation(user.getName());</span>
+<span class="fc" id="L301">        subject1.setUser(administrator);</span>
+<span class="fc" id="L302">        subject1.setUserCreation(administrator.getName());</span>
+<span class="fc" id="L303">        subject.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff713&quot;));</span>
+<span class="fc" id="L304">        subject1.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff714&quot;));</span>
+<span class="fc" id="L305">        subject1.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff715&quot;));</span>
+<span class="fc" id="L306">        subjectRepository.saveAll(Arrays.asList(subject,subject1,subject2));</span>
+
+        // Experiencia Profissional Resumido
+<span class="fc" id="L309">        ProfessionalExperienceResume professionalExperienceResume = new ProfessionalExperienceResume(LocalDate.of(2014, 1, 1), LocalDate.of(2014, 1, 1));</span>
+<span class="fc" id="L310">        professionalExperienceResume.setUser(user);</span>
+<span class="fc" id="L311">        professionalExperienceResume.setUserCreation(user.getName());</span>
+<span class="fc" id="L312">        professionalExperienceResumeRepository.save(professionalExperienceResume);</span>
+
+        // Experiencia Profissional
+<span class="fc" id="L315">        ProfessionalExperience professionalExperience = new ProfessionalExperience(LocalDate.of(2014, 1, 1),</span>
+<span class="fc" id="L316">                LocalDate.of(2014, 1, 1), OfficeEnum.CLT, StatusWork.OLD, partner, office,</span>
+                professionalExperienceResume, &quot;teste&quot;);
+<span class="fc" id="L318">        professionalExperience.setUser(user);</span>
+<span class="fc" id="L319">        professionalExperience.setUserCreation(user.getName());</span>
+<span class="fc" id="L320">        professionalExperience.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff723&quot;));</span>
+<span class="fc" id="L321">        ProfessionalExperience professionalExperience1 = new ProfessionalExperience(LocalDate.of(2014, 1, 1),</span>
+<span class="fc" id="L322">                LocalDate.of(2014, 1, 1), OfficeEnum.CLT, StatusWork.OLD, partner, office,</span>
+                professionalExperienceResume, &quot;teste&quot;);
+<span class="fc" id="L324">        professionalExperience1.setUser(user);</span>
+<span class="fc" id="L325">        professionalExperience1.setUserCreation(user.getName());</span>
+<span class="fc" id="L326">        professionalExperience1.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff724&quot;));</span>
+<span class="fc" id="L327">        professionalExperienceRepository.save(professionalExperience);</span>
+<span class="fc" id="L328">        professionalExperienceRepository.save(professionalExperience1);</span>
+
+        // Atividade da Experiencia Profissional
+<span class="fc" id="L331">        Assignments assignments = new Assignments(&quot;Desenvolver aplicativos&quot;, professionalExperience);</span>
+<span class="fc" id="L332">        Assignments assignments1 = new Assignments(&quot;Criar Manuais&quot;, professionalExperience);</span>
+<span class="fc" id="L333">        assignments.setUser(user);</span>
+<span class="fc" id="L334">        assignments.setUserCreation(user.getName());</span>
+<span class="fc" id="L335">        assignments1.setUserCreation(user.getName());</span>
+<span class="fc" id="L336">        assignments1.setUser(user);</span>
+<span class="fc" id="L337">        assignments.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff726&quot;));</span>
+<span class="fc" id="L338">        assignments1.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff727&quot;));</span>
+<span class="fc" id="L339">        assignmentsRepository.saveAll(Arrays.asList(assignments1, assignments));</span>
+
+        // Plano de Estudos
+<span class="fc" id="L342">        StudyPlan studyPlan = new StudyPlan(&quot;Tech Lead&quot;, Level.ADVANCED, languageProgrammer, framework);</span>
+<span class="fc" id="L343">        studyPlan.setUser(user);</span>
+<span class="fc" id="L344">        studyPlan.setUserCreation(user.getName());</span>
+<span class="fc" id="L345">        studyPlan.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff737&quot;));</span>
+<span class="fc" id="L346">        StudyPlan studyPlan1 = new StudyPlan(&quot;Tech Lead&quot;, Level.ADVANCED, languageProgrammer, framework);</span>
+<span class="fc" id="L347">        studyPlan1.setUser(user);</span>
+<span class="fc" id="L348">        studyPlan1.setUserCreation(user.getName());</span>
+<span class="fc" id="L349">        studyPlan1.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff738&quot;));</span>
+<span class="fc" id="L350">        studyPlanRepository.saveAll(Arrays.asList(studyPlan, studyPlan1));</span>
+
+        // Tópico do Plano de Estudos
+<span class="fc" id="L353">        Topic topic = new Topic(&quot;Ser um excelente Tech Lead&quot;, studyPlan);</span>
+<span class="fc" id="L354">        topic.setUser(user);</span>
+<span class="fc" id="L355">        topic.setUserCreation(user.getName());</span>
+<span class="fc" id="L356">        topic.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff736&quot;));</span>
+<span class="fc" id="L357">        topicRepository.save(topic);</span>
+
+<span class="fc" id="L359">        Activities activities = new Activities(LocalDate.now(), &quot;Novo Curso&quot;, course);</span>
+<span class="fc" id="L360">        activities.setUser(user);</span>
+<span class="fc" id="L361">        activities.setUserCreation(user.getName());</span>
+<span class="fc" id="L362">        activitiesRepository.save(activities);</span>
+
+<span class="fc" id="L364">        Project project = new Project();</span>
+<span class="fc" id="L365">        project.setDescription(&quot;Primeiro excelente Projeto&quot;);</span>
+<span class="fc" id="L366">        project.setLinkGitHub(&quot;teste&quot;);</span>
+<span class="fc" id="L367">        project.setLinkYoutube(&quot;youtube&quot;);</span>
+<span class="fc" id="L368">        project.setTitle(&quot;Title&quot;);</span>
+<span class="fc" id="L369">        project.addListFramework(framework);</span>
+<span class="fc" id="L370">        project.addListFramework(framework1);</span>
+<span class="fc" id="L371">        project.addListLanguageProgrammer(languageProgrammer);</span>
+<span class="fc" id="L372">        project.addListLanguageProgrammer(languageProgrammer1);</span>
+<span class="fc" id="L373">        project.setId(UUID.fromString(&quot;bb260da4-01fb-48f0-aec4-d7f9db2ff724&quot;));</span>
+<span class="fc" id="L374">        projectRepository.save(project);</span>
+
+<span class="fc" id="L376">        Activities activities1 = new Activities();</span>
+<span class="fc" id="L377">        activities1.setDate(LocalDate.of(2011, 1,1));</span>
+<span class="fc" id="L378">        activities1.setDescription(&quot;Hard Skills&quot;);</span>
+<span class="fc" id="L379">        activities1.setHardSkills(hardSkills);</span>
+
+<span class="fc" id="L381">        Activities activities2 = new Activities();</span>
+<span class="fc" id="L382">        activities2.setDate(LocalDate.of(2012, 1,1));</span>
+<span class="fc" id="L383">        activities2.setDescription(&quot;Certificate&quot;);</span>
+<span class="fc" id="L384">        activities2.setCertificate(certificate);</span>
+
+<span class="fc" id="L386">        Activities activities3 = new Activities();</span>
+<span class="fc" id="L387">        activities3.setDate(LocalDate.of(2013, 1,1));</span>
+<span class="fc" id="L388">        activities3.setDescription(&quot;Course&quot;);</span>
+<span class="fc" id="L389">        activities3.setCourse(course);</span>
+
+<span class="fc" id="L391">        Activities activities4 = new Activities();</span>
+<span class="fc" id="L392">        activities4.setDate(LocalDate.of(2014, 1,1));</span>
+<span class="fc" id="L393">        activities4.setDescription(&quot;Graduation&quot;);</span>
+<span class="fc" id="L394">        activities4.setGraduation(graduation);</span>
+
+<span class="fc" id="L396">        Activities activities5 = new Activities();</span>
+<span class="fc" id="L397">        activities5.setDate(LocalDate.of(2015, 1,1));</span>
+<span class="fc" id="L398">        activities5.setDescription(&quot;Professional Experience&quot;);</span>
+<span class="fc" id="L399">        activities5.setProfessionalExperience(professionalExperience);</span>
+
+<span class="fc" id="L401">        Activities activities6 = new Activities();</span>
+<span class="fc" id="L402">        activities6.setDate(LocalDate.of(2016, 1,1));</span>
+<span class="fc" id="L403">        activities6.setDescription(&quot;Professional Goal&quot;);</span>
+<span class="fc" id="L404">        activities6.setProfessionalGoal(professionalGoal);</span>
+
+<span class="fc" id="L406">        Activities activities7 = new Activities();</span>
+<span class="fc" id="L407">        activities7.setDate(LocalDate.of(2017, 1,1));</span>
+<span class="fc" id="L408">        activities7.setDescription(&quot;Soft Skills&quot;);</span>
+<span class="fc" id="L409">        activities7.setSoftSkills(softSkills);</span>
+
+<span class="fc" id="L411">        Activities activities8 = new Activities();</span>
+<span class="fc" id="L412">        activities8.setDate(LocalDate.of(2018, 1,1));</span>
+<span class="fc" id="L413">        activities8.setDescription(&quot;Hard Skills&quot;);</span>
+<span class="fc" id="L414">        activities8.setHardSkills(hardSkills);</span>
+
+<span class="fc" id="L416">        Activities activities9 = new Activities();</span>
+<span class="fc" id="L417">        activities9.setDate(LocalDate.of(2019, 1,1));</span>
+<span class="fc" id="L418">        activities9.setDescription(&quot;Certificate&quot;);</span>
+<span class="fc" id="L419">        activities9.setCertificate(certificate);</span>
+
+<span class="fc" id="L421">        Activities activities10 = new Activities();</span>
+<span class="fc" id="L422">        activities10.setDate(LocalDate.of(2020, 1,1));</span>
+<span class="fc" id="L423">        activities10.setDescription(&quot;Course&quot;);</span>
+<span class="fc" id="L424">        activities10.setCourse(course);</span>
+
+<span class="fc" id="L426">        Activities activities11 = new Activities();</span>
+<span class="fc" id="L427">        activities11.setDate(LocalDate.of(2021, 1,1));</span>
+<span class="fc" id="L428">        activities11.setDescription(&quot;Graduation&quot;);</span>
+<span class="fc" id="L429">        activities11.setGraduation(graduation);</span>
+
+<span class="fc" id="L431">        activitiesRepository.saveAll(Arrays.asList(activities1, activities2, activities3, activities4, activities5,</span>
+                activities6, activities7, activities8, activities9, activities10, activities11));
+
+<span class="fc" id="L434">        studyPlan.addAssignments(assignments);</span>
+<span class="fc" id="L435">        studyPlan.addAssignments(assignments1);</span>
+<span class="fc" id="L436">        studyPlan.addCertificate(certificate);</span>
+<span class="fc" id="L437">        studyPlan.addCertificate(certificate1);</span>
+<span class="fc" id="L438">        studyPlan.addCourse(course);</span>
+<span class="fc" id="L439">        studyPlan.addCourse(course1);</span>
+<span class="fc" id="L440">        studyPlan.addGraduation(graduation);</span>
+<span class="fc" id="L441">        studyPlan.addGraduation(graduation1);</span>
+<span class="fc" id="L442">        studyPlan.addProfessionalExperience(professionalExperience);</span>
+<span class="fc" id="L443">        studyPlan.addProfessionalExperience(professionalExperience1);</span>
+<span class="fc" id="L444">        studyPlan.addTopic(topic);</span>
+<span class="fc" id="L445">        studyPlanRepository.save(studyPlan);</span>
+<span class="fc" id="L446">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

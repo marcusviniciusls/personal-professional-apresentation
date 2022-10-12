@@ -40,10 +40,11 @@ public class SaveActivitiesService {
         activitiesRepository.save(activities);
     }
 
-    public void saveMovementGraduation(Graduation graduation) {
+    public boolean saveMovementGraduation(Graduation graduation) {
         Activities activities = activitiesFactory.convertGraduationToActivities(graduation);
         activities = (Activities) centerEntityService.setDataToSave(activities);
         activitiesRepository.save(activities);
+        return true;
     }
 
     public void saveMovementProfessionalExperience(ProfessionalExperience professionalExperience) {

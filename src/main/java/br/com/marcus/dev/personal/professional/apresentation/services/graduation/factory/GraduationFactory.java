@@ -46,10 +46,10 @@ public class GraduationFactory {
         graduation.setDateInitPreview(graduationFormSave.getDateInitPreview());
         graduation.setLocation(graduationFormSave.getLocation());
         graduation.setUrlUniversityDegree(graduationFormSave.getUrlUniversityDegree());
-        if (graduationFormSave.getDateFinishReal() != null && SituationGraduation.CONCLUSION.getNumber() == 0){
+        if (graduationFormSave.getDateFinishReal() != null){
             graduation.setDateFinishReal(graduationFormSave.getDateFinishReal());
         }
-        if (graduationFormSave.getDateInitReal() != null && SituationGraduation.CONCLUSION.getNumber() == 0){
+        if (graduationFormSave.getDateInitReal() != null){
             graduation.setDateInitReal(graduationFormSave.getDateInitReal());
         }
         if (graduationFormSave.getDateInitReal() == null && graduationFormSave.getDateFinishReal() == null){
@@ -67,8 +67,10 @@ public class GraduationFactory {
 
         for (SubjectFormSave subjectFormSave: graduationFormSave.getListSubjectFormSave()){
             Subject subject = subjectFactory.convertSubjectFormSaveToEntity(subjectFormSave, graduation);
-            subject = (Subject) centerEntityService.setDataToSave(subject);
             subject.setGraduation(graduation);
+            subject.setDateCreation(graduation.getDateCreation());
+            subject.setUserCreation(graduation.getUserCreation());
+            subject.setUser(graduation.getUser());
             subject = subjectRepository.save(subject);
             graduation.addListSubject(subject);
         }

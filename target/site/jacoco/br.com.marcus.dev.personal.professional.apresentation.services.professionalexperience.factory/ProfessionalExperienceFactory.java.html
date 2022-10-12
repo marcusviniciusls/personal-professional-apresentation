@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProfessionalExperienceFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">personal.professional.apresentation</a> &gt; <a href="index.source.html" class="el_package">br.com.marcus.dev.personal.professional.apresentation.services.professionalexperience.factory</a> &gt; <span class="el_source">ProfessionalExperienceFactory.java</span></div><h1>ProfessionalExperienceFactory.java</h1><pre class="source lang-java linenums">package br.com.marcus.dev.personal.professional.apresentation.services.professionalexperience.factory;
+
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.AssignmentsProfessionalUpdateForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.AssignmentsSaveForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.ProfessionalExperienceFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.ProfessionalExperienceFormUpdate;
+import br.com.marcus.dev.personal.professional.apresentation.dto.response.AssignmentsResponse;
+import br.com.marcus.dev.personal.professional.apresentation.dto.response.OfficeResponse;
+import br.com.marcus.dev.personal.professional.apresentation.dto.response.PartnerResponse;
+import br.com.marcus.dev.personal.professional.apresentation.dto.response.ProfessionalExperienceResponse;
+import br.com.marcus.dev.personal.professional.apresentation.entities.Assignments;
+import br.com.marcus.dev.personal.professional.apresentation.entities.Office;
+import br.com.marcus.dev.personal.professional.apresentation.entities.Partner;
+import br.com.marcus.dev.personal.professional.apresentation.entities.ProfessionalExperience;
+import br.com.marcus.dev.personal.professional.apresentation.entities.enums.OfficeEnum;
+import br.com.marcus.dev.personal.professional.apresentation.repository.AssignmentsRepository;
+import br.com.marcus.dev.personal.professional.apresentation.services.assignments.SaveAssignmentsService;
+import br.com.marcus.dev.personal.professional.apresentation.services.assignments.factory.AssignmentsFactory;
+import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
+import br.com.marcus.dev.personal.professional.apresentation.services.office.FindByIdOfficeService;
+import br.com.marcus.dev.personal.professional.apresentation.services.office.factory.OfficeFactory;
+import br.com.marcus.dev.personal.professional.apresentation.services.partner.FindByIdPartnerService;
+import br.com.marcus.dev.personal.professional.apresentation.services.partner.factory.PartnerFactory;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Component
+<span class="fc" id="L32">public class ProfessionalExperienceFactory {</span>
+
+    @Autowired private ModelMapper modelMapper;
+    @Autowired private AssignmentsFactory assignmentsFactory;
+    @Autowired private SaveAssignmentsService saveAssignmentsService;
+    @Autowired private CenterEntityService centerEntityService;
+    @Autowired private AssignmentsRepository assignmentsRepository;
+    @Autowired private OfficeFactory officeFactory;
+    @Autowired private PartnerFactory partnerFactory;
+    @Autowired private FindByIdOfficeService findByIdOfficeService;
+    @Autowired private FindByIdPartnerService findByIdPartnerService;
+
+    public ProfessionalExperience convertSaveFormInEntity(ProfessionalExperienceFormSave request){
+<span class="nc" id="L45">        ProfessionalExperience professionalExperience = new ProfessionalExperience();</span>
+<span class="nc" id="L46">        professionalExperience.setDateInit(request.getDateInit());</span>
+<span class="nc" id="L47">        professionalExperience.setDateFinish(request.getDateFinish());</span>
+<span class="nc" id="L48">        professionalExperience.setDescription(request.getDescription());</span>
+<span class="nc" id="L49">        professionalExperience.setOfficeEnum(OfficeEnum.toEnum(request.getOfficeEnum()));</span>
+
+<span class="nc" id="L51">        return professionalExperience;</span>
+    }
+
+    public ProfessionalExperienceResponse convertEntityInResponse(ProfessionalExperience entity){
+<span class="fc" id="L55">        OfficeResponse officeResponse = officeFactory.convertEntityInResponse(entity.getOffice());</span>
+<span class="fc" id="L56">        PartnerResponse partnerResponse = partnerFactory.convertEntityInDto(entity.getPartner());</span>
+<span class="fc" id="L57">        ProfessionalExperienceResponse professionalExperienceResponse = new ProfessionalExperienceResponse();</span>
+<span class="fc" id="L58">        professionalExperienceResponse.setDateInit(entity.getDateInit());</span>
+<span class="fc" id="L59">        professionalExperienceResponse.setDateFinish(entity.getDateFinish());</span>
+<span class="fc" id="L60">        professionalExperienceResponse.setDescription(entity.getDescription());</span>
+<span class="fc" id="L61">        professionalExperienceResponse.setStatusWork(entity.getStatusWork());</span>
+<span class="fc" id="L62">        professionalExperienceResponse.setOfficeEnum(entity.getOfficeEnum());</span>
+<span class="fc" id="L63">        professionalExperienceResponse.setOfficeResponse(officeResponse);</span>
+<span class="fc" id="L64">        professionalExperienceResponse.setPartnerResponse(partnerResponse);</span>
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">        for (Assignments assignments : entity.getListAssignments()){</span>
+<span class="nc" id="L66">            AssignmentsResponse assignmentsResponse = assignmentsFactory.convertEntityInResponse(assignments);</span>
+<span class="nc" id="L67">            professionalExperienceResponse.addListAssignmentsResponse(assignmentsResponse);</span>
+<span class="nc" id="L68">        }</span>
+
+<span class="fc" id="L70">        return professionalExperienceResponse;</span>
+    }
+
+    public ProfessionalExperience convertUpdateFormInEntity(ProfessionalExperience entity, ProfessionalExperienceFormUpdate update){
+<span class="nc bnc" id="L74" title="All 2 branches missed.">        if (update.getDateInit() != null){</span>
+<span class="nc" id="L75">            entity.setDateInit(update.getDateInit());</span>
+        }
+<span class="nc bnc" id="L77" title="All 2 branches missed.">        if (update.getDateFinish() != null){</span>
+<span class="nc" id="L78">            entity.setDateFinish(update.getDateFinish());</span>
+        }
+<span class="nc bnc" id="L80" title="All 4 branches missed.">        if (update.getDescription() != null &amp;&amp; !update.getDescription().equals(&quot;&quot;)){</span>
+<span class="nc" id="L81">            entity.setDescription(update.getDescription());</span>
+        }
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        if (!entity.getOffice().getId().equals(update.getOfficeId())){</span>
+<span class="nc" id="L84">            Office office = findByIdOfficeService.findByIdEntity(update.getOfficeId());</span>
+<span class="nc" id="L85">            entity.setOffice(office);</span>
+        }
+<span class="nc bnc" id="L87" title="All 2 branches missed.">        if (entity.getPartner().getId().equals(update.getPartnerId())){</span>
+<span class="nc" id="L88">            Partner partner = findByIdPartnerService.findByIdPartner(update.getPartnerId());</span>
+<span class="nc" id="L89">            entity.setPartner(partner);</span>
+        }
+<span class="nc bnc" id="L91" title="All 2 branches missed.">        if (update.getOfficeEnum() != null){</span>
+<span class="nc" id="L92">            entity.setOfficeEnum(OfficeEnum.toEnum(update.getOfficeEnum()));</span>
+        }
+
+<span class="nc" id="L95">        List&lt;Assignments&gt; listAssignments = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">        if (update.getListAssignments().size() &gt; 0){</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">            for (AssignmentsProfessionalUpdateForm assignmentsResponse : update.getListAssignments()){</span>
+<span class="nc" id="L98">                Assignments assignments = new Assignments();</span>
+<span class="nc" id="L99">                assignments.setDescription(assignmentsResponse.getDescription());</span>
+<span class="nc" id="L100">                listAssignments.add(assignments);</span>
+<span class="nc" id="L101">            }</span>
+        }
+<span class="nc" id="L103">        entity.setListAssignments(listAssignments);</span>
+
+<span class="nc" id="L105">        return entity;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

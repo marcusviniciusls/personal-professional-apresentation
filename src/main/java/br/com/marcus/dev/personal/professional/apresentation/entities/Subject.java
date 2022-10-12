@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -38,5 +39,15 @@ public class Subject extends SuperEntity{
         this.imageReportRecord = imageReportRecord;
         this.situationSubject = situationSubject;
         this.graduation = graduation;
+    }
+
+    public Subject(String name, BigDecimal qtdHours, BigDecimal note, String description, String period, String imageReportRecord, SituationSubject situationSubject) {
+        this.name = name;
+        this.qtdHours = qtdHours;
+        this.note = note;
+        this.description = description;
+        this.period = period;
+        this.imageReportRecord = imageReportRecord;
+        this.situationSubject = situationSubject;
     }
 }
