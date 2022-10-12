@@ -1,6 +1,5 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.hardskills;
 
-import br.com.marcus.dev.personal.professional.apresentation.entities.Framework;
 import br.com.marcus.dev.personal.professional.apresentation.entities.HardSkills;
 import br.com.marcus.dev.personal.professional.apresentation.repository.HardSkillsRepository;
 import br.com.marcus.dev.personal.professional.apresentation.services.activities.DeleteActivitiesService;

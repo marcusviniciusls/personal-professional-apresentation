@@ -31,7 +31,7 @@ public class DeleteActivitiesService {
         }
     }
 
-    public void deleteMovementHardSkills(UUID idHardSkills){
+    public boolean deleteMovementHardSkills(UUID idHardSkills){
         Optional<Activities> optionalActivities = activitiesRepository.findByHardSkills(idHardSkills);
         if (optionalActivities.isEmpty()){
             throw new ResourceNotFoundException("Activities Hard Skills Not Found Exception");
@@ -43,6 +43,7 @@ public class DeleteActivitiesService {
             activities = (Activities) centerEntityService.setDataToDelete(activities);
             activitiesRepository.save(activities);
         }
+        return true;
     }
 
     public void deleteMovementCourse(UUID idCourse){

@@ -26,7 +26,7 @@ public class FindByIdHardSkillsService {
         }
         HardSkills hardSkills = optionalHardSkills.get();
         if (!centerEntityService.isStatusSuperEntity(hardSkills)){
-            throw new ResourceNotFoundException("ID Not Found Exception");
+            throw new ResourceNotFoundException("Hard Skills Not Found Exception");
         }
         HardSkillsResponse hardSkillsResponse = hardSkillsFactory.convertEntityInResponse(hardSkills);
         return hardSkillsResponse;
@@ -39,7 +39,7 @@ public class FindByIdHardSkillsService {
         }
         HardSkills hardSkills = optionalHardSkills.get();
         if (!centerEntityService.isStatusSuperEntity(hardSkills)){
-            throw new ResourceNotFoundException("ID Not Found Exception");
+            throw new ResourceNotFoundException("Hard Skills Not Found Exception");
         }
         return hardSkills;
     }

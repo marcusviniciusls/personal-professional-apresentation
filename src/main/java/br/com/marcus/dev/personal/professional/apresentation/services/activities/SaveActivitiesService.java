@@ -34,10 +34,11 @@ public class SaveActivitiesService {
         return true;
     }
 
-    public void saveMovementHardSkills(HardSkills hardSkills) {
+    public boolean saveMovementHardSkills(HardSkills hardSkills) {
         Activities activities = activitiesFactory.convertHardSkillsToActivities(hardSkills);
         activities = (Activities) centerEntityService.setDataToSave(activities);
         activitiesRepository.save(activities);
+        return true;
     }
 
     public boolean saveMovementGraduation(Graduation graduation) {

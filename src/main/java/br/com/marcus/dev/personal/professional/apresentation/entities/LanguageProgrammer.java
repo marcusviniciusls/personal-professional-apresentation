@@ -23,4 +23,10 @@ public class LanguageProgrammer extends SuperEntity{
     public LanguageProgrammer(UUID id) {
         super(id);
     }
+
+    public LanguageProgrammer(UUID id, String name, String description) {
+        super(id);
+        this.name = name;
+        this.description = description;
+    }
 }
