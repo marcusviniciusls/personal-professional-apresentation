@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityServiceTest
--------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.29 s - in br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityServiceTest
