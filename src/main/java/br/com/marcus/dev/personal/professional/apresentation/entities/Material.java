@@ -27,4 +27,15 @@ public class Material extends SuperEntity{
     public Material(UUID id) {
         super(id);
     }
+
+    public Material(UUID id, String name, Part part) {
+        super(id);
+        this.name = name;
+        this.part = part;
+    }
+
+    public Material(UUID id, String name) {
+        super(id);
+        this.name = name;
+    }
 }

@@ -28,4 +28,11 @@ public class Office extends SuperEntity{
     public Office(UUID id) {
         super(id);
     }
+
+    public Office(UUID id, String name, String description, OfficeLevel officeLevel) {
+        super(id);
+        this.name = name;
+        this.description = description;
+        this.officeLevel = officeLevel;
+    }
 }

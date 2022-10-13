@@ -32,6 +32,24 @@ public class Part extends SuperEntity{
         this.language = language;
     }
 
+    public Part(String name, Level level) {
+        this.name = name;
+        this.level = level;
+    }
+
+    public Part(UUID id, String name, Level level) {
+        super(id);
+        this.name = name;
+        this.level = level;
+    }
+
+    public Part(UUID id, String name, Level level, Language language) {
+        super(id);
+        this.name = name;
+        this.level = level;
+        this.language = language;
+    }
+
     public Part(UUID id) {
         super(id);
     }
