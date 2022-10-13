@@ -32,6 +32,12 @@ public class Language extends SuperEntity{
         super(id);
     }
 
+    public Language(UUID id, String name, Level level) {
+        super(id);
+        this.name = name;
+        this.level = level;
+    }
+
     public void addListPart(Part part){
         this.listPart.add(part);
     }
