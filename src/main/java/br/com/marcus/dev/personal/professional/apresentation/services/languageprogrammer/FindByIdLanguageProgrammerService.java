@@ -2,7 +2,6 @@ package br.com.marcus.dev.personal.professional.apresentation.services.languagep
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.response.LanguageProgrammerResponse;
 import br.com.marcus.dev.personal.professional.apresentation.entities.LanguageProgrammer;
-import br.com.marcus.dev.personal.professional.apresentation.entities.Partner;
 import br.com.marcus.dev.personal.professional.apresentation.exception.custom.ResourceNotFoundException;
 import br.com.marcus.dev.personal.professional.apresentation.repository.LanguageProgrammerRepository;
 import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;

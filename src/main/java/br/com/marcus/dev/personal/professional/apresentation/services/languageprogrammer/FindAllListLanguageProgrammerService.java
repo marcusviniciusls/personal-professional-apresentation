@@ -1,7 +1,6 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.languageprogrammer;
 
 import br.com.marcus.dev.personal.professional.apresentation.dto.request.ListLanguageProgrammer;
-import br.com.marcus.dev.personal.professional.apresentation.entities.Framework;
 import br.com.marcus.dev.personal.professional.apresentation.entities.LanguageProgrammer;
 import br.com.marcus.dev.personal.professional.apresentation.repository.LanguageProgrammerRepository;
 import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class FindAllListLanguageProgrammerService {

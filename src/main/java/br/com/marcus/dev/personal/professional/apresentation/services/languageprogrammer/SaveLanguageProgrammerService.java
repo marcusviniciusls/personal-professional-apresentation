@@ -12,8 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SaveLanguageProgrammerService {
 
-    @Autowired
-    private LanguageProgrammerFactory languageProgrammerFactory;
+    @Autowired private LanguageProgrammerFactory languageProgrammerFactory;
     @Autowired private CenterEntityService centerEntityService;
     @Autowired private LanguageProgrammerRepository languageProgrammerRepository;
 
