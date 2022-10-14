@@ -1,6 +1,5 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.subject;
 
-import br.com.marcus.dev.personal.professional.apresentation.entities.Partner;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Subject;
 import br.com.marcus.dev.personal.professional.apresentation.repository.SubjectRepository;
 import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;

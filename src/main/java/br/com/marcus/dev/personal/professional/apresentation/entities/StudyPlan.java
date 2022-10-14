@@ -1,6 +1,5 @@
 package br.com.marcus.dev.personal.professional.apresentation.entities;
 
-import br.com.marcus.dev.personal.professional.apresentation.dto.response.*;
 import br.com.marcus.dev.personal.professional.apresentation.entities.enums.Level;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

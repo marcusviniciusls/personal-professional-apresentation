@@ -28,4 +28,9 @@ public class Topic extends SuperEntity{
     public Topic(UUID id) {
         super(id);
     }
+
+    public Topic(UUID id, String name) {
+        super(id);
+        this.name = name;
+    }
 }

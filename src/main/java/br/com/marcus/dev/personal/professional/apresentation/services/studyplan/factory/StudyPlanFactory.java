@@ -137,7 +137,6 @@ public class StudyPlanFactory {
             for (ListTopic listTopic : studyPlanSaveForm.getListTopic()){
                 Topic topic = topicRepository.findById(listTopic.getId()).get();
                 studyPlan.addTopic(topic);
-                topic = (Topic) centerEntityService.setDataToSave(topic);
                 topicRepository.save(topic);
             }
         }

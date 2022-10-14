@@ -1,12 +1,10 @@
 package br.com.marcus.dev.personal.professional.apresentation.dto.request;
 
-import br.com.marcus.dev.personal.professional.apresentation.entities.*;
-import br.com.marcus.dev.personal.professional.apresentation.entities.enums.Level;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -14,6 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class StudyPlanSaveForm {
@@ -30,4 +29,9 @@ public class StudyPlanSaveForm {
     private List<ListAssignments> listAssignments = new ArrayList<>();
     private List<ListGraduation> listGraduation = new ArrayList<>();
     private List<ListCertificate> listCertificate = new ArrayList<>();
+
+    public StudyPlanSaveForm(String name, Integer level) {
+        this.name = name;
+        this.level = level;
+    }
 }
