@@ -19,4 +19,8 @@ public class TopicSaveForm {
     private String name;
     @NotNull(message = "Study Plan Id cannot be blank")
     private UUID studyPlanId;
+
+    public TopicSaveForm(String name) {
+        this.name = name;
+    }
 }
