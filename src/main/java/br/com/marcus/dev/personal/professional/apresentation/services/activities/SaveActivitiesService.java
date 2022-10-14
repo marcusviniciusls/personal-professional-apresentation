@@ -14,10 +14,13 @@ public class SaveActivitiesService {
     @Autowired private CenterEntityService centerEntityService;
     @Autowired private ActivitiesFactory activitiesFactory;
 
-    public void saveMovementSoftSkills(SoftSkills softSkills) {
+    public boolean saveMovementSoftSkills(SoftSkills softSkills) {
         Activities activities = activitiesFactory.convertSoftSkillsToActivities(softSkills);
-        activities = (Activities) centerEntityService.setDataToSave(activities);
+        activities.setUser(softSkills.getUser());
+        activities.setUserCreation(softSkills.getUserCreation());
+        activities.setDateCreation(softSkills.getDateCreation());
         activitiesRepository.save(activities);
+        return true;
     }
 
     public boolean saveMovementCourse(Course course) {
