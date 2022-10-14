@@ -37,6 +37,13 @@ public class Project extends SuperEntity{
         super(id);
     }
 
+    public Project(String title, String description, String linkGitHub, String linkYoutube) {
+        this.title = title;
+        this.description = description;
+        this.linkGitHub = linkGitHub;
+        this.linkYoutube = linkYoutube;
+    }
+
     public void addListLanguageProgrammer(LanguageProgrammer languageProgrammer){
         this.listLanguageProgrammer.add(languageProgrammer);
     }
