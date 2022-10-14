@@ -1,11 +1,11 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.telephone;
 
+import br.com.marcus.dev.personal.professional.apresentation.dto.response.TelephoneDto;
 import br.com.marcus.dev.personal.professional.apresentation.entities.DataPersonal;
 import br.com.marcus.dev.personal.professional.apresentation.entities.Telephone;
 import br.com.marcus.dev.personal.professional.apresentation.entities.enums.MaritalStatus;
 import br.com.marcus.dev.personal.professional.apresentation.repository.DataPersonalRepository;
 import br.com.marcus.dev.personal.professional.apresentation.repository.TelephoneRepository;
-import org.hibernate.sql.Delete;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -13,20 +13,21 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.Optional;
 import java.util.UUID;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class DeleteTelephoneServiceTest {
+public class FindAllTelephoneServiceTest {
 
     @Autowired private DataPersonalRepository dataPersonalRepository;
     @Autowired private TelephoneRepository telephoneRepository;
-    @Autowired private DeleteTelephoneService deleteTelephoneService;
+    @Autowired private FindAllTelephoneService findAllTelephoneService;
 
     @BeforeEach
     public void setupInit(){
@@ -41,13 +42,9 @@ public class DeleteTelephoneServiceTest {
 
     @Test
     @Transactional
-    @DisplayName("Apagar Telephone")
-    public void deleteTest(){
-        // Executando método
-        UUID id = UUID.fromString("cb260da4-01fb-48f0-aec4-d7f9db2ff371");
-        deleteTelephoneService.delete(id);
-        // Testes Unitários
-        Optional<Telephone> optionalTelephone = telephoneRepository.findById(id);
-        Assertions.assertTrue(optionalTelephone.isEmpty());
+    @DisplayName("Buscar todos os Telephone")
+    public void findAllTest(){
+        Page<TelephoneDto> response = findAllTelephoneService.findAll(PageRequest.of(1,1));
+        Assertions.assertEquals(1, response.getSize());
     }
 }

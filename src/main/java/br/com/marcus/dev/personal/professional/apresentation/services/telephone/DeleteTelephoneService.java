@@ -20,13 +20,7 @@ public class DeleteTelephoneService {
 
     public void delete(UUID id){
         try{
-            Optional<Telephone> optionalTelephone = telephoneRepository.findById(id);
-            if (optionalTelephone.isEmpty()){
-                throw new ResourceNotFoundException("ID Not Found Exception");
-            }
-            if (!centerEntityService.isStatusSuperEntity(optionalTelephone.get())){
-                throw new ResourceNotFoundException("ID Not Found Exception");
-            }
+            findByIdTelephoneService.findById(id);
             telephoneRepository.deleteById(id);
         } catch(DataIntegrityViolationException ex){
             Optional<Telephone> optionalTelephone = telephoneRepository.findById(id);
