@@ -1,42 +1,40 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.subject;
 
-import br.com.marcus.dev.personal.professional.apresentation.entities.*;
+import br.com.marcus.dev.personal.professional.apresentation.entities.BranchActivity;
+import br.com.marcus.dev.personal.professional.apresentation.entities.Graduation;
+import br.com.marcus.dev.personal.professional.apresentation.entities.Partner;
+import br.com.marcus.dev.personal.professional.apresentation.entities.Subject;
 import br.com.marcus.dev.personal.professional.apresentation.entities.enums.SituationGraduation;
 import br.com.marcus.dev.personal.professional.apresentation.entities.enums.SituationSubject;
 import br.com.marcus.dev.personal.professional.apresentation.entities.enums.TypeGraduation;
+import br.com.marcus.dev.personal.professional.apresentation.exception.custom.ResourceNotFoundException;
 import br.com.marcus.dev.personal.professional.apresentation.repository.BranchActivityRepository;
 import br.com.marcus.dev.personal.professional.apresentation.repository.GraduationRepository;
 import br.com.marcus.dev.personal.professional.apresentation.repository.PartnerRepository;
 import br.com.marcus.dev.personal.professional.apresentation.repository.SubjectRepository;
-import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.BDDMockito;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Optional;
 import java.util.UUID;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class DeleteSubjectServiceTest {
+public class FindByIdSubjectServiceTest {
 
     @Autowired private BranchActivityRepository branchActivityRepository;
     @Autowired private PartnerRepository partnerRepository;
     @Autowired private GraduationRepository graduationRepository;
     @Autowired private SubjectRepository subjectRepository;
-    @Autowired private DeleteSubjectService deleteSubjectService;
-    @MockBean private CenterEntityService centerEntityService;
+    @Autowired private FindByIdSubject findByIdSubject;
 
     @BeforeEach
     public void setupInit(){
@@ -59,22 +57,51 @@ public class DeleteSubjectServiceTest {
         subject.setUrlImage("imagem/teste");
         subjectRepository.save(subject);
 
-        graduation.addListSubject(subject);
-        graduationRepository.save(graduation);
-
-        BDDMockito.given(centerEntityService.isStatusSuperEntity(Mockito.any(SuperEntity.class))).willReturn(true);
-        BDDMockito.given(centerEntityService.setDataToUpdate(Mockito.any(SuperEntity.class))).willReturn(graduation);
+        Subject subjectStatusFalse = new Subject("Programacao Web", BigDecimal.valueOf(10), BigDecimal.valueOf(9.6)
+                , "description", "01/2022", "imagem/record", SituationSubject.APPROVED
+                , graduation);
+        subjectStatusFalse.setId(UUID.fromString("cb260da4-01fb-48f0-aec4-d7f9db2ff372"));
+        subjectStatusFalse.setUrlImage("imagem/teste");
+        subjectStatusFalse.setStatus(false);
+        subjectRepository.save(subjectStatusFalse);
     }
 
     @Test
     @Transactional
-    @DisplayName("Apagar Subject")
-    public void deleteTest(){
-        // Execucao de Método
+    @DisplayName("Buscar Subject por Id")
+    public void findByIdEntityTest(){
+        // Executar método
         UUID id = UUID.fromString("cb260da4-01fb-48f0-aec4-d7f9db2ff371");
-        deleteSubjectService.delete(id);
-        Optional<Subject> optionalSubject = subjectRepository.findById(id);
+        Subject subject = findByIdSubject.findByIdEntity(id);
+        // Testes Unitários
+        Assertions.assertTrue(subject != null);
+        Assertions.assertEquals("Programacao Web", subject.getName());
+        Assertions.assertEquals(BigDecimal.valueOf(10), subject.getQtdHours());
+        Assertions.assertEquals(BigDecimal.valueOf(9.6), subject.getNote());
+        Assertions.assertEquals("description", subject.getDescription());
+        Assertions.assertEquals("01/2022", subject.getPeriod());
+        Assertions.assertEquals("imagem/record", subject.getImageReportRecord());
+        Assertions.assertEquals(SituationSubject.APPROVED, subject.getSituationSubject());
+        Assertions.assertTrue(subject.getGraduation() != null);
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("Buscar Subject por Id - Status False")
+    public void findByIdEntityStatusFalseTest(){
+        // Executar método
+        UUID id = UUID.fromString("cb260da4-01fb-48f0-aec4-d7f9db2ff372");
         // Teste Unitário
-        Assertions.assertTrue(optionalSubject.isEmpty());
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> findByIdSubject.findByIdEntity(id));
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("Buscar Subject por Id - Not Found")
+    public void findByIdEntityNotFoundTest(){
+        // Executar método
+        UUID id = UUID.fromString("cb260da4-01fb-48f0-aec4-d7f9db2ff311");
+        // Teste Unitário
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> findByIdSubject.findByIdEntity(id));
     }
 }

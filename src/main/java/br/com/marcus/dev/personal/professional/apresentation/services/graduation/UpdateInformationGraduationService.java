@@ -21,7 +21,6 @@ public class UpdateInformationGraduationService {
         graduation.setNoteFinish(noteRefresh);
         BigDecimal qtdHours = graduationFactory.getQtdHours(graduation.getListSubject());
         graduation.setQtdHours(qtdHours);
-        graduation = (Graduation) centerEntityService.setDataToUpdate(graduation);
         graduation = graduationRepository.save(graduation);
         return graduation;
     }

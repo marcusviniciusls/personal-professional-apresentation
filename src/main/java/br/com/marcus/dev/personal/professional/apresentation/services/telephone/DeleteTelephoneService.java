@@ -16,6 +16,7 @@ public class DeleteTelephoneService {
 
     @Autowired private TelephoneRepository telephoneRepository;
     @Autowired private CenterEntityService centerEntityService;
+    @Autowired private FindByIdTelephoneService findByIdTelephoneService;
 
     public void delete(UUID id){
         try{
