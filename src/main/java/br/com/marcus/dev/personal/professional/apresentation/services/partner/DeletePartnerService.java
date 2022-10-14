@@ -17,19 +17,13 @@ public class DeletePartnerService {
 
     @Autowired private PartnerRepository partnerRepository;
     @Autowired private CenterEntityService centerEntityService;
+    @Autowired private FindByIdPartnerService findByIdPartnerService;
 
     public void delete(UUID id){
-        Optional<Partner> optionalPartner = partnerRepository.findById(id);
-        if (optionalPartner.isEmpty()){
-            throw new ResourceNotFoundException("ID Not Found Exception");
-        }
-        if (!centerEntityService.isStatusSuperEntity(optionalPartner.get())){
-            throw new ResourceNotFoundException("ID Not Found Exception");
-        }
+        Partner partner = findByIdPartnerService.findByIdPartner(id);
         try{
             partnerRepository.deleteById(id);
         } catch(DataIntegrityViolationException ex){
-            Partner partner = optionalPartner.get();
             partner = (Partner) centerEntityService.setDataToDelete(partner);
             partnerRepository.save(partner);
         }

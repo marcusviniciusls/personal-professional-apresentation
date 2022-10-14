@@ -1,14 +1,11 @@
 package br.com.marcus.dev.personal.professional.apresentation.dto.response;
 
-import br.com.marcus.dev.personal.professional.apresentation.entities.Assignments;
-import br.com.marcus.dev.personal.professional.apresentation.entities.ProfessionalExperienceResume;
 import br.com.marcus.dev.personal.professional.apresentation.entities.enums.OfficeEnum;
 import br.com.marcus.dev.personal.professional.apresentation.entities.enums.StatusWork;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -35,6 +32,12 @@ public class Partner extends SuperEntity{
         this.name = name;
         this.urlImage = urlImage;
         this.branchActivity = branchActivity;
+        this.description = description;
+    }
+
+    public Partner(String name, String urlImage, String description) {
+        this.name = name;
+        this.urlImage = urlImage;
         this.description = description;
     }
 }

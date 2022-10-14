@@ -31,7 +31,9 @@ public class SavePartnerService {
             branchActivity = saveBranchActivityService.saveEntity(branchActivityForm);
         }
         Partner partner = partnerFactory.convertRequestFullFormInEntity(request);
-        partner = (Partner) centerEntityService.setDataToSave(partner);
+        partner.setUser(branchActivity.getUser());
+        partner.setDateCreation(branchActivity.getDateCreation());
+        partner.setUserCreation(branchActivity.getUserCreation());
         partner.setBranchActivity(branchActivity);
         partner = partnerRepository.save(partner);
         PartnerResponse partnerResponse = partnerFactory.convertEntityInDto(partner);

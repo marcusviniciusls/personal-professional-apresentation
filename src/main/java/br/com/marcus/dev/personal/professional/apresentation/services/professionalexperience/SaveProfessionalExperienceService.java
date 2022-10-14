@@ -61,7 +61,7 @@ public class SaveProfessionalExperienceService {
         return response;
     }
 
-    private ProfessionalExperience mountObject(ProfessionalExperienceFormSave requestSave){
+    public ProfessionalExperience mountObject(ProfessionalExperienceFormSave requestSave){
         Partner partner = findByIdPartnerService.findByIdPartner(requestSave.getPartnerId());
         Office office = findByIdOfficeService.findByIdEntity(requestSave.getOfficeId());
         ProfessionalExperience professionalExperience = professionalExperienceFactory.convertSaveFormInEntity(requestSave);
@@ -71,12 +71,12 @@ public class SaveProfessionalExperienceService {
         return professionalExperience;
     }
 
-    private boolean verifyStatusJob(){
+    public boolean verifyStatusJob(){
         List<ProfessionalExperience> listProfessionalExperience = professionalExperienceRepository.findAll();
         return listProfessionalExperience.size() > 0 ? true : false;
     }
 
-    private void dateFinishBeforeNotAllowed(LocalDate date){
+    public void dateFinishBeforeNotAllowed(LocalDate date){
         if (date.isAfter(LocalDate.now())){
             throw new ErrorDateAfterNowProfessionalExperience("ERROR DATE FINISH AFTER NOW");
         }

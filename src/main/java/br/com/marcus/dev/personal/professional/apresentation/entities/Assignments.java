@@ -1,17 +1,12 @@
 package br.com.marcus.dev.personal.professional.apresentation.entities;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.UUID;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -41,5 +36,10 @@ public class Assignments extends SuperEntity{
 
     public Assignments(String description) {
         this.description = description;
+    }
+
+    public Assignments(String description, ProfessionalExperience professionalExperience) {
+        this.description = description;
+        this.professionalExperience = professionalExperience;
     }
 }

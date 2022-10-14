@@ -48,10 +48,11 @@ public class SaveActivitiesService {
         return true;
     }
 
-    public void saveMovementProfessionalExperience(ProfessionalExperience professionalExperience) {
+    public boolean saveMovementProfessionalExperience(ProfessionalExperience professionalExperience) {
         Activities activities = activitiesFactory.convertProfessionalExperienceToActivities(professionalExperience);
         activities = (Activities) centerEntityService.setDataToSave(activities);
         activitiesRepository.save(activities);
+        return true;
     }
 
     public void saveMovementProfessionalGoal(ProfessionalGoal professionalGoal) {
