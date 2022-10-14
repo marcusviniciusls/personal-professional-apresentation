@@ -1,8 +1,7 @@
 package br.com.marcus.dev.personal.professional.apresentation.services.professionalgoal;
 
-import br.com.marcus.dev.personal.professional.apresentation.entities.Activities;
+import br.com.marcus.dev.personal.professional.apresentation.dto.response.ProfessionalGoalResponse;
 import br.com.marcus.dev.personal.professional.apresentation.entities.ProfessionalGoal;
-import br.com.marcus.dev.personal.professional.apresentation.repository.ActivitiesRepository;
 import br.com.marcus.dev.personal.professional.apresentation.repository.ProfessionalGoalRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,19 +10,19 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.transaction.Transactional;
-import java.util.Optional;
 import java.util.UUID;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class DeleteProfessionalGoalServiceTest {
+public class FindAllProfessionalGoalServiceTest {
 
     @Autowired private ProfessionalGoalRepository professionalGoalRepository;
-    @Autowired private DeleteProfessionalGoalService deleteProfessionalGoalService;
-    @Autowired private ActivitiesRepository activitiesRepository;
+    @Autowired private FindAllProfessionalGoalService findAllProfessionalGoalService;
 
     @BeforeEach
     public void setupInit(){
@@ -32,20 +31,13 @@ public class DeleteProfessionalGoalServiceTest {
                 new ProfessionalGoal("Ser o melhor Desenvolvedor Java", "Desenvolvedor Java");
         professionalGoal.setId(id);
         professionalGoalRepository.save(professionalGoal);
-        Activities activities = new Activities();
-        activities.setProfessionalGoal(professionalGoal);
-        activities.setDescription("Professional Goal");
-        activitiesRepository.save(activities);
     }
 
     @Test
     @Transactional
-    @DisplayName("Apagar Professional Goal")
-    public void deleteTest(){
-        UUID id = UUID.fromString("cb260da4-01fb-48f0-aec4-d7f9db2ff371");
-        deleteProfessionalGoalService.delete(id);
-
-        Optional<ProfessionalGoal> optionalProfessionalGoal = professionalGoalRepository.findById(id);
-        Assertions.assertTrue(optionalProfessionalGoal.isEmpty());
+    @DisplayName("Buscar todos os Professional Goal")
+    public void findAllTest(){
+        Page<ProfessionalGoalResponse> response = findAllProfessionalGoalService.findAll(PageRequest.of(1,1));
+        Assertions.assertEquals(1, response.getSize());
     }
 }
