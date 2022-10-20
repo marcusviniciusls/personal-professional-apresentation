@@ -63,7 +63,7 @@ public class InitializationData implements CommandLineRunner {
         administrator.setPassword(bCryptPasswordEncoder.encode("1234567890"));
         administrator.setName("Vinicius");
         user.addProfile(Profile.ADMIN);
-        administrator.addProfile(Profile.CLIENT);
+        administrator.addProfile(Profile.ADMIN);
         userRepository.saveAll(Arrays.asList(user, administrator));
 
         // Ramo de Atividade
