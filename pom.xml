@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>br.com.marcus.dev</groupId>
 	<artifactId>personal.professional.apresentation</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.3</version>
 	<name>personal.professional.apresentation</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
