@@ -1,0 +1,23 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      java: corretto11
+    commands:
+      - echo INSTALL DEPENDENCES
+      - mvn install
+  build:
+    commands:
+      - echo build APLICATION
+      - mvn compile
+      - mvn test
+  post-build:
+    - echo INIT POST APLICATION
+    - mvn package
+    - cd target/
+    - ls -la
+artifacts:
+  files:
+    - professionalpersonal.jar
+  base-directory: target
+  discard-paths: yes
