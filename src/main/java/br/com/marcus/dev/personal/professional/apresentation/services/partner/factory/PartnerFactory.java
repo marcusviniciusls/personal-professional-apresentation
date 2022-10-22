@@ -24,6 +24,8 @@ public class PartnerFactory {
 
     public PartnerResponse convertEntityInDto(Partner partner){
         PartnerResponse partnerResponse = modelMapper.map(partner, PartnerResponse.class);
+        BranchActivityResponse branchActivityResponse = modelMapper.map(partner.getBranchActivity(), BranchActivityResponse.class);
+        partnerResponse.setBranchActivityResponse(branchActivityResponse);
         return partnerResponse;
     }
 

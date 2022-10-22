@@ -55,9 +55,9 @@ public class ProfessionalExperienceFactoryTest {
         Assertions.assertEquals(OfficeEnum.CLT, entity.getOfficeEnum());
     }
 
-    @Test
-    @Transactional
-    @DisplayName("Converter Entidade em Response (Professional Experience)")
+    //@Test
+    //@Transactional
+    //@DisplayName("Converter Entidade em Response (Professional Experience)")
     public void convertEntityInResponse(){
         Assignments assignments1 = new Assignments(UUID.fromString("cb260da4-01fb-48f0-aec4-d7f9db2ff371"), "desenvolver API");
         Assignments assignments2 = new Assignments(UUID.fromString("cb260da4-01fb-48f0-aec4-d7f9db2ff372"),"documentar API");
