@@ -26,7 +26,7 @@ public class SavePartnerService {
     public PartnerResponse save(PartnerRequestFullFormSave request){
         BranchActivity branchActivity = new BranchActivity();
         if (request.getBranchActivity() != null){
-            String name = request.getName();
+            String name = request.getBranchActivity();
             BranchActivityForm branchActivityForm = new BranchActivityForm(name);
             branchActivity = saveBranchActivityService.saveEntity(branchActivityForm);
         }
