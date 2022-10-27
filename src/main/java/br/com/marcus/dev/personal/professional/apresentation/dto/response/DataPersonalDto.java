@@ -15,12 +15,12 @@ public class DataPersonalDto {
 
     private String fullname;
     private Integer age;
-    private Integer martialStatus;
+    private String martialStatus;
     private LocalDate birthDate;
     private List<TelephoneDto> listTelephoneDto = new ArrayList<>();
     private List<EmailDto> listEmailDto = new ArrayList<>();
 
-    public DataPersonalDto(String fullname, Integer age, Integer martialStatus, LocalDate birthDate) {
+    public DataPersonalDto(String fullname, Integer age, String martialStatus, LocalDate birthDate) {
         this.fullname = fullname;
         this.age = age;
         this.martialStatus = martialStatus;

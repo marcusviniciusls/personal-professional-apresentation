@@ -54,7 +54,7 @@ public class DataPersonalFactoryTest {
         Assertions.assertEquals("Marcus Vinicius", response.getFullname());
         Assertions.assertEquals(27, response.getAge());
         Assertions.assertEquals(LocalDate.of(1995, 4,20), response.getBirthDate());
-        Assertions.assertEquals(MaritalStatus.MARRIED.getNumber(), response.getMartialStatus());
+        Assertions.assertEquals(MaritalStatus.MARRIED.toString(), response.getMartialStatus());
         Assertions.assertTrue(response.getListEmailDto().size() == 2);
         Assertions.assertTrue(response.getListTelephoneDto().size() == 1);
     }

@@ -32,7 +32,7 @@ public class DataPersonalFactory {
         DataPersonalDto dataPersonalDto = new DataPersonalDto();
         dataPersonalDto.setFullname(dataPersonal.getFullName());
         dataPersonalDto.setAge(dataPersonal.getAge());
-        dataPersonalDto.setMartialStatus(dataPersonal.getMaritalStatus().getNumber());
+        dataPersonalDto.setMartialStatus(dataPersonal.getMaritalStatus().toString());
         dataPersonalDto.setBirthDate(dataPersonal.getBirthDate());
 
         for(Telephone telephone : dataPersonal.getListTelephone()){

@@ -101,7 +101,7 @@ public class SaveDataPersonalServiceTest {
         EmailDto emailDto1 = new EmailDto("marcus.silva.dev@gmail.com");
         EmailDto emailDto2 = new EmailDto("viniciusmls@outlook.com");
         TelephoneDto telephoneDto = new TelephoneDto("55", "11", "999989999");
-        DataPersonalDto dataPersonalDto = new DataPersonalDto("Marcus Vinicius", 27, 2, LocalDate.of(1995, 4, 20));
+        DataPersonalDto dataPersonalDto = new DataPersonalDto("Marcus Vinicius", 27, "MARRIED", LocalDate.of(1995, 4, 20));
         dataPersonalDto.addListTelephoneDto(telephoneDto);
         dataPersonalDto.addListEmailDto(emailDto1);
         dataPersonalDto.addListEmailDto(emailDto2);
@@ -115,7 +115,7 @@ public class SaveDataPersonalServiceTest {
         Assertions.assertEquals("Marcus Vinicius", response.getFullname());
         Assertions.assertEquals(27, response.getAge());
         Assertions.assertEquals(LocalDate.of(1995, 4,20), response.getBirthDate());
-        Assertions.assertEquals(MaritalStatus.MARRIED.getNumber(), response.getMartialStatus());
+        Assertions.assertEquals("MARRIED", response.getMartialStatus());
         Assertions.assertTrue(response.getListEmailDto().size() == 2);
         Assertions.assertTrue(response.getListTelephoneDto().size() == 1);
     }
