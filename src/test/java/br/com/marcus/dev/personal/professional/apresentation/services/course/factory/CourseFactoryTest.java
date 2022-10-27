@@ -46,8 +46,8 @@ public class CourseFactoryTest {
         Framework quarkus = new Framework("Quarkus", "Mais Rápido", "");
         quarkus.setId(UUID.fromString("cb260da4-01fb-48f0-aec4-d7f9db2ff302"));
         // Language Programmer
-        LanguageProgrammer java = new LanguageProgrammer("Java SE", "");
-        LanguageProgrammer csharp = new LanguageProgrammer("C#", "");
+        LanguageProgrammer java = new LanguageProgrammer("Java SE", "", "");
+        LanguageProgrammer csharp = new LanguageProgrammer("C#", "", "");
         java.setId(UUID.fromString("cb260da4-01fb-48f0-aec4-d7f9db2ff303"));
         csharp.setId(UUID.fromString("cb260da4-01fb-48f0-aec4-d7f9db2ff304"));
         // Course

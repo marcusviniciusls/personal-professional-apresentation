@@ -19,6 +19,7 @@ public class LanguageProgrammer extends SuperEntity{
 
     private String name;
     private String description;
+    private String urlImage;
 
     public LanguageProgrammer(UUID id) {
         super(id);
@@ -26,6 +27,11 @@ public class LanguageProgrammer extends SuperEntity{
 
     public LanguageProgrammer(UUID id, String name, String description) {
         super(id);
+        this.name = name;
+        this.description = description;
+    }
+
+    public LanguageProgrammer(String name, String description) {
         this.name = name;
         this.description = description;
     }

@@ -56,7 +56,7 @@ public class InitializationData implements CommandLineRunner {
         // User
         User user = new User();
         User administrator = new User();
-        user.setEmail("marcus@gmail.com");
+        user.setEmail("marcus.silva.dev@gmail.com");
         user.setPassword(bCryptPasswordEncoder.encode("1234567890"));
         user.setName("Marcus");
         administrator.setEmail("vinicius@email.com");
@@ -180,10 +180,10 @@ public class InitializationData implements CommandLineRunner {
         partRepository.saveAll(Arrays.asList(part, part1));
 
         // Linguagem de Programacao
-        LanguageProgrammer languageProgrammer = new LanguageProgrammer("Java", "Linguagem Orientada a Objetos");
+        LanguageProgrammer languageProgrammer = new LanguageProgrammer("Java", "Linguagem Orientada a Objetos", "");
         languageProgrammer.setUser(user);
         languageProgrammer.setUserCreation(user.getName());
-        LanguageProgrammer languageProgrammer1 = new LanguageProgrammer("C#", "Linguagem Orientada a Objetos");
+        LanguageProgrammer languageProgrammer1 = new LanguageProgrammer("C#", "Linguagem Orientada a Objetos", "");
         languageProgrammer1.setUser(administrator);
         languageProgrammer1.setUserCreation(administrator.getName());
         languageProgrammer.setId(UUID.fromString("bb260da4-01fb-48f0-aec4-d7f9db2ff715"));

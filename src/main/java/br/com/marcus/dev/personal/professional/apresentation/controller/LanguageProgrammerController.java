@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.UUID;
@@ -27,6 +28,7 @@ public class LanguageProgrammerController {
     @Autowired private SaveLanguageProgrammerService saveLanguageProgrammerService;
     @Autowired private DeleteLanguageProgrammerService deleteLanguageProgrammerService;
     @Autowired private UpdateLanguageProgrammerService updateLanguageProgrammerService;
+    @Autowired private SaveImageLanguageProgrammerService saveImageLanguageProgrammerService;
 
     @GetMapping
     public ResponseEntity<Page<LanguageProgrammerResponse>> findAll(Pageable pageable){
@@ -45,6 +47,13 @@ public class LanguageProgrammerController {
     public ResponseEntity<LanguageProgrammerResponse> save(@Valid @RequestBody LanguageProgrammerSaveFrom languageProgrammerSaveFrom){
         LanguageProgrammerResponse languageProgrammerResponse = saveLanguageProgrammerService.save(languageProgrammerSaveFrom);
         return ResponseEntity.status(HttpStatus.CREATED).body(languageProgrammerResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PostMapping(value = "/{id}/image")
+    public ResponseEntity<?> saveImage(@RequestParam(name = "file") MultipartFile multipartFile, @PathVariable UUID id){
+        saveImageLanguageProgrammerService.saveImage(multipartFile, id);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")

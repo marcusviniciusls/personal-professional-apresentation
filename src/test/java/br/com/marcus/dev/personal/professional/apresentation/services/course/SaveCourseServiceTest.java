@@ -51,8 +51,8 @@ public class SaveCourseServiceTest {
         quarkus.setId(UUID.fromString("cb260da4-01fb-48f0-aec4-d7f9db2ff302"));
         frameworkRepository.saveAll(Arrays.asList(spring, quarkus));
         // Language Programmer
-        LanguageProgrammer java = new LanguageProgrammer("Java SE", "");
-        LanguageProgrammer csharp = new LanguageProgrammer("C#", "");
+        LanguageProgrammer java = new LanguageProgrammer("Java SE", "", "");
+        LanguageProgrammer csharp = new LanguageProgrammer("C#", "", "");
         java.setId(UUID.fromString("cb260da4-01fb-48f0-aec4-d7f9db2ff303"));
         csharp.setId(UUID.fromString("cb260da4-01fb-48f0-aec4-d7f9db2ff304"));
         languageProgrammerRepository.saveAll(Arrays.asList(java, csharp));
