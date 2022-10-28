@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GraduationFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">personal.professional.apresentation</a> &gt; <a href="index.source.html" class="el_package">br.com.marcus.dev.personal.professional.apresentation.services.graduation.factory</a> &gt; <span class="el_source">GraduationFactory.java</span></div><h1>GraduationFactory.java</h1><pre class="source lang-java linenums">package br.com.marcus.dev.personal.professional.apresentation.services.graduation.factory;
+
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.GraduationFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.GraduationFormUpdate;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.SubjectFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.response.GraduationResponse;
+import br.com.marcus.dev.personal.professional.apresentation.dto.response.PartnerResponse;
+import br.com.marcus.dev.personal.professional.apresentation.entities.Graduation;
+import br.com.marcus.dev.personal.professional.apresentation.entities.Partner;
+import br.com.marcus.dev.personal.professional.apresentation.entities.Subject;
+import br.com.marcus.dev.personal.professional.apresentation.entities.enums.SituationGraduation;
+import br.com.marcus.dev.personal.professional.apresentation.entities.enums.TypeGraduation;
+import br.com.marcus.dev.personal.professional.apresentation.repository.GraduationRepository;
+import br.com.marcus.dev.personal.professional.apresentation.repository.SubjectRepository;
+import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
+import br.com.marcus.dev.personal.professional.apresentation.services.partner.FindByIdPartnerService;
+import br.com.marcus.dev.personal.professional.apresentation.services.subject.factory.SubjectFactory;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.NoArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+@Component
+<span class="fc" id="L31">@NoArgsConstructor</span>
+public class GraduationFactory {
+
+    @Autowired private SubjectFactory subjectFactory;
+    @Autowired private SubjectRepository subjectRepository;
+    @Autowired private CenterEntityService centerEntityService;
+    @Autowired private FindByIdPartnerService findByIdPartnerService;
+    @Autowired private GraduationRepository graduationRepository;
+    @Autowired private ModelMapper modelMapper;
+
+    public Graduation convertFormSaveToEntity(GraduationFormSave graduationFormSave){
+<span class="fc" id="L42">        Graduation graduation = new Graduation();</span>
+<span class="fc" id="L43">        graduation.setTypeGraduation(TypeGraduation.toEnum(graduationFormSave.getTypeGraduation()));</span>
+<span class="fc" id="L44">        graduation.setDateFinishPreview(graduationFormSave.getDateFinishPreview());</span>
+<span class="fc" id="L45">        graduation.setName(graduationFormSave.getName());</span>
+<span class="fc" id="L46">        graduation.setDateInitPreview(graduationFormSave.getDateInitPreview());</span>
+<span class="fc" id="L47">        graduation.setLocation(graduationFormSave.getLocation());</span>
+<span class="fc" id="L48">        graduation.setUrlUniversityDegree(graduationFormSave.getUrlUniversityDegree());</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">        if (graduationFormSave.getDateFinishReal() != null){</span>
+<span class="fc" id="L50">            graduation.setDateFinishReal(graduationFormSave.getDateFinishReal());</span>
+        }
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">        if (graduationFormSave.getDateInitReal() != null){</span>
+<span class="fc" id="L53">            graduation.setDateInitReal(graduationFormSave.getDateInitReal());</span>
+        }
+<span class="pc bpc" id="L55" title="3 of 4 branches missed.">        if (graduationFormSave.getDateInitReal() == null &amp;&amp; graduationFormSave.getDateFinishReal() == null){</span>
+<span class="nc" id="L56">            graduation.setSituationGraduation(SituationGraduation.NOT_CONCLUSION);</span>
+<span class="pc bpc" id="L57" title="1 of 4 branches missed.">        } else if (graduationFormSave.getDateInitReal() != null &amp;&amp; graduationFormSave.getDateFinishReal() == null){</span>
+<span class="fc" id="L58">            graduation.setSituationGraduation(SituationGraduation.IN_PROGRESS);</span>
+<span class="pc bpc" id="L59" title="2 of 4 branches missed.">        } else if (graduationFormSave.getDateInitReal() != null &amp;&amp; graduationFormSave.getDateFinishReal() != null){</span>
+<span class="fc" id="L60">            graduation.setSituationGraduation(SituationGraduation.CONCLUSION);</span>
+        }
+
+<span class="fc" id="L63">        Partner partner = findByIdPartnerService.findByIdPartner(UUID.fromString(graduationFormSave.getPartnerId()));</span>
+<span class="fc" id="L64">        graduation.setPartner(partner);</span>
+<span class="fc" id="L65">        graduation = (Graduation) centerEntityService.setDataToSave(graduation);</span>
+<span class="fc" id="L66">        graduationRepository.save(graduation);</span>
+
+<span class="fc bfc" id="L68" title="All 2 branches covered.">        for (SubjectFormSave subjectFormSave: graduationFormSave.getListSubjectFormSave()){</span>
+<span class="fc" id="L69">            Subject subject = subjectFactory.convertSubjectFormSaveToEntity(subjectFormSave, graduation);</span>
+<span class="fc" id="L70">            subject.setGraduation(graduation);</span>
+<span class="fc" id="L71">            subject.setDateCreation(graduation.getDateCreation());</span>
+<span class="fc" id="L72">            subject.setUserCreation(graduation.getUserCreation());</span>
+<span class="fc" id="L73">            subject.setUser(graduation.getUser());</span>
+<span class="fc" id="L74">            subject = subjectRepository.save(subject);</span>
+<span class="fc" id="L75">            graduation.addListSubject(subject);</span>
+<span class="fc" id="L76">        }</span>
+<span class="fc" id="L77">        graduation.setNoteFinish(getNoteFinish(graduation.getListSubject()));</span>
+<span class="fc" id="L78">        graduation.setQtdHours(getQtdHours(graduation.getListSubject()));</span>
+<span class="fc" id="L79">        graduationRepository.save(graduation);</span>
+<span class="fc" id="L80">        return graduation;</span>
+    }
+
+    public BigDecimal getNoteFinish(List&lt;Subject&gt; listSubject){
+<span class="fc" id="L84">        List&lt;BigDecimal&gt; listNoteFinishBigDecimal = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        for (Subject subject : listSubject){</span>
+<span class="fc" id="L86">            listNoteFinishBigDecimal.add(subject.getNote());</span>
+<span class="fc" id="L87">        }</span>
+<span class="fc" id="L88">        BigDecimal noteFinish = listNoteFinishBigDecimal.stream().reduce(BigDecimal.ZERO, BigDecimal::add);</span>
+<span class="fc" id="L89">        Integer quantityElement = listSubject.size();</span>
+<span class="fc" id="L90">        BigDecimal media = noteFinish.divide(BigDecimal.valueOf(quantityElement));</span>
+<span class="fc" id="L91">        return media;</span>
+    }
+
+    public BigDecimal getQtdHours(List&lt;Subject&gt; listSubject){
+<span class="fc" id="L95">        List&lt;BigDecimal&gt; listQtdHours = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">        for (Subject subject : listSubject){</span>
+<span class="fc" id="L97">            listQtdHours.add(subject.getQtdHours());</span>
+<span class="fc" id="L98">        }</span>
+<span class="fc" id="L99">        BigDecimal qtdHoursTotal = listQtdHours.stream().reduce(BigDecimal.ZERO, BigDecimal::add);</span>
+<span class="fc" id="L100">        return qtdHoursTotal;</span>
+    }
+
+    public GraduationResponse convertEntityInDto(Graduation graduation){
+<span class="fc" id="L104">        GraduationResponse graduationResponse = modelMapper.map(graduation, GraduationResponse.class);</span>
+<span class="pc bpc" id="L105" title="1 of 2 branches missed.">        if (graduation.getPartner() != null){</span>
+<span class="fc" id="L106">            PartnerResponse partnerResponse = modelMapper.map(graduation.getPartner(), PartnerResponse.class);</span>
+<span class="fc" id="L107">            graduationResponse.setPartnerResponse(partnerResponse);</span>
+        }
+<span class="fc" id="L109">        return graduationResponse;</span>
+    }
+
+    public Graduation convertFormUpdateInEntity(GraduationFormUpdate graduationFormUpdate, Graduation graduation){
+<span class="pc bpc" id="L113" title="2 of 4 branches missed.">        if (graduationFormUpdate.getName() != null &amp;&amp; !graduationFormUpdate.getName().equals(&quot;&quot;)){</span>
+<span class="fc" id="L114">            graduation.setName(graduationFormUpdate.getName());</span>
+        }
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">        if (graduationFormUpdate.getDateInitPreview() != null){</span>
+<span class="fc" id="L117">            graduation.setDateInitPreview(graduationFormUpdate.getDateInitPreview());</span>
+        }
+<span class="pc bpc" id="L119" title="1 of 2 branches missed.">        if (graduationFormUpdate.getDateFinishPreview() != null){</span>
+<span class="fc" id="L120">            graduation.setDateFinishPreview(graduationFormUpdate.getDateFinishPreview());</span>
+        }
+<span class="pc bpc" id="L122" title="1 of 2 branches missed.">        if (graduationFormUpdate.getDateInitReal() != null){</span>
+<span class="fc" id="L123">            graduation.setDateInitReal(graduationFormUpdate.getDateInitReal());</span>
+        }
+<span class="pc bpc" id="L125" title="1 of 2 branches missed.">        if (graduationFormUpdate.getDateFinishReal() != null){</span>
+<span class="fc" id="L126">            graduation.setDateFinishReal(graduationFormUpdate.getDateFinishReal());</span>
+        }
+<span class="pc bpc" id="L128" title="2 of 4 branches missed.">        if (graduationFormUpdate.getLocation() != null &amp;&amp; !graduationFormUpdate.getLocation().equals(&quot;&quot;)){</span>
+<span class="fc" id="L129">            graduation.setLocation(graduationFormUpdate.getLocation());</span>
+        }
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">        if (graduationFormUpdate.getTypeGraduation() != null){</span>
+<span class="fc" id="L132">            graduation.setTypeGraduation(TypeGraduation.toEnum(graduationFormUpdate.getTypeGraduation()));</span>
+        }
+<span class="fc" id="L134">        Partner partner = findByIdPartnerService.findByIdPartner(graduationFormUpdate.getPartnerId());</span>
+<span class="fc" id="L135">        graduation.setPartner(partner);</span>
+<span class="fc" id="L136">        return graduation;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Subject.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">personal.professional.apresentation</a> &gt; <a href="index.source.html" class="el_package">br.com.marcus.dev.personal.professional.apresentation.entities</a> &gt; <span class="el_source">Subject.java</span></div><h1>Subject.java</h1><pre class="source lang-java linenums">package br.com.marcus.dev.personal.professional.apresentation.entities;
+
+import br.com.marcus.dev.personal.professional.apresentation.entities.enums.SituationSubject;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.math.BigDecimal;
+
+<span class="fc" id="L12">@NoArgsConstructor</span>
+<span class="nc" id="L13">@AllArgsConstructor</span>
+@Getter
+<span class="fc" id="L15">@Setter</span>
+@Entity
+@Table(name = &quot;tb_subject&quot;)
+public class Subject extends SuperEntity{
+
+<span class="fc" id="L20">    private String name;</span>
+<span class="fc" id="L21">    private BigDecimal qtdHours;</span>
+<span class="fc" id="L22">    private BigDecimal note;</span>
+<span class="fc" id="L23">    private String description;</span>
+<span class="fc" id="L24">    private String period;</span>
+<span class="fc" id="L25">    private String imageReportRecord;</span>
+<span class="fc" id="L26">    private String urlImage;</span>
+    @Enumerated(EnumType.ORDINAL)
+<span class="fc" id="L28">    private SituationSubject situationSubject;</span>
+    @ManyToOne
+    @JoinColumn(name = &quot;graduation_id&quot;)
+<span class="fc" id="L31">    private Graduation graduation;</span>
+
+<span class="fc" id="L33">    public Subject(String name, BigDecimal qtdHours, BigDecimal note, String description, String period, String imageReportRecord, SituationSubject situationSubject, Graduation graduation) {</span>
+<span class="fc" id="L34">        this.name = name;</span>
+<span class="fc" id="L35">        this.qtdHours = qtdHours;</span>
+<span class="fc" id="L36">        this.note = note;</span>
+<span class="fc" id="L37">        this.description = description;</span>
+<span class="fc" id="L38">        this.period = period;</span>
+<span class="fc" id="L39">        this.imageReportRecord = imageReportRecord;</span>
+<span class="fc" id="L40">        this.situationSubject = situationSubject;</span>
+<span class="fc" id="L41">        this.graduation = graduation;</span>
+<span class="fc" id="L42">    }</span>
+
+<span class="fc" id="L44">    public Subject(String name, BigDecimal qtdHours, BigDecimal note, String description, String period, String imageReportRecord, SituationSubject situationSubject) {</span>
+<span class="fc" id="L45">        this.name = name;</span>
+<span class="fc" id="L46">        this.qtdHours = qtdHours;</span>
+<span class="fc" id="L47">        this.note = note;</span>
+<span class="fc" id="L48">        this.description = description;</span>
+<span class="fc" id="L49">        this.period = period;</span>
+<span class="fc" id="L50">        this.imageReportRecord = imageReportRecord;</span>
+<span class="fc" id="L51">        this.situationSubject = situationSubject;</span>
+<span class="fc" id="L52">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

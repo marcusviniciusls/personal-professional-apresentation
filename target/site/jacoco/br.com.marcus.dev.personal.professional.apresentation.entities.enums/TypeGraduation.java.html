@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TypeGraduation.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">personal.professional.apresentation</a> &gt; <a href="index.source.html" class="el_package">br.com.marcus.dev.personal.professional.apresentation.entities.enums</a> &gt; <span class="el_source">TypeGraduation.java</span></div><h1>TypeGraduation.java</h1><pre class="source lang-java linenums">package br.com.marcus.dev.personal.professional.apresentation.entities.enums;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+<span class="fc" id="L6">@Getter</span>
+<span class="fc" id="L7">@AllArgsConstructor</span>
+public enum TypeGraduation {
+
+<span class="fc" id="L10">    PRIMARY_SCHOOL(0),</span>
+<span class="fc" id="L11">    ELEMENTARY_SCHOOL(1),</span>
+<span class="fc" id="L12">    HIGH_SCHOOL(2),</span>
+<span class="fc" id="L13">    TECHNOLOGIST(3),</span>
+<span class="fc" id="L14">    GRADUATION(4),</span>
+<span class="fc" id="L15">    GRADUATE(5),</span>
+<span class="fc" id="L16">    MASTERS_DEGREE(6),</span>
+<span class="fc" id="L17">    DOCTORATE(7),</span>
+<span class="fc" id="L18">    POST_DOCTORAL(8);</span>
+
+<span class="fc" id="L20">    private int number;</span>
+
+    public static TypeGraduation toEnum(Integer cod){
+<span class="pc bpc" id="L23" title="1 of 2 branches missed.">        if(cod == null){</span>
+<span class="nc" id="L24">            return null;</span>
+        }
+<span class="pc bpc" id="L26" title="1 of 2 branches missed.">        for(TypeGraduation typeGraduation : TypeGraduation.values()){</span>
+<span class="fc bfc" id="L27" title="All 2 branches covered.">            if(cod.equals(typeGraduation.getNumber())){</span>
+<span class="fc" id="L28">                return typeGraduation;</span>
+            }
+        }
+<span class="nc" id="L31">        throw new IllegalArgumentException(&quot;ID INVALID: &quot; + cod);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

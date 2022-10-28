@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SoftSkillsFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">personal.professional.apresentation</a> &gt; <a href="index.source.html" class="el_package">br.com.marcus.dev.personal.professional.apresentation.services.softskils.factory</a> &gt; <span class="el_source">SoftSkillsFactory.java</span></div><h1>SoftSkillsFactory.java</h1><pre class="source lang-java linenums">package br.com.marcus.dev.personal.professional.apresentation.services.softskils.factory;
+
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.SoftSkillsFormSave;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.SoftSkillsFormUpdate;
+import br.com.marcus.dev.personal.professional.apresentation.dto.response.SoftSkillsResponse;
+import br.com.marcus.dev.personal.professional.apresentation.entities.SoftSkills;
+import org.springframework.stereotype.Component;
+
+@Component
+<span class="fc" id="L10">public class SoftSkillsFactory {</span>
+
+    public SoftSkillsResponse convertEntityInDto(SoftSkills softSkills){
+<span class="fc" id="L13">        SoftSkillsResponse softSkillsResponse = new SoftSkillsResponse();</span>
+<span class="fc" id="L14">        softSkillsResponse.setName(softSkills.getName());</span>
+<span class="fc" id="L15">        softSkillsResponse.setStatusHas(softSkills.isStatusHas());</span>
+<span class="fc" id="L16">        return softSkillsResponse;</span>
+    }
+
+    public SoftSkills convertFormInEntityToSave(SoftSkillsFormSave softSkillsFormSave){
+<span class="fc" id="L20">        SoftSkills softSkills = new SoftSkills();</span>
+<span class="fc" id="L21">        softSkills.setName(softSkillsFormSave.getName());</span>
+<span class="fc" id="L22">        softSkills.setStatusHas(true);</span>
+<span class="fc" id="L23">        return softSkills;</span>
+    }
+
+    public SoftSkills convertFormUpdateToEntity(SoftSkillsFormUpdate softSkillsFormUpdate, SoftSkills softSkills){
+<span class="fc" id="L27">        softSkills.setName(softSkillsFormUpdate.getName());</span>
+<span class="fc" id="L28">        return softSkills;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

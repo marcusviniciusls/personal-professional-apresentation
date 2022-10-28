@@ -29,6 +29,7 @@ public class LanguageProgrammerController {
     @Autowired private DeleteLanguageProgrammerService deleteLanguageProgrammerService;
     @Autowired private UpdateLanguageProgrammerService updateLanguageProgrammerService;
     @Autowired private SaveImageLanguageProgrammerService saveImageLanguageProgrammerService;
+    @Autowired private DeleteImageLanguageProgrammerService deleteImageLanguageProgrammerService;
 
     @GetMapping
     public ResponseEntity<Page<LanguageProgrammerResponse>> findAll(Pageable pageable){
@@ -67,6 +68,13 @@ public class LanguageProgrammerController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id){
         deleteLanguageProgrammerService.delete(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(value = "/{id}/image")
+    public ResponseEntity<?> deleteImage(@PathVariable UUID id){
+        deleteImageLanguageProgrammerService.deleteImageS3(id);
         return ResponseEntity.ok().build();
     }
 }

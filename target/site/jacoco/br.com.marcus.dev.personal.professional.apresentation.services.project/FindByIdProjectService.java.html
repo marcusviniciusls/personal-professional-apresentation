@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FindByIdProjectService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">personal.professional.apresentation</a> &gt; <a href="index.source.html" class="el_package">br.com.marcus.dev.personal.professional.apresentation.services.project</a> &gt; <span class="el_source">FindByIdProjectService.java</span></div><h1>FindByIdProjectService.java</h1><pre class="source lang-java linenums">package br.com.marcus.dev.personal.professional.apresentation.services.project;
+
+import br.com.marcus.dev.personal.professional.apresentation.dto.response.ProjectResponse;
+import br.com.marcus.dev.personal.professional.apresentation.entities.Project;
+import br.com.marcus.dev.personal.professional.apresentation.exception.custom.ResourceNotFoundException;
+import br.com.marcus.dev.personal.professional.apresentation.repository.ProjectRepository;
+import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
+import br.com.marcus.dev.personal.professional.apresentation.services.project.factory.ProjectFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+import java.util.UUID;
+
+@Service
+<span class="fc" id="L16">public class FindByIdProjectService {</span>
+
+    @Autowired private ProjectRepository projectRepository;
+    @Autowired private CenterEntityService centerEntityService;
+    @Autowired private ProjectFactory projectFactory;
+
+    public ProjectResponse findById(UUID id){
+<span class="fc" id="L23">        Optional&lt;Project&gt; optionalProject = projectRepository.findById(id);</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">        if (optionalProject.isEmpty()){</span>
+<span class="fc" id="L25">            throw new ResourceNotFoundException(&quot;Project Not Found Exception&quot;);</span>
+        }
+<span class="fc" id="L27">        Project project = optionalProject.get();</span>
+<span class="fc bfc" id="L28" title="All 2 branches covered.">        if (!centerEntityService.isStatusSuperEntity(project)){</span>
+<span class="fc" id="L29">            throw new ResourceNotFoundException(&quot;Project Not Found Exception&quot;);</span>
+        }
+<span class="fc" id="L31">        return projectFactory.convertEntityInResponse(project);</span>
+    }
+
+    public Project findByIdEntity(UUID id){
+<span class="fc" id="L35">        Optional&lt;Project&gt; optionalProject = projectRepository.findById(id);</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        if (optionalProject.isEmpty()){</span>
+<span class="fc" id="L37">            throw new ResourceNotFoundException(&quot;Project Not Found Exception&quot;);</span>
+        }
+<span class="fc" id="L39">        Project project = optionalProject.get();</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">        if (!centerEntityService.isStatusSuperEntity(project)){</span>
+<span class="fc" id="L41">            throw new ResourceNotFoundException(&quot;Project Not Found Exception&quot;);</span>
+        }
+<span class="fc" id="L43">        return project;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

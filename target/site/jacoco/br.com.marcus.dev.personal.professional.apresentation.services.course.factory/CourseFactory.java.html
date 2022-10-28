@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CourseFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">personal.professional.apresentation</a> &gt; <a href="index.source.html" class="el_package">br.com.marcus.dev.personal.professional.apresentation.services.course.factory</a> &gt; <span class="el_source">CourseFactory.java</span></div><h1>CourseFactory.java</h1><pre class="source lang-java linenums">package br.com.marcus.dev.personal.professional.apresentation.services.course.factory;
+
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.CourseSaveForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.CourseUpdateForm;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.ListFramework;
+import br.com.marcus.dev.personal.professional.apresentation.dto.request.ListLanguageProgrammer;
+import br.com.marcus.dev.personal.professional.apresentation.dto.response.CourseResponse;
+import br.com.marcus.dev.personal.professional.apresentation.dto.response.FrameworkResponse;
+import br.com.marcus.dev.personal.professional.apresentation.dto.response.LanguageProgrammerResponse;
+import br.com.marcus.dev.personal.professional.apresentation.entities.Course;
+import br.com.marcus.dev.personal.professional.apresentation.entities.Framework;
+import br.com.marcus.dev.personal.professional.apresentation.entities.LanguageProgrammer;
+import br.com.marcus.dev.personal.professional.apresentation.entities.enums.LevelCourse;
+import br.com.marcus.dev.personal.professional.apresentation.entities.enums.StatusCourse;
+import br.com.marcus.dev.personal.professional.apresentation.repository.FrameworkRepository;
+import br.com.marcus.dev.personal.professional.apresentation.repository.LanguageProgrammerRepository;
+import br.com.marcus.dev.personal.professional.apresentation.services.framework.factory.FrameworkFactory;
+import br.com.marcus.dev.personal.professional.apresentation.services.languageprogrammer.factory.LanguageProgrammerFactory;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.awt.*;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@Component
+<span class="fc" id="L32">public class CourseFactory {</span>
+
+    @Autowired private LanguageProgrammerFactory languageProgrammerFactory;
+<span class="fc" id="L35">    private FrameworkFactory frameworkFactory = new FrameworkFactory();</span>
+    @Autowired private ModelMapper modelMapper;
+    @Autowired private FrameworkRepository frameworkRepository;
+    @Autowired private LanguageProgrammerRepository languageProgrammerRepository;
+
+    public CourseResponse convertEntityInDto(Course course){
+<span class="fc" id="L41">        CourseResponse courseResponse = new CourseResponse();</span>
+<span class="fc" id="L42">        courseResponse.setId(course.getId());</span>
+<span class="fc" id="L43">        courseResponse.setLevelCourse(LevelCourse.toEnum(course.getLevelCourse().getNumber()));</span>
+<span class="fc" id="L44">        courseResponse.setStatusCourse(StatusCourse.toEnum(course.getStatusCourse().getNumber()));</span>
+<span class="fc" id="L45">        courseResponse.setDateFinishExpected(course.getDateFinishExpected());</span>
+<span class="fc" id="L46">        courseResponse.setDateFinishReal(course.getDateFinishReal());</span>
+<span class="fc" id="L47">        courseResponse.setDescription(course.getDescription());</span>
+<span class="fc" id="L48">        courseResponse.setDuration(course.getDuration());</span>
+<span class="fc" id="L49">        courseResponse.setName(course.getName());</span>
+<span class="fc" id="L50">        courseResponse.setDateInitReal(course.getDateInitReal());</span>
+<span class="fc" id="L51">        courseResponse.setDateInitExpected(course.getDateInitExpected());</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        for (Framework framework : course.getListFramework()){</span>
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">            if (framework.isStatus()){</span>
+<span class="fc" id="L54">                FrameworkResponse frameworkResponse = frameworkFactory.convertEntityInResponse(framework);</span>
+<span class="fc" id="L55">                courseResponse.addListFrameworkResponse(frameworkResponse);</span>
+            }
+<span class="fc" id="L57">        }</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">        for (LanguageProgrammer languageProgrammer : course.getListLanguage()){</span>
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">            if (languageProgrammer.isStatus()){</span>
+<span class="fc" id="L60">                LanguageProgrammerResponse languageProgrammerResponse = languageProgrammerFactory.convertEntityInResponse(languageProgrammer);</span>
+<span class="fc" id="L61">                courseResponse.addListLanguageProgrammerResponse(languageProgrammerResponse);</span>
+            }
+<span class="fc" id="L63">        }</span>
+<span class="fc" id="L64">        return courseResponse;</span>
+    }
+
+    public Course convertFormSaveInEntity(CourseSaveForm courseSaveForm){
+<span class="fc" id="L68">        Course course = new Course();</span>
+<span class="fc" id="L69">        course.setName(courseSaveForm.getName());</span>
+<span class="fc" id="L70">        course.setDescription(courseSaveForm.getDescription());</span>
+<span class="fc" id="L71">        course.setDuration(courseSaveForm.getDuration());</span>
+<span class="fc" id="L72">        course.setDateInitExpected(courseSaveForm.getDateInitExpected());</span>
+<span class="fc" id="L73">        course.setDateFinishExpected(courseSaveForm.getDateFinishExpected());</span>
+<span class="fc" id="L74">        course.setDateInitReal(courseSaveForm.getDateInitReal());</span>
+<span class="fc" id="L75">        course.setDateFinishReal(courseSaveForm.getDateFinishReal());</span>
+<span class="fc" id="L76">        course.setLogoImage(courseSaveForm.getLogoImage());</span>
+<span class="fc" id="L77">        course.setStatusCourse(StatusCourse.toEnum(courseSaveForm.getStatusCourse()));</span>
+<span class="fc" id="L78">        course.setLevelCourse(LevelCourse.toEnum(courseSaveForm.getLevelCourse()));</span>
+<span class="fc" id="L79">        course.setLevelCourse(LevelCourse.toEnum(courseSaveForm.getLevelCourse()));</span>
+<span class="fc" id="L80">        course.setStatusCourse(StatusCourse.toEnum(courseSaveForm.getStatusCourse()));</span>
+
+<span class="fc" id="L82">        return course;</span>
+    }
+
+    public Course convertFormUpdateInEntity(CourseUpdateForm courseUpdateForm, Course course){
+<span class="pc bpc" id="L86" title="2 of 4 branches missed.">        if (courseUpdateForm.getName() != null &amp;&amp; !courseUpdateForm.getName().equals(&quot;&quot;)){</span>
+<span class="fc" id="L87">            course.setName(courseUpdateForm.getName());</span>
+        }
+<span class="pc bpc" id="L89" title="2 of 4 branches missed.">        if (courseUpdateForm.getDescription() != null &amp;&amp; !courseUpdateForm.getDescription().equals(&quot;&quot;)){</span>
+<span class="fc" id="L90">            course.setDescription(courseUpdateForm.getDescription());</span>
+        }
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">        if (courseUpdateForm.getDuration() != null){</span>
+<span class="fc" id="L93">            course.setDuration(courseUpdateForm.getDuration());</span>
+        }
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">        if (courseUpdateForm.getDateInitExpected() != null){</span>
+<span class="fc" id="L96">            course.setDateInitExpected(courseUpdateForm.getDateInitExpected());</span>
+        }
+<span class="pc bpc" id="L98" title="1 of 2 branches missed.">        if (courseUpdateForm.getDateFinishExpected() != null){</span>
+<span class="fc" id="L99">            course.setDateFinishExpected(courseUpdateForm.getDateFinishExpected());</span>
+        }
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">        if (courseUpdateForm.getDateInitReal() != null){</span>
+<span class="fc" id="L102">            course.setDateInitReal(courseUpdateForm.getDateInitReal());</span>
+        }
+<span class="pc bpc" id="L104" title="1 of 2 branches missed.">        if (courseUpdateForm.getDateFinishReal() != null){</span>
+<span class="fc" id="L105">            course.setDateFinishReal(courseUpdateForm.getDateFinishReal());</span>
+        }
+<span class="pc bpc" id="L107" title="1 of 2 branches missed.">        if (courseUpdateForm.getStatusCourse() != null){</span>
+<span class="fc" id="L108">            course.setStatusCourse(StatusCourse.toEnum(courseUpdateForm.getStatusCourse()));</span>
+        }
+<span class="pc bpc" id="L110" title="1 of 2 branches missed.">        if (courseUpdateForm.getLevelCourse() != null){</span>
+<span class="fc" id="L111">            course.setLevelCourse(LevelCourse.toEnum(courseUpdateForm.getLevelCourse()));</span>
+        }
+
+<span class="fc" id="L114">        List&lt;Framework&gt; listFrameworkNew = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L115">        List&lt;LanguageProgrammer&gt; listLanguageProgrammerNew = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L116" title="All 2 branches covered.">        for (ListFramework listFramework : courseUpdateForm.getListFramework()){</span>
+<span class="fc" id="L117">            Optional&lt;Framework&gt; optionalFramework = frameworkRepository.findById(listFramework.getId());</span>
+<span class="pc bpc" id="L118" title="1 of 2 branches missed.">            if (optionalFramework.isPresent()){</span>
+<span class="fc" id="L119">                listFrameworkNew.add(optionalFramework.get());</span>
+            }
+<span class="fc" id="L121">        }</span>
+<span class="fc bfc" id="L122" title="All 2 branches covered.">        for (ListLanguageProgrammer listLanguageProgrammer : courseUpdateForm.getListLanguageProgrammers()){</span>
+<span class="fc" id="L123">            Optional&lt;LanguageProgrammer&gt; optionalLanguageProgrammer = languageProgrammerRepository.findById(listLanguageProgrammer.getId());</span>
+<span class="pc bpc" id="L124" title="1 of 2 branches missed.">            if (optionalLanguageProgrammer.isPresent()){</span>
+<span class="fc" id="L125">                listLanguageProgrammerNew.add(optionalLanguageProgrammer.get());</span>
+            }
+<span class="fc" id="L127">        }</span>
+<span class="fc" id="L128">        course.setListFramework(listFrameworkNew);</span>
+<span class="fc" id="L129">        course.setListLanguage(listLanguageProgrammerNew);</span>
+<span class="fc" id="L130">        return course;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

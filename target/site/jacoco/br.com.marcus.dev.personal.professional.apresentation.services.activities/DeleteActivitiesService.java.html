@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DeleteActivitiesService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">personal.professional.apresentation</a> &gt; <a href="index.source.html" class="el_package">br.com.marcus.dev.personal.professional.apresentation.services.activities</a> &gt; <span class="el_source">DeleteActivitiesService.java</span></div><h1>DeleteActivitiesService.java</h1><pre class="source lang-java linenums">package br.com.marcus.dev.personal.professional.apresentation.services.activities;
+
+import br.com.marcus.dev.personal.professional.apresentation.entities.Activities;
+import br.com.marcus.dev.personal.professional.apresentation.exception.custom.ResourceNotFoundException;
+import br.com.marcus.dev.personal.professional.apresentation.repository.ActivitiesRepository;
+import br.com.marcus.dev.personal.professional.apresentation.services.generalrule.CenterEntityService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+import java.util.UUID;
+
+@Service
+<span class="fc" id="L15">public class DeleteActivitiesService {</span>
+
+    @Autowired private ActivitiesRepository activitiesRepository;
+    @Autowired private CenterEntityService centerEntityService;
+
+    public void deleteMovementCertificate(UUID idCertificate){
+<span class="fc" id="L21">        Optional&lt;Activities&gt; optionalActivities = activitiesRepository.findByCertificate(idCertificate);</span>
+<span class="fc bfc" id="L22" title="All 2 branches covered.">        if (optionalActivities.isEmpty()){</span>
+<span class="fc" id="L23">            throw new ResourceNotFoundException(&quot;Activities Certificate Not Found Exception&quot;);</span>
+        }
+<span class="fc" id="L25">        Activities activities = optionalActivities.get();</span>
+        try {
+<span class="fc" id="L27">            activitiesRepository.delete(activities);</span>
+<span class="nc" id="L28">        } catch(DataIntegrityViolationException ex){</span>
+<span class="nc" id="L29">            activities = (Activities) centerEntityService.setDataToDelete(activities);</span>
+<span class="nc" id="L30">            activitiesRepository.save(activities);</span>
+<span class="fc" id="L31">        }</span>
+<span class="fc" id="L32">    }</span>
+
+    public boolean deleteMovementHardSkills(UUID idHardSkills){
+<span class="fc" id="L35">        Optional&lt;Activities&gt; optionalActivities = activitiesRepository.findByHardSkills(idHardSkills);</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        if (optionalActivities.isEmpty()){</span>
+<span class="fc" id="L37">            throw new ResourceNotFoundException(&quot;Activities Hard Skills Not Found Exception&quot;);</span>
+        }
+<span class="fc" id="L39">        Activities activities = optionalActivities.get();</span>
+        try {
+<span class="fc" id="L41">            activitiesRepository.delete(activities);</span>
+<span class="nc" id="L42">        } catch(DataIntegrityViolationException ex){</span>
+<span class="nc" id="L43">            activities = (Activities) centerEntityService.setDataToDelete(activities);</span>
+<span class="nc" id="L44">            activitiesRepository.save(activities);</span>
+<span class="fc" id="L45">        }</span>
+<span class="fc" id="L46">        return true;</span>
+    }
+
+    public void deleteMovementCourse(UUID idCourse){
+<span class="fc" id="L50">        Optional&lt;Activities&gt; optionalActivities = activitiesRepository.findByCourse(idCourse);</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        if (optionalActivities.isEmpty()){</span>
+<span class="fc" id="L52">            throw new ResourceNotFoundException(&quot;Activities Course Not Found Exception&quot;);</span>
+        }
+<span class="fc" id="L54">        Activities activities = optionalActivities.get();</span>
+        try {
+<span class="fc" id="L56">            activitiesRepository.delete(activities);</span>
+<span class="nc" id="L57">        } catch(DataIntegrityViolationException ex){</span>
+<span class="nc" id="L58">            activities = (Activities) centerEntityService.setDataToDelete(activities);</span>
+<span class="nc" id="L59">            activitiesRepository.save(activities);</span>
+<span class="fc" id="L60">        }</span>
+<span class="fc" id="L61">    }</span>
+
+    public void deleteMovementGraduation(UUID idGraduation){
+<span class="fc" id="L64">        Optional&lt;Activities&gt; optionalActivities = activitiesRepository.findByGraduation(idGraduation);</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        if (optionalActivities.isEmpty()){</span>
+<span class="fc" id="L66">            throw new ResourceNotFoundException(&quot;Activities Graduation Not Found Exception&quot;);</span>
+        }
+<span class="fc" id="L68">        Activities activities = optionalActivities.get();</span>
+        try {
+<span class="fc" id="L70">            activitiesRepository.delete(activities);</span>
+<span class="nc" id="L71">        } catch(DataIntegrityViolationException ex){</span>
+<span class="nc" id="L72">            activities = (Activities) centerEntityService.setDataToDelete(activities);</span>
+<span class="nc" id="L73">            activitiesRepository.save(activities);</span>
+<span class="fc" id="L74">        }</span>
+<span class="fc" id="L75">    }</span>
+
+    public void deleteMovementProfessionalExperience(UUID idProfessionalExperience){
+<span class="fc" id="L78">        Optional&lt;Activities&gt; optionalActivities = activitiesRepository.findByProfessionalExperience(idProfessionalExperience);</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        if (optionalActivities.isEmpty()){</span>
+<span class="fc" id="L80">            throw new ResourceNotFoundException(&quot;Activities Professional Experience Not Found Exception&quot;);</span>
+        }
+<span class="fc" id="L82">        Activities activities = optionalActivities.get();</span>
+        try {
+<span class="fc" id="L84">            activitiesRepository.delete(activities);</span>
+<span class="nc" id="L85">        } catch(DataIntegrityViolationException ex){</span>
+<span class="nc" id="L86">            activities = (Activities) centerEntityService.setDataToDelete(activities);</span>
+<span class="nc" id="L87">            activitiesRepository.save(activities);</span>
+<span class="fc" id="L88">        }</span>
+<span class="fc" id="L89">    }</span>
+
+    public void deleteMovementProfessionalGoal(UUID idProfessionalGoal){
+<span class="fc" id="L92">        Optional&lt;Activities&gt; optionalActivities = activitiesRepository.findByProfessionalGoal(idProfessionalGoal);</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">        if (optionalActivities.isEmpty()){</span>
+<span class="fc" id="L94">            throw new ResourceNotFoundException(&quot;Activities Professional Goal Not Found Exception&quot;);</span>
+        }
+<span class="fc" id="L96">        Activities activities = optionalActivities.get();</span>
+        try {
+<span class="fc" id="L98">            activitiesRepository.delete(activities);</span>
+<span class="nc" id="L99">        } catch(DataIntegrityViolationException ex){</span>
+<span class="nc" id="L100">            activities = (Activities) centerEntityService.setDataToDelete(activities);</span>
+<span class="nc" id="L101">            activitiesRepository.save(activities);</span>
+<span class="fc" id="L102">        }</span>
+<span class="fc" id="L103">    }</span>
+
+    public void deleteMovementSoftSkills(UUID idSoftSkills){
+<span class="fc" id="L106">        Optional&lt;Activities&gt; optionalActivities = activitiesRepository.findBySoftSkills(idSoftSkills);</span>
+<span class="fc bfc" id="L107" title="All 2 branches covered.">        if (optionalActivities.isEmpty()){</span>
+<span class="fc" id="L108">            throw new ResourceNotFoundException(&quot;Activities Soft Skills Not Found Exception&quot;);</span>
+        }
+<span class="fc" id="L110">        Activities activities = optionalActivities.get();</span>
+        try {
+<span class="fc" id="L112">            activitiesRepository.delete(activities);</span>
+<span class="nc" id="L113">        } catch(DataIntegrityViolationException ex){</span>
+<span class="nc" id="L114">            activities = (Activities) centerEntityService.setDataToDelete(activities);</span>
+<span class="nc" id="L115">            activitiesRepository.save(activities);</span>
+<span class="fc" id="L116">        }</span>
+<span class="fc" id="L117">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>
